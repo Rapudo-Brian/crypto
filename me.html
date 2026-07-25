@@ -1,0 +1,2316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRYPTO - Cryptocurrency Exchange</title>
+    <style>
+        /* ========== RESET & BASE ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #0b0e11;
+            color: #eaecef;
+            overflow-x: hidden;
+        }
+        input, button, select, textarea { font-family: inherit; }
+        a { color: #f0b90b; text-decoration: none; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1e2329; }
+        ::-webkit-scrollbar-thumb { background: #474d57; border-radius: 3px; }
+
+        /* ========== UTILITY ========== */
+        .hidden { display: none !important; }
+        .flex { display: flex; }
+        .flex-center { display: flex; align-items: center; justify-content: center; }
+        .flex-between { display: flex; align-items: center; justify-content: space-between; }
+        .gap-10 { gap: 10px; }
+        .gap-20 { gap: 20px; }
+        .text-center { text-align: center; }
+        .text-gold { color: #f0b90b; }
+        .text-green { color: #0ecb81; }
+        .text-red { color: #f6465d; }
+        .text-muted { color: #848e9c; }
+        .mt-10 { margin-top: 10px; }
+        .mt-20 { margin-top: 20px; }
+        .mb-10 { margin-bottom: 10px; }
+        .mb-20 { margin-bottom: 20px; }
+        .w-100 { width: 100%; }
+
+        /* ========== BUTTONS ========== */
+        .btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary { background: #f0b90b; color: #0b0e11; }
+        .btn-primary:hover { background: #f0c920; }
+        .btn-secondary { background: #2b3139; color: #eaecef; }
+        .btn-secondary:hover { background: #363c46; }
+        .btn-danger { background: #f6465d; color: #fff; }
+        .btn-danger:hover { background: #e0364d; }
+        .btn-success { background: #0ecb81; color: #fff; }
+        .btn-success:hover { background: #0dbd77; }
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+        .btn-lg { padding: 14px 32px; font-size: 16px; }
+        .btn-block { width: 100%; justify-content: center; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* ========== INPUTS ========== */
+        .input-group {
+            margin-bottom: 16px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #848e9c;
+        }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            background: #2b3139;
+            border: 1px solid #474d57;
+            border-radius: 4px;
+            color: #eaecef;
+            font-size: 14px;
+            transition: border 0.2s;
+        }
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #f0b90b;
+        }
+        .input-group select option { background: #1e2329; }
+
+        /* ========== NOTIFICATION ========== */
+        #notificationContainer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+        }
+        .notification {
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .notification-success { background: #0ecb81; color: #fff; }
+        .notification-error { background: #f6465d; color: #fff; }
+        .notification-info { background: #1e2329; border: 1px solid #474d57; color: #eaecef; }
+        .notification-warning { background: #f0b90b; color: #0b0e11; }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ========== MODAL ========== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 5000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .modal {
+            background: #1e2329;
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #474d57;
+        }
+        .modal h2 { font-size: 20px; margin-bottom: 20px; }
+        .modal-close {
+            float: right;
+            background: none;
+            border: none;
+            color: #848e9c;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .modal-close:hover { color: #eaecef; }
+
+        /* ========== AUTH PAGES ========== */
+        #authContainer {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0b0e11 0%, #1a1d24 100%);
+        }
+        .auth-box {
+            background: #1e2329;
+            border-radius: 12px;
+            padding: 40px;
+            width: 420px;
+            max-width: 95%;
+            border: 1px solid #474d57;
+        }
+        .auth-box h1 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+        .auth-box .subtitle {
+            text-align: center;
+            color: #848e9c;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #474d57;
+        }
+        .auth-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            color: #848e9c;
+            font-weight: 600;
+            font-size: 14px;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+        .auth-tab.active { color: #f0b90b; border-bottom-color: #f0b90b; }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
+        .auth-form .btn { margin-top: 10px; }
+        .auth-link { text-align: center; margin-top: 16px; font-size: 13px; color: #848e9c; }
+        .auth-link span { color: #f0b90b; cursor: pointer; }
+
+        /* ========== NAVBAR ========== */
+        #navbar {
+            background: #1e2329;
+            border-bottom: 1px solid #2b3139;
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-left { display: flex; align-items: center; gap: 30px; }
+        .nav-logo { font-size: 24px; font-weight: 800; color: #f0b90b; cursor: pointer; }
+        .nav-logo span { color: #eaecef; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a {
+            color: #848e9c;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 20px 0;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #eaecef; border-bottom-color: #f0b90b; }
+        .nav-right { display: flex; align-items: center; gap: 16px; }
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 12px;
+            background: #2b3139;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .nav-user .avatar {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: #f0b90b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #0b0e11;
+            font-size: 14px;
+        }
+        .nav-user-info { font-size: 12px; }
+        .nav-user-info .name { font-weight: 600; }
+        .nav-user-info .bal { color: #0ecb81; }
+        .nav-balance { color: #0ecb81; font-weight: 600; font-size: 14px; }
+
+        /* ========== MAIN CONTENT ========== */
+        #mainContent { padding: 24px; max-width: 1400px; margin: 0 auto; }
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* ========== DASHBOARD ========== */
+        .dashboard-header {
+            background: linear-gradient(135deg, #1e2329, #2b3139);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+            border: 1px solid #474d57;
+        }
+        .dashboard-header h1 { font-size: 28px; margin-bottom: 8px; }
+        .dashboard-header p { color: #848e9c; }
+        .balance-card {
+            background: linear-gradient(135deg, #0ecb81, #089b67);
+            border-radius: 12px;
+            padding: 24px;
+            color: #fff;
+        }
+        .balance-card .label { font-size: 13px; opacity: 0.8; }
+        .balance-card .amount { font-size: 36px; font-weight: 700; margin: 8px 0; }
+        .balance-card .sub { font-size: 13px; opacity: 0.9; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .stat-card {
+            background: #1e2329;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #2b3139;
+        }
+        .stat-card .stat-label { font-size: 12px; color: #848e9c; margin-bottom: 4px; }
+        .stat-card .stat-value { font-size: 20px; font-weight: 600; }
+
+        /* ========== MARKET TABLE ========== */
+        .market-table {
+            width: 100%;
+            background: #1e2329;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #2b3139;
+        }
+        .market-table table { width: 100%; border-collapse: collapse; }
+        .market-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 500;
+            color: #848e9c;
+            background: #0b0e11;
+            border-bottom: 1px solid #2b3139;
+            text-transform: uppercase;
+        }
+        .market-table td {
+            padding: 14px 16px;
+            font-size: 14px;
+            border-bottom: 1px solid #2b3139;
+        }
+        .market-table tr:hover td { background: #2b3139; }
+        .market-table .symbol { font-weight: 600; }
+        .market-table .price { font-weight: 500; }
+        .market-table .change.positive { color: #0ecb81; }
+        .market-table .change.negative { color: #f6465d; }
+        .market-table .volume { color: #848e9c; }
+
+        /* ========== TRADING ========== */
+        .trade-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .trade-card {
+            background: #1e2329;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #2b3139;
+        }
+        .trade-card h3 { margin-bottom: 16px; font-size: 18px; }
+        .trade-type-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .trade-type-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .trade-type-btn.buy { background: #0ecb81; color: #fff; }
+        .trade-type-btn.sell { background: #f6465d; color: #fff; }
+        .trade-type-btn.active { transform: scale(1.02); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+
+        /* ========== CHART ========== */
+        .chart-container {
+            background: #1e2329;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #2b3139;
+            margin-bottom: 24px;
+        }
+        .chart-container h3 { margin-bottom: 16px; }
+        #priceChart {
+            width: 100%;
+            height: 400px;
+            background: #0b0e11;
+            border-radius: 8px;
+        }
+
+        /* ========== TRANSACTIONS ========== */
+        .transaction-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .tx-option {
+            padding: 20px;
+            background: #2b3139;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .tx-option:hover { border-color: #f0b90b; background: #363c46; }
+        .tx-option .icon { font-size: 32px; margin-bottom: 8px; }
+        .tx-option .name { font-weight: 600; font-size: 13px; }
+        .tx-option .desc { font-size: 11px; color: #848e9c; margin-top: 4px; }
+
+        /* ========== PLATFORM PAGES ========== */
+        .platform-page {
+            background: #1e2329;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #474d57;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .platform-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .platform-header .platform-icon { font-size: 40px; }
+        .platform-header h2 { font-size: 22px; }
+        .platform-form .amount-display {
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            padding: 20px;
+            background: #0b0e11;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+        .platform-form .currency-label { text-align: center; color: #848e9c; font-size: 13px; }
+        .platform-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Platform specific colors */
+        .platform-mpesa .platform-header { color: #4CAF50; }
+        .platform-airtel .platform-header { color: #E91E63; }
+        .platform-visa .platform-header { color: #1a1f71; }
+        .platform-kcb .platform-header { color: #003366; }
+        .platform-equity .platform-header { color: #C8102E; }
+        .platform-coop .platform-header { color: #00A859; }
+        .platform-stanchart .platform-header { color: #003D7A; }
+        .platform-family .platform-header { color: #FF6600; }
+        .platform-kwtf .platform-header { color: #8B0000; }
+
+        /* ========== ADMIN ========== */
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .admin-stat-card {
+            background: #1e2329;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #2b3139;
+        }
+        .admin-stat-card .number { font-size: 28px; font-weight: 700; }
+        .admin-stat-card .label { font-size: 12px; color: #848e9c; }
+        .admin-table {
+            width: 100%;
+            background: #1e2329;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #2b3139;
+            margin-bottom: 24px;
+        }
+        .admin-table table { width: 100%; border-collapse: collapse; }
+        .admin-table th {
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 12px;
+            color: #848e9c;
+            background: #0b0e11;
+            border-bottom: 1px solid #2b3139;
+        }
+        .admin-table td {
+            padding: 12px 16px;
+            font-size: 13px;
+            border-bottom: 1px solid #2b3139;
+        }
+        .admin-table tr.deleted td { background: rgba(246,70,93,0.1); }
+        .admin-table tr.deleted td:first-child { border-left: 3px solid #f6465d; }
+        .admin-table .deleted-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #f6465d;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* ========== PROFILE ========== */
+        .profile-card {
+            background: #1e2329;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #2b3139;
+            margin-bottom: 20px;
+        }
+        .profile-card h3 { margin-bottom: 16px; }
+        .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .profile-item .label { font-size: 12px; color: #848e9c; }
+        .profile-item .value { font-size: 16px; font-weight: 500; }
+
+        .history-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid #2b3139;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .history-item:last-child { border-bottom: none; }
+        .history-item .date { font-size: 12px; color: #848e9c; }
+        .history-item .amount { font-weight: 600; }
+        .history-item .type { font-size: 12px; }
+        .history-item .platform { color: #848e9c; font-size: 12px; }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .trade-container { grid-template-columns: 1fr; }
+            .profile-grid { grid-template-columns: 1fr; }
+            .auth-box { padding: 24px; }
+            #navbar { padding: 0 12px; }
+            #mainContent { padding: 12px; }
+            .transaction-options { grid-template-columns: repeat(2, 1fr); }
+            .dashboard-header { padding: 20px; }
+            .balance-card .amount { font-size: 28px; }
+        }
+
+        /* ========== DELETED ACCOUNT PAGE ========== */
+        #deletedPage {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0b0e11, #1a1d24);
+        }
+        .deleted-box {
+            background: #1e2329;
+            border-radius: 12px;
+            padding: 48px;
+            text-align: center;
+            max-width: 500px;
+            border: 1px solid #f6465d;
+        }
+        .deleted-box .icon { font-size: 64px; margin-bottom: 16px; }
+        .deleted-box h2 { margin-bottom: 16px; }
+        .deleted-box p { color: #848e9c; margin-bottom: 24px; }
+
+        /* Loading spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #2b3139;
+            border-top: 4px solid #f0b90b;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Tab content */
+        .tabs-container {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid #2b3139;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            color: #848e9c;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+        .tab-btn.active { color: #f0b90b; border-bottom-color: #f0b90b; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body>
+
+<!-- ========== NOTIFICATION CONTAINER ========== -->
+<div id="notificationContainer"></div>
+
+<!-- ========== DELETED ACCOUNT PAGE ========== -->
+<div id="deletedPage" class="hidden">
+    <div class="deleted-box">
+        <div class="icon">🔒</div>
+        <h2>Account Deleted</h2>
+        <p>Your account has been temporarily suspended. Please contact admin to retrieve your account.</p>
+        <button class="btn btn-primary btn-lg" onclick="requestAccountRetrieve()">Contact Admin</button>
+        <button class="btn btn-secondary btn-lg mt-10" onclick="showAuth()" style="margin-left:10px;">Back to Login</button>
+    </div>
+</div>
+
+<!-- ========== AUTH CONTAINER ========== -->
+<div id="authContainer">
+    <div class="auth-box">
+        <h1><span class="text-gold">CRYPTO</span><span style="color:#eaecef;">.com</span></h1>
+        <p class="subtitle">Buy, Sell & Trade Cryptocurrency</p>
+        
+        <div class="auth-tabs">
+            <div class="auth-tab active" onclick="switchAuthTab('login')">Log In</div>
+            <div class="auth-tab" onclick="switchAuthTab('register')">Register</div>
+        </div>
+
+        <!-- Login Form -->
+        <div class="auth-form active" id="loginForm">
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" id="loginUsername" placeholder="Enter your username" />
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" />
+            </div>
+            <button class="btn btn-primary btn-block btn-lg" onclick="login()">Log In</button>
+            <div class="auth-link">
+                Don't have an account? <span onclick="switchAuthTab('register')">Register</span>
+            </div>
+        </div>
+
+        <!-- Register Form -->
+        <div class="auth-form" id="registerForm">
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" id="regUsername" placeholder="Choose a username" />
+            </div>
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="regEmail" placeholder="Enter your email" />
+            </div>
+            <div class="input-group">
+                <label>Phone Number</label>
+                <input type="tel" id="regPhone" placeholder="e.g. 0712345678" />
+            </div>
+            <div class="input-group">
+                <label>Country</label>
+                <select id="regCountry">
+                    <option value="">Select your country</option>
+                    <option value="Kenya">Kenya</option>
+                    <option value="Uganda">Uganda</option>
+                    <option value="Tanzania">Tanzania</option>
+                    <option value="Rwanda">Rwanda</option>
+                    <option value="Ethiopia">Ethiopia</option>
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="South Africa">South Africa</option>
+                    <option value="Ghana">Ghana</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="regPassword" placeholder="Create a strong password" />
+            </div>
+            <div class="input-group">
+                <label>Confirm Password</label>
+                <input type="password" id="regConfirmPassword" placeholder="Confirm your password" />
+            </div>
+            <button class="btn btn-primary btn-block btn-lg" onclick="register()">Create Account</button>
+            <div class="auth-link">
+                Already have an account? <span onclick="switchAuthTab('login')">Log In</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== MAIN APP (Hidden until login) ========== -->
+<div id="appContainer" class="hidden">
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-left">
+            <div class="nav-logo" onclick="showPage('dashboard')">C<span>RYPTO</span></div>
+            <div class="nav-links" id="navLinks">
+                <a class="active" onclick="showPage('dashboard')">Dashboard</a>
+                <a onclick="showPage('market')">Markets</a>
+                <a onclick="showPage('trade')">Trade</a>
+                <a onclick="showPage('deposit')">Deposit</a>
+                <a onclick="showPage('withdraw')">Withdraw</a>
+                <a onclick="showPage('profile')">Profile</a>
+                <a id="adminNavLink" class="hidden" onclick="showPage('admin')" style="color:#f0b90b;">Admin</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="nav-balance" id="navBalance">$0.00</div>
+            <div class="nav-user" onclick="showPage('profile')">
+                <div class="avatar" id="navAvatar">U</div>
+                <div class="nav-user-info">
+                    <div class="name" id="navUsername">User</div>
+                    <div class="bal" id="navUserBalance">$0.00</div>
+                </div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div id="mainContent">
+
+        <!-- ===== DASHBOARD ===== -->
+        <div class="page active" id="page-dashboard">
+            <div class="dashboard-header">
+                <h1>Welcome back, <span id="dashUsername">Trader</span> 👋</h1>
+                <p>Your crypto portfolio overview</p>
+            </div>
+
+            <div class="balance-card">
+                <div class="label">Total Balance (USD)</div>
+                <div class="amount" id="dashBalance">$0.00</div>
+                <div class="sub">Available for trading</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Account Status</div>
+                    <div class="stat-value text-green" id="dashStatus">Active</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Deposits</div>
+                    <div class="stat-value" id="dashDeposits">$0.00</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Trades</div>
+                    <div class="stat-value" id="dashTrades">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Member Since</div>
+                    <div class="stat-value" id="dashMemberSince">-</div>
+                </div>
+            </div>
+
+            <!-- Quick actions -->
+            <div class="stats-grid" style="margin-top:20px;">
+                <div class="stat-card" style="cursor:pointer;" onclick="showPage('deposit')">
+                    <div class="stat-value text-green">+ Deposit Funds</div>
+                    <div class="stat-label">Add money to your wallet</div>
+                </div>
+                <div class="stat-card" style="cursor:pointer;" onclick="showPage('trade')">
+                    <div class="stat-value text-gold">📈 Start Trading</div>
+                    <div class="stat-label">Trade cryptocurrencies</div>
+                </div>
+                <div class="stat-card" style="cursor:pointer;" onclick="showPage('withdraw')">
+                    <div class="stat-value text-red">- Withdraw Funds</div>
+                    <div class="stat-label">Withdraw to your account</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== MARKET ===== -->
+        <div class="page" id="page-market">
+            <h2 style="margin-bottom:20px;">Cryptocurrency Market</h2>
+            <div class="chart-container">
+                <h3>BTC/USDT Price Chart <span class="text-muted" style="font-weight:400;font-size:13px;">(Real-time simulation)</span></h3>
+                <canvas id="priceChart"></canvas>
+            </div>
+            <div class="market-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Price (USD)</th>
+                            <th>24h Change</th>
+                            <th>Volume</th>
+                            <th>Trade</th>
+                        </tr>
+                    </thead>
+                    <tbody id="marketTableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===== TRADE ===== -->
+        <div class="page" id="page-trade">
+            <h2 style="margin-bottom:20px;">Trade Cryptocurrency</h2>
+            <div class="trade-container">
+                <div class="trade-card">
+                    <h3>Place Trade</h3>
+                    <div class="trade-type-selector">
+                        <button class="trade-type-btn buy active" onclick="setTradeType('buy')">Buy</button>
+                        <button class="trade-type-btn sell" onclick="setTradeType('sell')">Sell</button>
+                    </div>
+                    <div class="input-group">
+                        <label>Amount (USD)</label>
+                        <input type="number" id="tradeAmount" placeholder="Enter amount" min="1" step="0.01" />
+                    </div>
+                    <div class="input-group">
+                        <label>Current Balance</label>
+                        <div id="tradeBalance" style="padding:10px 14px;background:#0b0e11;border-radius:4px;font-weight:600;">$0.00</div>
+                    </div>
+                    <button class="btn btn-success btn-block btn-lg" id="tradeBtn" onclick="executeTrade()">Buy</button>
+                    <div id="tradeResult" class="mt-10 hidden" style="padding:12px;border-radius:6px;"></div>
+                </div>
+                <div class="trade-card">
+                    <h3>Trading History</h3>
+                    <div id="tradeHistory">
+                        <p class="text-muted text-center">No trades yet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== DEPOSIT ===== -->
+        <div class="page" id="page-deposit">
+            <div id="depositMain">
+                <h2 style="margin-bottom:8px;">Deposit Funds</h2>
+                <p style="color:#848e9c;margin-bottom:20px;">Choose a payment method to deposit. Minimum deposit: $100 (≈14,286 KSH)</p>
+                
+                <div class="transaction-options">
+                    <div class="tx-option" onclick="showDepositPlatform('M-PESA')">
+                        <div class="icon">📱</div>
+                        <div class="name">M-PESA</div>
+                        <div class="desc">Send via M-PESA</div>
+                    </div>
+                    <div class="tx-option" onclick="showDepositPlatform('Airtel Money')">
+                        <div class="icon">📲</div>
+                        <div class="name">Airtel Money</div>
+                        <div class="desc">Send via Airtel</div>
+                    </div>
+                    <div class="tx-option" onclick="showDepositPlatform('Virtual Visa Card')">
+                        <div class="icon">💳</div>
+                        <div class="name">Virtual Visa</div>
+                        <div class="desc">Pay with Visa</div>
+                    </div>
+                    <div class="tx-option" onclick="showDepositPlatform('KCB Bank')">
+                        <div class="icon">🏦</div>
+                        <div class="name">KCB Bank</div>
+                        <div class="desc">KCB Account</div>
+                    </div>
+                    <div class="tx-option" onclick="showDepositPlatform('Equity Bank')">
+                        <div class="icon">🏛️</div>
+                        <div class="name">Equity Bank</div>
+                        <div class="desc">Equity Account</div>
+                    </div>
+                    <div class="tx-option" onclick="showDepositPlatform('Cooperative Bank')">
+                        <div class="icon">🏧</div>
+                        <div class="name">Co-op Bank</div>
+                        <div class="desc">Co-op Account</div>
+                    </div>
+                    <div class="tx-option" onclick="showDepositPlatform('Standard Chartered Bank')">
+                        <div class="icon">🏦</div>
+                        <div class="name">StanChart</div>
+                        <div class="desc">StanChart Account</div>
+                    </div>
+                    <div class="tx-option" onclick="showDepositPlatform('Family Bank')">
+                        <div class="icon">🏛️</div>
+                        <div class="name">Family Bank</div>
+                        <div class="desc">Family Bank Account</div>
+                    </div>
+                    <div class="tx-option" onclick="showDepositPlatform('KWTF Bank')">
+                        <div class="icon">🏧</div>
+                        <div class="name">KWTF Bank</div>
+                        <div class="desc">KWTF Account</div>
+                    </div>
+                </div>
+            </div>
+            <div id="depositPlatform" class="hidden"></div>
+        </div>
+
+        <!-- ===== WITHDRAW ===== -->
+        <div class="page" id="page-withdraw">
+            <div id="withdrawMain">
+                <h2 style="margin-bottom:8px;">Withdraw Funds</h2>
+                <p style="color:#848e9c;margin-bottom:20px;">Choose a payment method to withdraw. Minimum withdrawal: $50 (≈7,143 KSH)</p>
+                
+                <div class="transaction-options">
+                    <div class="tx-option" onclick="showWithdrawPlatform('M-PESA')">
+                        <div class="icon">📱</div>
+                        <div class="name">M-PESA</div>
+                        <div class="desc">Receive via M-PESA</div>
+                    </div>
+                    <div class="tx-option" onclick="showWithdrawPlatform('Airtel Money')">
+                        <div class="icon">📲</div>
+                        <div class="name">Airtel Money</div>
+                        <div class="desc">Receive via Airtel</div>
+                    </div>
+                    <div class="tx-option" onclick="showWithdrawPlatform('Virtual Visa Card')">
+                        <div class="icon">💳</div>
+                        <div class="name">Virtual Visa</div>
+                        <div class="desc">Receive to Visa</div>
+                    </div>
+                    <div class="tx-option" onclick="showWithdrawPlatform('KCB Bank')">
+                        <div class="icon">🏦</div>
+                        <div class="name">KCB Bank</div>
+                        <div class="desc">KCB Account</div>
+                    </div>
+                    <div class="tx-option" onclick="showWithdrawPlatform('Equity Bank')">
+                        <div class="icon">🏛️</div>
+                        <div class="name">Equity Bank</div>
+                        <div class="desc">Equity Account</div>
+                    </div>
+                    <div class="tx-option" onclick="showWithdrawPlatform('Cooperative Bank')">
+                        <div class="icon">🏧</div>
+                        <div class="name">Co-op Bank</div>
+                        <div class="desc">Co-op Account</div>
+                    </div>
+                    <div class="tx-option" onclick="showWithdrawPlatform('Standard Chartered Bank')">
+                        <div class="icon">🏦</div>
+                        <div class="name">StanChart</div>
+                        <div class="desc">StanChart Account</div>
+                    </div>
+                    <div class="tx-option" onclick="showWithdrawPlatform('Family Bank')">
+                        <div class="icon">🏛️</div>
+                        <div class="name">Family Bank</div>
+                        <div class="desc">Family Bank Account</div>
+                    </div>
+                    <div class="tx-option" onclick="showWithdrawPlatform('KWTF Bank')">
+                        <div class="icon">🏧</div>
+                        <div class="name">KWTF Bank</div>
+                        <div class="desc">KWTF Account</div>
+                    </div>
+                </div>
+            </div>
+            <div id="withdrawPlatform" class="hidden"></div>
+        </div>
+
+        <!-- ===== PROFILE ===== -->
+        <div class="page" id="page-profile">
+            <h2 style="margin-bottom:20px;">My Profile</h2>
+            <div class="profile-card">
+                <h3>Account Information</h3>
+                <div class="profile-grid">
+                    <div class="profile-item">
+                        <div class="label">Username</div>
+                        <div class="value" id="profUsername">-</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="label">Email</div>
+                        <div class="value" id="profEmail">-</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="label">Phone</div>
+                        <div class="value" id="profPhone">-</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="label">Country</div>
+                        <div class="value" id="profCountry">-</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="label">Balance (USD)</div>
+                        <div class="value text-green" id="profBalance">$0.00</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="label">Member Since</div>
+                        <div class="value" id="profDate">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Tabs -->
+            <div class="tabs-container">
+                <button class="tab-btn active" onclick="switchProfileTab('transactions', this)">Transaction History</button>
+                <button class="tab-btn" onclick="switchProfileTab('trades', this)">Trade History</button>
+                <button class="tab-btn" onclick="switchProfileTab('notifications', this)">Notifications</button>
+            </div>
+
+            <div class="tab-content active" id="profileTransactions">
+                <div class="profile-card">
+                    <h3>Transaction History</h3>
+                    <div id="transactionHistory">
+                        <p class="text-muted text-center">No transactions yet</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="profileTrades">
+                <div class="profile-card">
+                    <h3>Trade History</h3>
+                    <div id="profileTradeHistory">
+                        <p class="text-muted text-center">No trades yet</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="profileNotifications">
+                <div class="profile-card">
+                    <h3>Notifications <span id="notifBadge" class="platform-badge" style="background:#f6465d;color:#fff;display:none;">0</span></h3>
+                    <div id="notificationList">
+                        <p class="text-muted text-center">No notifications</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ADMIN ===== -->
+        <div class="page" id="page-admin">
+            <h2 style="margin-bottom:8px;">Admin Dashboard</h2>
+            <p style="color:#848e9c;margin-bottom:20px;">Manage users, transactions, and trades</p>
+
+            <div class="admin-stats" id="adminStats">
+                <div class="admin-stat-card">
+                    <div class="number" id="adminTotalUsers">0</div>
+                    <div class="label">Total Users</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="number text-green" id="adminActiveUsers">0</div>
+                    <div class="label">Active Users</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="number text-red" id="adminDeletedUsers">0</div>
+                    <div class="label">Deleted Accounts</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="number" id="adminPendingRetrieves">0</div>
+                    <div class="label">Retrieve Requests</div>
+                </div>
+            </div>
+
+            <!-- Admin tabs -->
+            <div class="tabs-container">
+                <button class="tab-btn active" onclick="switchAdminTab('users', this)">All Users</button>
+                <button class="tab-btn" onclick="switchAdminTab('retrieves', this)">Retrieve Requests</button>
+                <button class="tab-btn" onclick="switchAdminTab('sessions', this)">Active Sessions</button>
+            </div>
+
+            <div class="tab-content active" id="adminUsersTab">
+                <div class="admin-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Country</th>
+                                <th>Balance</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminUsersTable">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-content" id="adminRetrievesTab">
+                <div class="admin-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Username</th>
+                                <th>Request Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminRetrievesTable">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-content" id="adminSessionsTab">
+                <div class="admin-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Username</th>
+                                <th>Session Active</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminSessionsTable">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== MODAL CONTAINER ========== -->
+<div id="modalContainer"></div>
+
+<script>
+// ===================== STATE =====================
+let currentUser = null;
+let token = null;
+let authToken = null;
+let ws = null;
+let chart = null;
+let chartData = [];
+let marketUpdateInterval = null;
+let chartUpdateInterval = null;
+let isAdmin = false;
+let adminSession = null;
+let adminSessionUserId = null;
+let tradeType = 'buy';
+let deletedUserId = null;
+
+// ===================== API HELPERS =====================
+const API = {
+    base: '',
+
+    async request(method, path, body = null) {
+        const headers = { 'Content-Type': 'application/json' };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+        
+        const options = { method, headers };
+        if (body) options.body = JSON.stringify(body);
+        
+        try {
+            const res = await fetch(`${this.base}${path}`, options);
+            return await res.json();
+        } catch (err) {
+            console.error('API Error:', err);
+            return { error: 'Network error' };
+        }
+    },
+
+    get: (path) => API.request('GET', path),
+    post: (path, data) => API.request('POST', path, data),
+    delete: (path) => API.request('DELETE', path)
+};
+
+// ===================== NOTIFICATION SYSTEM =====================
+function showNotification(message, type = 'info') {
+    const container = document.getElementById('notificationContainer');
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    
+    const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
+    notification.innerHTML = `${icons[type] || 'ℹ️'} ${message}`;
+    
+    container.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(100%)';
+        notification.style.transition = 'all 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 5000);
+}
+
+// ===================== AUTH =====================
+function switchAuthTab(tab) {
+    document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+    
+    if (tab === 'login') {
+        document.querySelector('.auth-tab').classList.add('active');
+        document.getElementById('loginForm').classList.add('active');
+    } else {
+        document.querySelectorAll('.auth-tab')[1].classList.add('active');
+        document.getElementById('registerForm').classList.add('active');
+    }
+}
+
+async function login() {
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+    
+    if (!username || !password) {
+        showNotification('Please enter username and password', 'error');
+        return;
+    }
+    
+    const res = await API.post('/api/auth/login', { username, password });
+    
+    if (res.deleted) {
+        deletedUserId = res.userId || res.user?.id;
+        document.getElementById('authContainer').classList.add('hidden');
+        document.getElementById('deletedPage').classList.remove('hidden');
+        showNotification(res.message, 'warning');
+        return;
+    }
+    
+    if (res.success) {
+        token = res.token;
+        currentUser = res.user;
+        isAdmin = res.user.username === 'admin';
+        localStorage.setItem('crypto_token', token);
+        localStorage.setItem('crypto_user', JSON.stringify(res.user));
+        initializeApp();
+        showNotification(`Welcome back, ${res.user.username}!`, 'success');
+    } else {
+        showNotification(res.error || 'Login failed', 'error');
+    }
+}
+
+async function register() {
+    const username = document.getElementById('regUsername').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const phone = document.getElementById('regPhone').value.trim();
+    const country = document.getElementById('regCountry').value;
+    const password = document.getElementById('regPassword').value;
+    const confirm = document.getElementById('regConfirmPassword').value;
+    
+    if (!username || !email || !phone || !country || !password) {
+        showNotification('Please fill all fields', 'error');
+        return;
+    }
+    
+    if (password !== confirm) {
+        showNotification('Passwords do not match', 'error');
+        return;
+    }
+    
+    if (password.length < 6) {
+        showNotification('Password must be at least 6 characters', 'error');
+        return;
+    }
+    
+    const res = await API.post('/api/auth/register', { username, email, password, country, phone });
+    
+    if (res.success) {
+        token = res.token;
+        currentUser = res.user;
+        isAdmin = false;
+        localStorage.setItem('crypto_token', token);
+        localStorage.setItem('crypto_user', JSON.stringify(res.user));
+        initializeApp();
+        showNotification('Account created successfully! 🎉', 'success');
+    } else {
+        showNotification(res.error || 'Registration failed', 'error');
+    }
+}
+
+function logout() {
+    localStorage.removeItem('crypto_token');
+    localStorage.removeItem('crypto_user');
+    currentUser = null;
+    token = null;
+    isAdmin = false;
+    adminSession = null;
+    if (ws) { ws.close(); ws = null; }
+    if (marketUpdateInterval) clearInterval(marketUpdateInterval);
+    if (chartUpdateInterval) clearInterval(chartUpdateInterval);
+    
+    document.getElementById('appContainer').classList.add('hidden');
+    document.getElementById('authContainer').classList.remove('hidden');
+    document.getElementById('deletedPage').classList.add('hidden');
+    
+    document.getElementById('loginUsername').value = '';
+    document.getElementById('loginPassword').value = '';
+    showNotification('Logged out successfully', 'info');
+}
+
+function showAuth() {
+    document.getElementById('deletedPage').classList.add('hidden');
+    document.getElementById('authContainer').classList.remove('hidden');
+}
+
+// ===================== INITIALIZATION =====================
+async function initializeApp() {
+    // Show app
+    document.getElementById('authContainer').classList.add('hidden');
+    document.getElementById('deletedPage').classList.add('hidden');
+    document.getElementById('appContainer').classList.remove('hidden');
+    
+    // Update UI
+    updateNavbar();
+    updateDashboard();
+    
+    // Show/hide admin link
+    if (isAdmin) {
+        document.getElementById('adminNavLink').classList.remove('hidden');
+        loadAdminData();
+    } else {
+        document.getElementById('adminNavLink').classList.add('hidden');
+    }
+    
+    // Show dashboard by default
+    showPage('dashboard');
+    
+    // Start market updates
+    loadMarketData();
+    startMarketUpdates();
+    
+    // Start chart
+    initChart();
+    
+    // Connect WebSocket
+    connectWebSocket();
+    
+    // Load user data
+    loadUserProfile();
+    
+    // Check for notifications
+    checkNotifications();
+}
+
+async function connectWebSocket() {
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const host = window.location.host;
+    
+    try {
+        ws = new WebSocket(`${protocol}//${host}`);
+        
+        ws.onopen = () => {
+            ws.send(JSON.stringify({ type: 'auth', userId: currentUser.id }));
+        };
+        
+        ws.onmessage = (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                if (data.type === 'trade_update') {
+                    showNotification(data.message, 'info');
+                    loadUserProfile();
+                    updateDashboard();
+                }
+                if (data.type === 'trade_request') {
+                    showTradeRequestNotification(data);
+                }
+            } catch (e) {}
+        };
+        
+        ws.onclose = () => {
+            setTimeout(connectWebSocket, 3000);
+        };
+    } catch (e) {
+        console.error('WebSocket connection failed');
+    }
+}
+
+// ===================== NAVIGATION =====================
+function showPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+    
+    const pageEl = document.getElementById(`page-${page}`);
+    if (pageEl) pageEl.classList.add('active');
+    
+    const navLink = Array.from(document.querySelectorAll('.nav-links a')).find(a => a.textContent.toLowerCase() === page.toLowerCase());
+    if (navLink) navLink.classList.add('active');
+    
+    // Load page-specific data
+    if (page === 'admin' && isAdmin) loadAdminData();
+    if (page === 'profile') loadUserProfile();
+    if (page === 'market') { loadMarketData(); updateChart(); }
+    if (page === 'trade') loadTradeData();
+}
+
+// ===================== UI UPDATES =====================
+function updateNavbar() {
+    if (!currentUser) return;
+    
+    const init = currentUser.username.charAt(0).toUpperCase();
+    document.getElementById('navAvatar').textContent = init;
+    document.getElementById('navUsername').textContent = currentUser.username;
+    document.getElementById('navBalance').textContent = `$${parseFloat(currentUser.balance || 0).toFixed(2)}`;
+    document.getElementById('navUserBalance').textContent = `$${parseFloat(currentUser.balance || 0).toFixed(2)}`;
+}
+
+function updateDashboard() {
+    if (!currentUser) return;
+    
+    document.getElementById('dashUsername').textContent = currentUser.username;
+    document.getElementById('dashBalance').textContent = `$${parseFloat(currentUser.balance || 0).toFixed(2)}`;
+    
+    if (currentUser.created_at) {
+        document.getElementById('dashMemberSince').textContent = new Date(currentUser.created_at).toLocaleDateString();
+    }
+}
+
+// ===================== MARKET DATA =====================
+async function loadMarketData() {
+    const res = await API.get('/api/trades/market');
+    if (res.cryptos) {
+        const tbody = document.getElementById('marketTableBody');
+        tbody.innerHTML = res.cryptos.map(c => `
+            <tr>
+                <td class="symbol">${c.symbol}</td>
+                <td class="price">$${c.price.toFixed(2)}</td>
+                <td class="change ${c.change >= 0 ? 'positive' : 'negative'}">${c.change >= 0 ? '+' : ''}${c.change.toFixed(2)}%</td>
+                <td class="volume">$${(c.volume / 1e9).toFixed(2)}B</td>
+                <td><button class="btn btn-primary btn-sm" onclick="quickTrade('${c.symbol.split('/')[0]}', ${c.price})">Trade</button></td>
+            </tr>
+        `).join('');
+    }
+}
+
+function startMarketUpdates() {
+    if (marketUpdateInterval) clearInterval(marketUpdateInterval);
+    marketUpdateInterval = setInterval(loadMarketData, 5000);
+}
+
+function quickTrade(symbol, price) {
+    showPage('trade');
+    document.getElementById('tradeAmount').value = price;
+}
+
+// ===================== CHART =====================
+function initChart() {
+    const canvas = document.getElementById('priceChart');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    // Generate initial data
+    let price = 45000;
+    chartData = [];
+    for (let i = 0; i < 100; i++) {
+        price = price * (1 + (Math.random() - 0.5) * 0.005);
+        chartData.push(price);
+    }
+    
+    drawChart(ctx, canvas);
+    
+    // Update chart periodically
+    if (chartUpdateInterval) clearInterval(chartUpdateInterval);
+    chartUpdateInterval = setInterval(() => {
+        const lastPrice = chartData[chartData.length - 1];
+        const newPrice = lastPrice * (1 + (Math.random() - 0.5) * 0.005);
+        chartData.push(newPrice);
+        if (chartData.length > 100) chartData.shift();
+        drawChart(ctx, canvas);
+    }, 3000);
+}
+
+function updateChart() {
+    const canvas = document.getElementById('priceChart');
+    if (!canvas || chartData.length === 0) return;
+    const ctx = canvas.getContext('2d');
+    drawChart(ctx, canvas);
+}
+
+function drawChart(ctx, canvas) {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    
+    const w = rect.width;
+    const h = rect.height;
+    const padding = { top: 20, right: 20, bottom: 20, left: 20 };
+    const chartW = w - padding.left - padding.right;
+    const chartH = h - padding.top - padding.bottom;
+    
+    const min = Math.min(...chartData);
+    const max = Math.max(...chartData);
+    const range = max - min || 1;
+    
+    const isUp = chartData[chartData.length - 1] >= chartData[0];
+    
+    // Clear
+    ctx.clearRect(0, 0, w, h);
+    
+    // Background
+    ctx.fillStyle = '#0b0e11';
+    ctx.fillRect(0, 0, w, h);
+    
+    // Grid lines
+    ctx.strokeStyle = '#1e2329';
+    ctx.lineWidth = 1;
+    for (let i = 0; i < 5; i++) {
+        const y = padding.top + (chartH / 5) * i;
+        ctx.beginPath();
+        ctx.moveTo(padding.left, y);
+        ctx.lineTo(w - padding.right, y);
+        ctx.stroke();
+    }
+    
+    // Price line
+    ctx.strokeStyle = isUp ? '#0ecb81' : '#f6465d';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    
+    chartData.forEach((price, i) => {
+        const x = padding.left + (chartW / (chartData.length - 1)) * i;
+        const y = padding.top + chartH - ((price - min) / range) * chartH;
+        
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    });
+    
+    ctx.stroke();
+    
+    // Gradient fill
+    const gradient = ctx.createLinearGradient(0, padding.top, 0, h - padding.bottom);
+    gradient.addColorStop(0, isUp ? 'rgba(14, 203, 129, 0.2)' : 'rgba(246, 70, 93, 0.2)');
+    gradient.addColorStop(1, 'rgba(0,0,0,0)');
+    
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.moveTo(padding.left, padding.top + chartH);
+    chartData.forEach((price, i) => {
+        const x = padding.left + (chartW / (chartData.length - 1)) * i;
+        const y = padding.top + chartH - ((price - min) / range) * chartH;
+        ctx.lineTo(x, y);
+    });
+    ctx.lineTo(padding.left + chartW, padding.top + chartH);
+    ctx.closePath();
+    ctx.fill();
+    
+    // Current price label
+    const currentPrice = chartData[chartData.length - 1];
+    ctx.fillStyle = '#eaecef';
+    ctx.font = '14px -apple-system, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(`$${currentPrice.toFixed(2)}`, w - padding.right, padding.top + 16);
+    
+    ctx.fillStyle = isUp ? '#0ecb81' : '#f6465d';
+    ctx.font = '12px -apple-system, sans-serif';
+    const change = ((currentPrice - chartData[0]) / chartData[0] * 100).toFixed(2);
+    ctx.fillText(`${isUp ? '+' : ''}${change}%`, w - padding.right, padding.top + 34);
+}
+
+// ===================== TRADING =====================
+function setTradeType(type) {
+    tradeType = type;
+    document.querySelectorAll('.trade-type-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.trade-type-btn.${type}`).classList.add('active');
+    document.getElementById('tradeBtn').textContent = type === 'buy' ? 'Buy' : 'Sell';
+    document.getElementById('tradeBtn').className = `btn btn-block btn-lg ${type === 'buy' ? 'btn-success' : 'btn-danger'}`;
+}
+
+async function executeTrade() {
+    const amount = parseFloat(document.getElementById('tradeAmount').value);
+    
+    if (!amount || amount <= 0) {
+        showNotification('Please enter a valid amount', 'error');
+        return;
+    }
+    
+    const confirmMsg = `Do you want to ${tradeType} ${amount} USD worth of crypto?`;
+    if (!confirm(confirmMsg)) return;
+    
+    const res = await API.post('/api/trades/execute', { type: tradeType, amount });
+    
+    const resultDiv = document.getElementById('tradeResult');
+    resultDiv.classList.remove('hidden');
+    
+    if (res.success) {
+        const resultClass = res.result === 'win' ? 'text-green' : 'text-red';
+        resultDiv.innerHTML = `
+            <div style="padding:16px;background:#0b0e11;border-radius:6px;">
+                <p style="font-size:16px;font-weight:600;${res.result === 'win' ? 'color:#0ecb81' : 'color:#f6465d'}">
+                    ${res.result === 'win' ? '✅ PROFIT' : '❌ LOSS'}
+                </p>
+                <p>Trade: ${res.type.toUpperCase()} $${res.amount}</p>
+                <p class="${resultClass}">P&L: ${res.profit_loss >= 0 ? '+' : ''}$${res.profit_loss}</p>
+                <p>Balance: $${res.balance_after}</p>
+                <p style="font-size:12px;color:#848e9c;">Entry: $${res.entry_price} | Current: $${res.current_price}</p>
+            </div>
+        `;
+        
+        // Update user balance
+        currentUser.balance = parseFloat(res.balance_after);
+        updateNavbar();
+        updateDashboard();
+        
+        showNotification(
+            `${res.result === 'win' ? '🎉 Profit' : '😞 Loss'} of $${Math.abs(res.profit_loss)} from ${res.type} trade`,
+            res.result === 'win' ? 'success' : 'error'
+        );
+        
+        loadTradeData();
+    } else {
+        resultDiv.innerHTML = `<p class="text-red">${res.error || 'Trade failed'}</p>`;
+        showNotification(res.error || 'Trade failed', 'error');
+    }
+}
+
+async function loadTradeData() {
+    if (!currentUser) return;
+    
+    // Update balance
+    document.getElementById('tradeBalance').textContent = `$${parseFloat(currentUser.balance || 0).toFixed(2)}`;
+    
+    // Load trade history
+    const res = await API.get('/api/trades/history');
+    const historyDiv = document.getElementById('tradeHistory');
+    
+    if (res.trades && res.trades.length > 0) {
+        historyDiv.innerHTML = res.trades.slice(0, 10).map(t => `
+            <div class="history-item">
+                <div>
+                    <div class="${t.result === 'win' ? 'text-green' : 'text-red'}" style="font-weight:600;">
+                        ${t.result === 'win' ? '✅' : '❌'} ${t.type.toUpperCase()} $${t.amount}
+                    </div>
+                    <div class="date">${new Date(t.date).toLocaleString()}</div>
+                </div>
+                <div style="text-align:right;">
+                    <div class="${t.result === 'win' ? 'text-green' : 'text-red'}">${t.profit_loss >= 0 ? '+' : ''}$${t.profit_loss}</div>
+                    <div class="date">Balance: $${t.balance_after}</div>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
+// ===================== DEPOSITS =====================
+function showDepositPlatform(platform) {
+    document.getElementById('depositMain').classList.add('hidden');
+    const container = document.getElementById('depositPlatform');
+    container.classList.remove('hidden');
+    
+    const platformInfo = getPlatformInfo(platform);
+    container.innerHTML = getPlatformPageHTML('deposit', platform, platformInfo);
+}
+
+// ===================== WITHDRAWALS =====================
+function showWithdrawPlatform(platform) {
+    document.getElementById('withdrawMain').classList.add('hidden');
+    const container = document.getElementById('withdrawPlatform');
+    container.classList.remove('hidden');
+    
+    const platformInfo = getPlatformInfo(platform);
+    container.innerHTML = getPlatformPageHTML('withdraw', platform, platformInfo);
+}
+
+function getPlatformInfo(platform) {
+    const platforms = {
+        'M-PESA': { color: '#4CAF50', bg: '#e8f5e9', icon: '📱', accent: '#2E7D32' },
+        'Airtel Money': { color: '#E91E63', bg: '#fce4ec', icon: '📲', accent: '#C2185B' },
+        'Virtual Visa Card': { color: '#1a1f71', bg: '#e8eaf6', icon: '💳', accent: '#0d47a1' },
+        'KCB Bank': { color: '#003366', bg: '#e3f2fd', icon: '🏦', accent: '#001a33' },
+        'Equity Bank': { color: '#C8102E', bg: '#ffebee', icon: '🏛️', accent: '#8B0000' },
+        'Cooperative Bank': { color: '#00A859', bg: '#e8f5e9', icon: '🏧', accent: '#006837' },
+        'Standard Chartered Bank': { color: '#003D7A', bg: '#e3f2fd', icon: '🏦', accent: '#00254d' },
+        'Family Bank': { color: '#FF6600', bg: '#fff3e0', icon: '🏛️', accent: '#CC5200' },
+        'KWTF Bank': { color: '#8B0000', bg: '#fce4ec', icon: '🏧', accent: '#5C0000' }
+    };
+    return platforms[platform] || { color: '#f0b90b', bg: '#1e2329', icon: '🏦', accent: '#f0b90b' };
+}
+
+function getPlatformPageHTML(type, platform, info) {
+    const isDeposit = type === 'deposit';
+    const action = isDeposit ? 'Deposit to' : 'Withdraw from';
+    const minKSH = isDeposit ? 14286 : 7143;
+    const minUSD = isDeposit ? 100 : 50;
+    
+    return `
+        <div class="platform-page" style="border-color: ${info.color}33;">
+            <div class="platform-header">
+                <span class="platform-icon">${info.icon}</span>
+                <div>
+                    <h2>${action} ${platform}</h2>
+                    <p style="color:#848e9c;font-size:13px;">Minimum: $${minUSD} (≈${minKSH} KSH)</p>
+                </div>
+                <button class="btn btn-secondary btn-sm" style="margin-left:auto;" onclick="backToMain('${type}')">✕ Back</button>
+            </div>
+            
+            <div class="platform-form">
+                <div class="input-group">
+                    <label>Amount in KSH</label>
+                    <input type="number" id="${type}Amount" placeholder="Enter amount (KSH)" min="${minKSH}" step="100" />
+                    <div style="font-size:12px;color:#848e9c;margin-top:4px;">
+                        ≈ $<span id="${type}UsdPreview">0.00</span> USD
+                    </div>
+                </div>
+                
+                ${isDeposit ? `
+                <div class="input-group">
+                    <label>M-PESA Phone Number (for reference)</label>
+                    <input type="tel" id="depositRef" placeholder="e.g. 0712345678" value="0712345678" disabled style="opacity:0.7;" />
+                </div>
+                ` : `
+                <div class="input-group">
+                    <label>Your ${platform} Account/Phone</label>
+                    <input type="text" id="withdrawRef" placeholder="Enter your account number" value="07XXXXXXXX" />
+                </div>
+                `}
+                
+                <div class="input-group">
+                    <label>Your Password (confirm transaction)</label>
+                    <input type="password" id="${type}Password" placeholder="Enter your account password" />
+                </div>
+                
+                <div style="background:${info.bg};padding:12px;border-radius:6px;margin-bottom:16px;border-left:3px solid ${info.color};">
+                    <p style="color:${info.color};font-size:13px;font-weight:500;">
+                        💡 ${isDeposit ? 'First deposit? You get 30% bonus!' : 'Minimum withdrawal is $50'}
+                    </p>
+                </div>
+                
+                <button class="btn btn-primary btn-block btn-lg" onclick="${isDeposit ? 'processDeposit' : 'processWithdraw'}('${platform}')">
+                    ${isDeposit ? '💳 Deposit Now' : '💸 Withdraw Now'}
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+// Amount preview
+document.addEventListener('input', (e) => {
+    if (e.target.id === 'depositAmount') {
+        const ksh = parseFloat(e.target.value) || 0;
+        const usd = (ksh * 0.007).toFixed(2);
+        document.getElementById('depositUsdPreview').textContent = usd;
+    }
+    if (e.target.id === 'withdrawAmount') {
+        const ksh = parseFloat(e.target.value) || 0;
+        const usd = (ksh * 0.007).toFixed(2);
+        document.getElementById('withdrawUsdPreview').textContent = usd;
+    }
+});
+
+function backToMain(type) {
+    if (type === 'deposit') {
+        document.getElementById('depositPlatform').classList.add('hidden');
+        document.getElementById('depositMain').classList.remove('hidden');
+    } else {
+        document.getElementById('withdrawPlatform').classList.add('hidden');
+        document.getElementById('withdrawMain').classList.remove('hidden');
+    }
+}
+
+async function processDeposit(platform) {
+    const amount_ksh = parseFloat(document.getElementById('depositAmount').value);
+    const password = document.getElementById('depositPassword').value;
+    
+    if (!amount_ksh || amount_ksh < 14286) {
+        showNotification('Minimum deposit is 14,286 KSH ($100)', 'error');
+        return;
+    }
+    
+    if (!password) {
+        showNotification('Please enter your password to confirm', 'error');
+        return;
+    }
+    
+    const amount_usd = (amount_ksh * 0.007).toFixed(2);
+    
+    const confirmMsg = `Do you want to Deposit ${amount_ksh.toLocaleString()} KSH (≈$${amount_usd}) from ${platform} to Binance Crypto?`;
+    if (!confirm(confirmMsg)) return;
+    
+    const res = await API.post('/api/transactions/deposit', { amount_ksh, platform, password, confirm: true });
+    
+    if (res.success) {
+        // Add bonus notification
+        if (res.bonus > 0) {
+            showNotification(`🎉 First deposit bonus! You earned $${res.bonus.toFixed(2)} (30%)`, 'success');
+        }
+        
+        // Update user data
+        currentUser.balance = res.balance;
+        updateNavbar();
+        updateDashboard();
+        
+        showNotification(res.message, 'success');
+        
+        // Reload to dashboard
+        setTimeout(() => {
+            showPage('dashboard');
+            backToMain('deposit');
+        }, 2000);
+    } else {
+        showNotification(res.error || 'Deposit failed', 'error');
+    }
+}
+
+async function processWithdraw(platform) {
+    const amount_ksh = parseFloat(document.getElementById('withdrawAmount').value);
+    const password = document.getElementById('withdrawPassword').value;
+    
+    if (!amount_ksh || amount_ksh < 7143) {
+        showNotification('Minimum withdrawal is 7,143 KSH ($50)', 'error');
+        return;
+    }
+    
+    if (!password) {
+        showNotification('Please enter your password to confirm', 'error');
+        return;
+    }
+    
+    const amount_usd = (amount_ksh * 0.007).toFixed(2);
+    
+    if (parseFloat(currentUser.balance) < parseFloat(amount_usd)) {
+        showNotification('Insufficient balance for withdrawal', 'error');
+        return;
+    }
+    
+    const confirmMsg = `Do you want to Withdraw ${amount_ksh.toLocaleString()} KSH (≈$${amount_usd}) from Binance Crypto to ${platform}?`;
+    if (!confirm(confirmMsg)) return;
+    
+    const res = await API.post('/api/transactions/withdraw', { amount_ksh, platform, password, confirm: true });
+    
+    if (res.success) {
+        currentUser.balance = res.balance;
+        updateNavbar();
+        updateDashboard();
+        
+        showNotification(res.message, 'success');
+        
+        setTimeout(() => {
+            showPage('dashboard');
+            backToMain('withdraw');
+        }, 2000);
+    } else {
+        showNotification(res.error || 'Withdrawal failed', 'error');
+    }
+}
+
+// ===================== USER PROFILE =====================
+async function loadUserProfile() {
+    if (!currentUser) return;
+    
+    const res = await API.get('/api/auth/profile');
+    
+    if (res.user) {
+        currentUser = res.user;
+        
+        document.getElementById('profUsername').textContent = res.user.username;
+        document.getElementById('profEmail').textContent = res.user.email;
+        document.getElementById('profPhone').textContent = res.user.phone;
+        document.getElementById('profCountry').textContent = res.user.country;
+        document.getElementById('profBalance').textContent = `$${parseFloat(res.user.balance).toFixed(2)}`;
+        document.getElementById('profDate').textContent = res.user.created_at ? new Date(res.user.created_at).toLocaleDateString() : '-';
+        
+        // Update dash stats
+        const deposits = res.transactions ? res.transactions.filter(t => t.type === 'deposit').reduce((s, t) => s + t.amount_usd, 0) : 0;
+        const trades = res.trades ? res.trades.length : 0;
+        document.getElementById('dashDeposits').textContent = `$${deposits.toFixed(2)}`;
+        document.getElementById('dashTrades').textContent = trades;
+        
+        updateNavbar();
+        updateDashboard();
+        
+        // Load transaction history
+        loadTransactionHistory(res.transactions);
+        loadProfileTradeHistory(res.trades);
+    }
+}
+
+function loadTransactionHistory(transactions) {
+    const container = document.getElementById('transactionHistory');
+    
+    if (transactions && transactions.length > 0) {
+        container.innerHTML = transactions.map(t => `
+            <div class="history-item">
+                <div>
+                    <div style="font-weight:500;">${t.type === 'deposit' ? '📥 Deposit' : '📤 Withdraw'}</div>
+                    <div class="date">${new Date(t.date).toLocaleString()}</div>
+                    <div class="platform">via ${t.platform}</div>
+                </div>
+                <div style="text-align:right;">
+                    <div class="${t.type === 'deposit' ? 'text-green' : 'text-red'}" style="font-weight:600;">
+                        ${t.type === 'deposit' ? '+' : '-'}$${t.amount_usd.toFixed(2)}
+                    </div>
+                    <div class="date">${t.type === 'deposit' ? 'Deposit' : 'Withdrawal'}</div>
+                </div>
+            </div>
+        `).join('');
+    } else {
+        container.innerHTML = '<p class="text-muted text-center">No transactions yet. Make your first deposit!</p>';
+    }
+}
+
+function loadProfileTradeHistory(trades) {
+    const container = document.getElementById('profileTradeHistory');
+    
+    if (trades && trades.length > 0) {
+        container.innerHTML = trades.map(t => `
+            <div class="history-item">
+                <div>
+                    <div style="font-weight:500;">${t.result === 'win' ? '✅' : '❌'} ${t.type.toUpperCase()}</div>
+                    <div class="date">${new Date(t.date).toLocaleString()}</div>
+                </div>
+                <div style="text-align:right;">
+                    <div style="font-weight:600;">$${t.amount}</div>
+                    <div class="${t.result === 'win' ? 'text-green' : 'text-red'}">
+                        ${t.profit_loss >= 0 ? '+' : ''}$${t.profit_loss}
+                    </div>
+                    <div class="date">Balance: $${t.balance_after}</div>
+                </div>
+            </div>
+        `).join('');
+    } else {
+        container.innerHTML = '<p class="text-muted text-center">No trading history yet.</p>';
+    }
+}
+
+function switchProfileTab(tab, btn) {
+    document.querySelectorAll('#page-profile .tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#page-profile .tab-content').forEach(c => c.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    document.getElementById(`profile${tab.charAt(0).toUpperCase() + tab.slice(1)}`).classList.add('active');
+}
+
+// ===================== ADMIN =====================
+async function loadAdminData() {
+    if (!isAdmin) return;
+    
+    const res = await API.get('/api/admin/users');
+    
+    if (res.users) {
+        document.getElementById('adminTotalUsers').textContent = res.users.length;
+        document.getElementById('adminActiveUsers').textContent = res.users.filter(u => !u.account_deleted).length;
+        document.getElementById('adminDeletedUsers').textContent = res.users.filter(u => u.account_deleted).length;
+        
+        const tbody = document.getElementById('adminUsersTable');
+        tbody.innerHTML = res.users.map(u => `
+            <tr class="${u.account_deleted ? 'deleted' : ''}">
+                <td>#${u.id}</td>
+                <td><strong>${u.username}</strong> ${u.username === 'admin' ? '👑' : ''}</td>
+                <td>${u.email}</td>
+                <td>${u.country}</td>
+                <td><span class="${u.balance > 0 ? 'text-green' : ''}">$${u.balance.toFixed(2)}</span></td>
+                <td>
+                    ${u.account_deleted 
+                        ? '<span class="deleted-badge">⛔ Account Temporarily Deleted</span>' 
+                        : '<span class="platform-badge" style="background:#0ecb81;color:#fff;">Active</span>'}
+                </td>
+                <td>
+                    ${u.username !== 'admin' ? `
+                        <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                            <button class="btn btn-primary btn-sm" onclick="adminViewUser(${u.id})">👁️ View</button>
+                            ${!u.account_deleted ? `
+                                <button class="btn btn-success btn-sm" onclick="adminTradeRequest(${u.id})">📈 Trade For User</button>
+                                <button class="btn btn-danger btn-sm" onclick="adminDeleteUser(${u.id})">🗑️ Delete</button>
+                            ` : ''}
+                        </div>
+                    ` : '<span class="text-muted">-</span>'}
+                </td>
+            </tr>
+        `).join('');
+    }
+    
+    // Load retrieve requests
+    const retrieveRes = await API.get('/api/admin/retrieve-requests');
+    if (retrieveRes.requests) {
+        document.getElementById('adminPendingRetrieves').textContent = retrieveRes.requests.length;
+        
+        const retTbody = document.getElementById('adminRetrievesTable');
+        if (retrieveRes.requests.length > 0) {
+            retTbody.innerHTML = retrieveRes.requests.map(r => `
+                <tr>
+                    <td>#${r.user_id}</td>
+                    <td><strong>${r.username}</strong></td>
+                    <td>${new Date(r.date).toLocaleString()}</td>
+                    <td>
+                        <button class="btn btn-success btn-sm" onclick="adminRestoreUser(${r.user_id})">✅ Retrieve</button>
+                        <button class="btn btn-danger btn-sm" onclick="adminCancelRetrieve(${r.user_id})">❌ Cancel</button>
+                    </td>
+                </tr>
+            `).join('');
+        } else {
+            retTbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No pending retrieve requests</td></tr>';
+        }
+    }
+}
+
+function switchAdminTab(tab, btn) {
+    document.querySelectorAll('#page-admin .tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#page-admin .tab-content').forEach(c => c.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    document.getElementById(`admin${tab.charAt(0).toUpperCase() + tab.slice(1)}Tab`).classList.add('active');
+}
+
+async function adminViewUser(userId) {
+    const res = await API.get(`/api/admin/users/${userId}`);
+    if (res.user) {
+        let html = `
+            <div class="modal-overlay" onclick="closeModal(event)">
+                <div class="modal" onclick="event.stopPropagation()" style="max-width:700px;">
+                    <button class="modal-close" onclick="closeModal()">✕</button>
+                    <h2>User Details: ${res.user.username}</h2>
+                    
+                    <div class="profile-grid" style="margin-bottom:20px;">
+                        <div class="profile-item">
+                            <div class="label">ID</div>
+                            <div class="value">#${res.user.id}</div>
+                        </div>
+                        <div class="profile-item">
+                            <div class="label">Balance</div>
+                            <div class="value text-green">$${res.user.balance.toFixed(2)}</div>
+                        </div>
+                        <div class="profile-item">
+                            <div class="label">Country</div>
+                            <div class="value">${res.user.country}</div>
+                        </div>
+                        <div class="profile-item">
+                            <div class="label">First Deposit Bonus</div>
+                            <div class="value">${res.user.first_deposit ? '✅ Claimed' : '❌ Not yet'}</div>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin:16px 0 8px;">Transactions (${(res.transactions || []).length})</h3>
+                    <div style="max-height:200px;overflow-y:auto;background:#0b0e11;border-radius:6px;padding:8px;">
+                        ${(res.transactions || []).length > 0 ? res.transactions.map(t => `
+                            <div class="history-item">
+                                <div>
+                                    <span class="${t.type === 'deposit' ? 'text-green' : 'text-red'}">${t.type === 'deposit' ? '📥' : '📤'} ${t.type}</span>
+                                    <span class="text-muted">via ${t.platform}</span>
+                                    <div class="date">${new Date(t.date).toLocaleString()}</div>
+                                </div>
+                                <div style="display:flex;align-items:center;gap:8px;">
+                                    <span style="font-weight:600;">$${t.amount_usd.toFixed(2)}</span>
+                                    <button class="btn btn-danger btn-sm" onclick="adminDeleteTransaction(${t.id})">🗑️</button>
+                                </div>
+                            </div>
+                        `).join('') : '<p class="text-muted text-center">No transactions</p>'}
+                    </div>
+                    
+                    <h3 style="margin:16px 0 8px;">Trades (${(res.trades || []).length})</h3>
+                    <div style="max-height:200px;overflow-y:auto;background:#0b0e11;border-radius:6px;padding:8px;">
+                        ${(res.trades || []).length > 0 ? res.trades.map(t => `
+                            <div class="history-item">
+                                <div>
+                                    <span class="${t.result === 'win' ? 'text-green' : 'text-red'}">${t.result === 'win' ? '✅' : '❌'} ${t.type.toUpperCase()} $${t.amount}</span>
+                                    <div class="date">${new Date(t.date).toLocaleString()}</div>
+                                </div>
+                                <div style="display:flex;align-items:center;gap:8px;">
+                                    <span class="${t.profit_loss >= 0 ? 'text-green' : 'text-red'}">${t.profit_loss >= 0 ? '+' : ''}$${t.profit_loss}</span>
+                                    <button class="btn btn-danger btn-sm" onclick="adminDeleteTrade(${t.id})">🗑️</button>
+                                </div>
+                            </div>
+                        `).join('') : '<p class="text-muted text-center">No trades</p>'}
+                    </div>
+                </div>
+            </div>
+        `;
+        document.getElementById('modalContainer').innerHTML = html;
+    }
+}
+
+async function adminTradeRequest(userId) {
+    if (!confirm('Send a trade request to this user? They must accept for you to access their account.')) return;
+    
+    const res = await API.post(`/api/admin/trade-request/${userId}`, {});
+    
+    if (res.alreadyOpen) {
+        if (confirm('You already have access to this account. Open it now?')) {
+            adminOpenAccount(userId);
+        }
+        return;
+    }
+    
+    if (res.success) {
+        showNotification('Trade request sent to user. Waiting for acceptance...', 'info');
+    } else {
+        showNotification(res.error || 'Failed to send request', 'error');
+    }
+}
+
+async function adminOpenAccount(userId) {
+    adminSessionUserId = userId;
+    
+    const res = await API.post(`/api/admin/login-as-user/${userId}`, {});
+    
+    if (res.success) {
+        adminSession = res.user;
+        showAdminTradePanel(userId, res.user);
+        showNotification(`Opened account: ${res.user.username}`, 'success');
+    } else {
+        showNotification(res.error || 'Cannot open account. Send a trade request first.', 'error');
+    }
+}
+
+function showAdminTradePanel(userId, userData) {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.id = 'adminTradeModal';
+    modal.innerHTML = `
+        <div class="modal" onclick="event.stopPropagation()" style="max-width:600px;">
+            <button class="modal-close" onclick="adminCloseSession(${userId})">✕ Close</button>
+            <h2>📈 Trading for: ${userData.username}</h2>
+            
+            <div style="background:#2b3139;padding:16px;border-radius:8px;margin-bottom:16px;">
+                <p>User Balance: <strong class="text-green">$${userData.balance.toFixed(2)}</strong></p>
+            </div>
+            
+            <div class="input-group">
+                <label>Trade Amount (USD)</label>
+                <input type="number" id="adminTradeAmount" placeholder="Enter amount" min="1" />
+            </div>
+            
+            <div style="display:flex;gap:10px;margin-bottom:16px;">
+                <button class="btn btn-success" style="flex:1;" onclick="adminExecuteTrade(${userId}, 'buy')">📈 Buy</button>
+                <button class="btn btn-danger" style="flex:1;" onclick="adminExecuteTrade(${userId}, 'sell')">📉 Sell</button>
+            </div>
+            
+            <hr style="border-color:#2b3139;margin:16px 0;">
+            
+            <h3>Transfer to Admin</h3>
+            <div class="input-group">
+                <label>Amount to transfer to your wallet</label>
+                <input type="number" id="adminTransferAmount" placeholder="Enter amount" />
+            </div>
+            <button class="btn btn-primary btn-block" onclick="adminTransferToSelf(${userId})">💰 Transfer to My Wallet</button>
+        </div>
+    `;
+    
+    document.getElementById('modalContainer').innerHTML = modal;
+}
+
+async function adminExecuteTrade(userId, type) {
+    const amount = parseFloat(document.getElementById('adminTradeAmount').value);
+    if (!amount || amount <= 0) {
+        showNotification('Please enter a valid amount', 'error');
+        return;
+    }
+    
+    const res = await API.post(`/api/admin/trade-for-user/${userId}`, { type, amount });
+    
+    if (res.success) {
+        showNotification(`Trade executed: ${res.result === 'win' ? '✅ Profit' : '❌ Loss'} of $${Math.abs(res.profit_loss)}`, 
+            res.result === 'win' ? 'success' : 'error');
+        
+        // Refresh session
+        adminOpenAccount(userId);
+    } else {
+        showNotification(res.error || 'Trade failed', 'error');
+    }
+}
+
+async function adminTransferToSelf(userId) {
+    const amount = parseFloat(document.getElementById('adminTransferAmount').value);
+    if (!amount || amount <= 0) {
+        showNotification('Please enter a valid amount', 'error');
+        return;
+    }
+    
+    if (!confirm(`Transfer $${amount} from this user to your wallet? This action can be hidden.`)) return;
+    
+    const res = await API.post(`/api/admin/transfer-to-admin/${userId}`, { amount });
+    
+    if (res.success) {
+        showNotification(res.message, 'success');
+        adminOpenAccount(userId);
+        loadAdminData();
+    } else {
+        showNotification(res.error || 'Transfer failed', 'error');
+    }
+}
+
+async function adminCloseSession(userId) {
+    if (!confirm('Close this trading session? You will need to request again to access this account.')) return;
+    
+    const res = await API.post(`/api/admin/close-session/${userId}`, {});
+    
+    if (res.success) {
+        adminSession = null;
+        adminSessionUserId = null;
+        closeModal();
+        showNotification('Session closed', 'info');
+    }
+}
+
+async function adminDeleteUser(userId) {
+    if (!confirm('Delete this user account? It can be restored later.')) return;
+    
+    const res = await API.post(`/api/admin/delete-user/${userId}`, {});
+    
+    if (res.success) {
+        showNotification('User account deleted', 'warning');
+        loadAdminData();
+    } else {
+        showNotification(res.error || 'Failed', 'error');
+    }
+}
+
+async function adminRestoreUser(userId) {
+    if (!confirm('Restore this user account?')) return;
+    
+    const res = await API.post(`/api/admin/restore-user/${userId}`, {});
+    
+    if (res.success) {
+        showNotification('User account restored!', 'success');
+        loadAdminData();
+    } else {
+        showNotification(res.error || 'Failed', 'error');
+    }
+}
+
+async function adminCancelRetrieve(userId) {
+    if (!confirm('Cancel this retrieve request? The user will be notified.')) return;
+    
+    // Just mark as rejected
+    const res = await API.post(`/api/admin/restore-user/${userId}`, {});
+    if (res.success) {
+        showNotification('Retrieve request cancelled', 'info');
+        loadAdminData();
+    }
+}
+
+async function adminDeleteTransaction(txId) {
+    if (!confirm('Delete this transaction history permanently?')) return;
+    const res = await API.delete(`/api/admin/transaction/${txId}`);
+    if (res.success) {
+        showNotification('Transaction deleted', 'info');
+        closeModal();
+    }
+}
+
+async function adminDeleteTrade(tradeId) {
+    if (!confirm('Delete this trade history permanently?')) return;
+    const res = await API.delete(`/api/admin/trade/${tradeId}`);
+    if (res.success) {
+        showNotification('Trade deleted', 'info');
+        closeModal();
+    }
+}
+
+// ===================== NOTIFICATIONS =====================
+function checkNotifications() {
+    // Check for trade requests from admin
+    setInterval(async () => {
+        if (!isAdmin && currentUser) {
+            // For regular users, check for trade requests
+            try {
+                const res = await API.get(`/api/admin/trade-request-status/${currentUser.id}`);
+                if (res.request && res.request.status === 'pending') {
+                    showTradeRequestNotification(res.request);
+                }
+            } catch (e) {}
+        }
+    }, 5000);
+}
+
+async function showTradeRequestNotification(request) {
+    if (!currentUser || isAdmin) return;
+    
+    const existingModal = document.getElementById('tradeRequestModal');
+    if (existingModal) return;
+    
+    if (!confirm('Admin wants to trade for you. Accept?')) return;
+    
+    // Find the request ID
+    const res = await API.get(`/api/admin/trade-request-status/${currentUser.id}`);
+    if (!res.request) return;
+    
+    if (confirm('Admin wants to access your account and trade on your behalf. Do you accept?')) {
+        const resp = await API.post('/api/admin/trade-request-response', { 
+            requestId: res.request.id, 
+            response: 'accepted' 
+        });
+        if (resp.success) {
+            showNotification('Trade request accepted! Admin can now access your account.', 'success');
+        }
+    } else {
+        await API.post('/api/admin/trade-request-response', { 
+            requestId: res.request.id, 
+            response: 'declined' 
+        });
+        showNotification('Trade request declined', 'info');
+    }
+}
+
+// ===================== DELETED ACCOUNT =====================
+async function requestAccountRetrieve() {
+    if (!deletedUserId) {
+        showNotification('Session expired. Please login again.', 'error');
+        showAuth();
+        return;
+    }
+    
+    const res = await API.post('/api/admin/request-retrieve', { userId: deletedUserId });
+    
+    if (res.success) {
+        alert('Request sent, waiting for admin approval');
+        showNotification('Request sent to admin. Please wait for approval.', 'info');
+        
+        // Poll for response
+        let attempts = 0;
+        const pollInterval = setInterval(async () => {
+            attempts++;
+            const statusRes = await API.get(`/api/auth/status/${deletedUserId}`);
+            
+            if (!statusRes.deleted) {
+                clearInterval(pollInterval);
+                alert('Your account has been restored! Redirecting...');
+                showAuth();
+                showNotification('Account restored! Please login.', 'success');
+            } else if (attempts > 60) { // 5 minutes timeout
+                clearInterval(pollInterval);
+            }
+        }, 5000);
+    } else {
+        showNotification(res.error || 'Request failed', 'error');
+    }
+}
+
+// ===================== MODAL UTILITY =====================
+function closeModal(event) {
+    if (event && event.target !== event.currentTarget) return;
+    document.getElementById('modalContainer').innerHTML = '';
+}
+
+// ===================== AUTO-RESIZE CHART =====================
+window.addEventListener('resize', () => {
+    updateChart();
+});
+
+// ===================== CHECK FOR EXISTING SESSION =====================
+(async function checkAuth() {
+    const savedToken = localStorage.getItem('crypto_token');
+    const savedUser = localStorage.getItem('crypto_user');
+    
+    if (savedToken && savedUser) {
+        token = savedToken;
+        currentUser = JSON.parse(savedUser);
+        isAdmin = currentUser.username === 'admin';
+        
+        // Verify token is still valid
+        const res = await API.get('/api/auth/profile');
+        if (res.user) {
+            currentUser = res.user;
+            initializeApp();
+            return;
+        }
+    }
+    
+    // Check if redirected from deleted account
+    const urlParams = new URLSearchParams(window.location.search);
+    const deletedId = urlParams.get('deleted');
+    if (deletedId) {
+        deletedUserId = parseInt(deletedId);
+    }
+})();
+</script>
+
+</body>
+</html>
