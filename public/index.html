@@ -19,15 +19,15 @@
         ::-webkit-scrollbar-thumb { background: #474d57; border-radius: 3px; }
 
         .hidden { display: none !important; }
-        .flex-center { display: flex; align-items: center; justify-content: center; }
-        .flex-between { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
         .text-center { text-align: center; }
         .text-gold { color: #f0b90b; }
         .text-green { color: #0ecb81; }
         .text-red { color: #f6465d; }
         .text-muted { color: #848e9c; }
+        .mt-10 { margin-top: 10px; }
+        .mb-20 { margin-bottom: 20px; }
+        .flex-between { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
 
-        /* ===== BUTTONS ===== */
         .btn {
             padding: 10px 24px; border: none; border-radius: 6px; cursor: pointer;
             font-size: 14px; font-weight: 600; transition: all 0.25s ease;
@@ -44,7 +44,6 @@
         .btn-lg { padding: 14px 32px; font-size: 16px; }
         .btn-block { width: 100%; justify-content: center; }
 
-        /* ===== INPUTS ===== */
         .input-group { margin-bottom: 16px; }
         .input-group label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; color: #848e9c; }
         .input-group input, .input-group select {
@@ -56,7 +55,7 @@
             border-color: #f0b90b; box-shadow: 0 0 0 3px rgba(240,185,11,0.1);
         }
 
-        /* ===== TOAST ===== */
+        /* TOAST */
         #toastContainer {
             position: fixed; top: 20px; right: 20px; z-index: 99999;
             display: flex; flex-direction: column; gap: 12px; max-width: 420px; width: calc(100% - 40px);
@@ -89,7 +88,7 @@
         @keyframes toastOut { from { transform: translateX(0) scale(1); opacity: 1; } to { transform: translateX(120%) scale(0.9); opacity: 0; } }
         @keyframes toastProgress { from { width: 100%; } to { width: 0%; } }
 
-        /* ===== CONFIRM DIALOG ===== */
+        /* CONFIRM */
         #confirmOverlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.7);
             z-index: 99998; display: none; align-items: center; justify-content: center;
@@ -110,10 +109,10 @@
         #confirmDialog .confirm-actions button { flex: 1; padding: 12px; border-radius: 8px; font-weight: 600; font-size: 14px; }
         @keyframes dialogPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        /* ===== AUTH ===== */
+        /* AUTH */
         #authContainer { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0b0e11 0%, #1a1d24 100%); padding: 20px; }
-        .auth-box { background: linear-gradient(145deg, #1e2329, #252b33); border-radius: 16px; padding: 40px; width: 440px; max-width: 100%; border: 1px solid rgba(240,185,11,0.1); box-shadow: 0 24px 64px rgba(0,0,0,0.3); }
-        .auth-box h1 { text-align: center; font-size: 32px; margin-bottom: 5px; }
+        .auth-box { background: linear-gradient(145deg, #1e2329, #252b33); border-radius: 16px; padding: 40px; width: 440px; max-width: 100%; border: 1px solid rgba(240,185,11,0.1); }
+        .auth-box h1 { text-align: center; font-size: 32px; }
         .auth-box .subtitle { text-align: center; color: #848e9c; margin-bottom: 24px; font-size: 14px; }
         .auth-tabs { display: flex; margin-bottom: 24px; border-bottom: 2px solid #2b3139; }
         .auth-tab { flex: 1; padding: 12px; text-align: center; cursor: pointer; color: #848e9c; font-weight: 600; font-size: 14px; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
@@ -121,7 +120,7 @@
         .auth-form { display: none; }
         .auth-form.active { display: block; }
 
-        /* ===== NAVBAR ===== */
+        /* NAVBAR */
         #navbar { background: rgba(30,35,41,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid #2b3139; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; }
         .nav-left { display: flex; align-items: center; gap: 24px; }
         .nav-logo { font-size: 22px; font-weight: 800; color: #f0b90b; cursor: pointer; }
@@ -137,12 +136,26 @@
         .nav-user-info .name { font-weight: 600; }
         .nav-user-info .bal { color: #0ecb81; }
 
-        /* ===== MAIN ===== */
+        /* MAIN */
         #mainContent { padding: 24px; max-width: 1400px; margin: 0 auto; }
         .page { display: none; }
         .page.active { display: block; }
 
-        /* ===== CHART ===== */
+        /* ADMIN SESSION BANNER - Shows when admin is viewing user's account */
+        .admin-session-banner {
+            background: linear-gradient(135deg, rgba(240,185,11,0.15), rgba(240,185,11,0.05));
+            border: 2px solid rgba(240,185,11,0.4); border-radius: 12px;
+            padding: 16px 20px; margin-bottom: 20px;
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+            animation: bannerPulse 2s infinite;
+        }
+        @keyframes bannerPulse { 0%, 100% { border-color: rgba(240,185,11,0.4); } 50% { border-color: rgba(240,185,11,0.7); } }
+        .admin-session-banner .session-label { font-size: 14px; color: #f0b90b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .admin-session-banner .session-user { font-size: 16px; font-weight: 600; color: #eaecef; }
+        .admin-session-banner .session-sub { font-size: 12px; color: #848e9c; }
+        .admin-session-banner .session-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        /* CHART */
         .chart-card { background: linear-gradient(145deg, #1e2329, #252b33); border-radius: 16px; padding: 24px; border: 1px solid #2b3139; margin-bottom: 24px; }
         .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
         .chart-header h3 { font-size: 18px; }
@@ -150,8 +163,8 @@
         .chart-header .chart-change { font-size: 14px; font-weight: 600; }
         #priceChart, #tradeChart { width: 100%; height: 350px; border-radius: 8px; background: #0b0e11; }
 
-        /* ===== DASHBOARD ===== */
-        .dashboard-header { background: linear-gradient(135deg, rgba(30,35,41,0.8), rgba(43,49,57,0.8)); border-radius: 16px; padding: 32px; margin-bottom: 24px; border: 1px solid rgba(240,185,11,0.08); backdrop-filter: blur(10px); }
+        /* DASHBOARD */
+        .dashboard-header { background: linear-gradient(135deg, rgba(30,35,41,0.8), rgba(43,49,57,0.8)); border-radius: 16px; padding: 32px; margin-bottom: 24px; border: 1px solid rgba(240,185,11,0.08); }
         .dashboard-header h1 { font-size: 26px; margin-bottom: 8px; }
         .balance-card { background: linear-gradient(135deg, #0ecb81, #089b67); border-radius: 16px; padding: 28px; color: #fff; margin-bottom: 24px; position: relative; overflow: hidden; }
         .balance-card::after { content: '₿'; position: absolute; right: -20px; bottom: -30px; font-size: 160px; opacity: 0.06; font-weight: 800; }
@@ -167,29 +180,17 @@
         .stat-card.clickable { cursor: pointer; }
         .stat-card.clickable:hover { border-color: #f0b90b; }
 
-        /* ===== ADMIN SESSION BANNER ===== */
-        .admin-session-banner {
-            background: linear-gradient(135deg, rgba(240,185,11,0.12), rgba(240,185,11,0.05));
-            border: 1px solid rgba(240,185,11,0.3); border-radius: 12px;
-            padding: 20px; margin-bottom: 20px;
-            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-        }
-        .admin-session-banner .session-label { font-size: 14px; color: #f0b90b; font-weight: 700; }
-        .admin-session-banner .session-user { font-size: 16px; font-weight: 600; color: #eaecef; margin: 4px 0; }
-        .admin-session-banner .session-sub { font-size: 12px; color: #848e9c; }
-        .admin-session-banner .session-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-
-        /* ===== MARKET TABLE ===== */
+        /* MARKET TABLE */
         .market-table { width: 100%; background: #1e2329; border-radius: 12px; overflow-x: auto; border: 1px solid #2b3139; }
         .market-table table { width: 100%; border-collapse: collapse; min-width: 500px; }
         .market-table th { padding: 14px 16px; text-align: left; font-size: 12px; color: #848e9c; background: #0b0e11; border-bottom: 1px solid #2b3139; text-transform: uppercase; }
         .market-table td { padding: 14px 16px; font-size: 14px; border-bottom: 1px solid #2b3139; }
         .market-table tr:hover td { background: #2b3139; }
 
-        /* ===== TRADE ===== */
+        /* TRADE */
         .trade-container { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
         .trade-card { background: #1e2329; border-radius: 16px; padding: 24px; border: 1px solid #2b3139; }
-        .trade-card h3 { margin-bottom: 16px; font-size: 18px; }
+        .trade-card h3 { margin-bottom: 16px; }
         .trade-type-selector { display: flex; gap: 10px; margin-bottom: 16px; }
         .trade-type-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s; }
         .trade-type-btn.buy { background: rgba(14,203,129,0.15); color: #0ecb81; }
@@ -197,14 +198,14 @@
         .trade-type-btn.buy.active { background: #0ecb81; color: #fff; box-shadow: 0 4px 20px rgba(14,203,129,0.3); }
         .trade-type-btn.sell.active { background: #f6465d; color: #fff; box-shadow: 0 4px 20px rgba(246,70,93,0.3); }
 
-        /* ===== TX OPTIONS ===== */
+        /* TX OPTIONS */
         .transaction-options { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin: 20px 0; }
         .tx-option { padding: 20px 12px; background: #2b3139; border-radius: 12px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
         .tx-option:hover { border-color: #f0b90b; background: #363c46; transform: translateY(-2px); }
         .tx-option .icon { font-size: 28px; margin-bottom: 8px; }
         .tx-option .name { font-weight: 600; font-size: 13px; }
 
-        /* ===== PROFILE ===== */
+        /* PROFILE */
         .profile-card { background: #1e2329; border-radius: 12px; padding: 24px; border: 1px solid #2b3139; margin-bottom: 20px; }
         .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .profile-item .label { font-size: 12px; color: #848e9c; }
@@ -217,30 +218,29 @@
         .history-item { padding: 12px 16px; border-bottom: 1px solid #2b3139; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
         .history-item:last-child { border-bottom: none; }
 
-        /* ===== ADMIN ===== */
-        .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 24px; }
-        .admin-stat-card { background: #1e2329; padding: 20px; border-radius: 12px; border: 1px solid #2b3139; }
-        .admin-stat-card .number { font-size: 28px; font-weight: 700; }
-        .admin-stat-card .label { font-size: 12px; color: #848e9c; }
+        /* ADMIN TABLE */
         .admin-table { width: 100%; background: #1e2329; border-radius: 12px; overflow-x: auto; border: 1px solid #2b3139; margin-bottom: 24px; }
         .admin-table table { width: 100%; border-collapse: collapse; min-width: 700px; }
         .admin-table th { padding: 12px 16px; text-align: left; font-size: 12px; color: #848e9c; background: #0b0e11; border-bottom: 1px solid #2b3139; }
         .admin-table td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid #2b3139; }
         .admin-table tr.deleted td { background: rgba(246,70,93,0.08); }
         .deleted-badge { display: inline-block; padding: 2px 8px; background: #f6465d; color: #fff; border-radius: 4px; font-size: 11px; font-weight: 600; }
-        .open-trade-btn { background: linear-gradient(135deg, #f0b90b, #d4a107); color: #0b0e11; font-weight: 700; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(240,185,11,0.4); } 50% { box-shadow: 0 0 0 8px rgba(240,185,11,0); } }
+        .open-trade-btn { background: linear-gradient(135deg, #f0b90b, #d4a107); color: #0b0e11; font-weight: 700; animation: btnPulse 2s infinite; }
+        @keyframes btnPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(240,185,11,0.4); } 50% { box-shadow: 0 0 0 8px rgba(240,185,11,0); } }
 
-        /* ===== DELETED ===== */
+        /* DELETED */
         #deletedPage { min-height: 100vh; display: none; align-items: center; justify-content: center; background: linear-gradient(135deg, #0b0e11, #1a1d24); padding: 20px; }
         #deletedPage.show { display: flex; }
         .deleted-box { background: #1e2329; border-radius: 16px; padding: 48px; text-align: center; max-width: 480px; border: 1px solid rgba(246,70,93,0.3); }
         .deleted-box .icon { font-size: 64px; margin-bottom: 16px; }
 
-        /* ===== NOTIFICATION BELL ===== */
-        .notif-dot { width: 8px; height: 8px; background: #f6465d; border-radius: 50%; display: inline-block; margin-left: 4px; animation: pulse 1.5s infinite; }
+        /* ADMIN STATS */
+        .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .admin-stat-card { background: #1e2329; padding: 20px; border-radius: 12px; border: 1px solid #2b3139; }
+        .admin-stat-card .number { font-size: 28px; font-weight: 700; }
+        .admin-stat-card .label { font-size: 12px; color: #848e9c; }
 
-        /* ===== RESPONSIVE ===== */
+        /* RESPONSIVE */
         @media (max-width: 1024px) { .trade-container { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
             .nav-links { display: none; }
@@ -251,22 +251,10 @@
             #navbar { padding: 0 12px; }
             #mainContent { padding: 12px; }
             .transaction-options { grid-template-columns: repeat(2, 1fr); }
-            .dashboard-header { padding: 20px; }
-            .balance-card .amount { font-size: 28px; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .chart-header .chart-price { font-size: 22px; }
             #priceChart, #tradeChart { height: 250px; }
-            .btn { font-size: 12px; padding: 8px 16px; }
             .mobile-menu-btn { display: flex !important; }
-        }
-        @media (max-width: 480px) {
-            .transaction-options { grid-template-columns: repeat(2, 1fr); }
-            .tx-option { padding: 14px 8px; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            .stat-card { padding: 14px; }
-            .stat-card .stat-value { font-size: 18px; }
-            .balance-card .amount { font-size: 24px; }
-            .nav-right .nav-user-info { display: none; }
         }
         .mobile-menu-btn { display: none; background: none; border: none; color: #eaecef; font-size: 24px; cursor: pointer; padding: 4px; }
     </style>
@@ -276,7 +264,7 @@
 <!-- TOAST -->
 <div id="toastContainer"></div>
 
-<!-- CONFIRM DIALOG -->
+<!-- CONFIRM -->
 <div id="confirmOverlay">
     <div id="confirmDialog">
         <div class="confirm-icon" id="confirmIcon">❓</div>
@@ -294,7 +282,7 @@
     <div class="deleted-box">
         <div class="icon">🔒</div>
         <h2>Account Deleted</h2>
-        <p style="color:#848e9c;margin-bottom:24px;">Your account has been temporarily suspended. <br>Please contact admin to retrieve your account.</p>
+        <p style="color:#848e9c;margin:16px 0 24px;">Your account has been temporarily suspended. Contact admin to retrieve it.</p>
         <button class="btn btn-primary btn-lg" onclick="requestAccountRetrieve()">📩 Contact Admin</button>
         <button class="btn btn-secondary btn-lg mt-10" onclick="showAuth()" style="margin-left:8px;">Back to Login</button>
     </div>
@@ -310,22 +298,22 @@
             <div class="auth-tab" onclick="switchAuthTab('register')">Register</div>
         </div>
         <div class="auth-form active" id="loginForm">
-            <div class="input-group"><label>Username</label><input type="text" id="loginUsername" placeholder="Enter your username" /></div>
-            <div class="input-group"><label>Password</label><input type="password" id="loginPassword" placeholder="Enter your password" /></div>
+            <div class="input-group"><label>Username</label><input type="text" id="loginUsername" placeholder="Enter username" /></div>
+            <div class="input-group"><label>Password</label><input type="password" id="loginPassword" placeholder="Enter password" /></div>
             <button class="btn btn-primary btn-block btn-lg" onclick="login()">🚀 Log In</button>
-            <div class="text-center mt-10" style="font-size:13px;color:#848e9c;">Don't have an account? <span style="color:#f0b90b;cursor:pointer;" onclick="switchAuthTab('register')">Register</span></div>
+            <div class="text-center mt-10" style="font-size:13px;color:#848e9c;">No account? <span style="color:#f0b90b;cursor:pointer;" onclick="switchAuthTab('register')">Register</span></div>
         </div>
         <div class="auth-form" id="registerForm">
-            <div class="input-group"><label>Username</label><input type="text" id="regUsername" placeholder="Choose a username" /></div>
-            <div class="input-group"><label>Email</label><input type="email" id="regEmail" placeholder="Enter your email" /></div>
-            <div class="input-group"><label>Phone</label><input type="tel" id="regPhone" placeholder="e.g. 0712345678" /></div>
+            <div class="input-group"><label>Username</label><input type="text" id="regUsername" placeholder="Choose username" /></div>
+            <div class="input-group"><label>Email</label><input type="email" id="regEmail" placeholder="Enter email" /></div>
+            <div class="input-group"><label>Phone</label><input type="tel" id="regPhone" placeholder="0712345678" /></div>
             <div class="input-group"><label>Country</label>
-                <select id="regCountry"><option value="">Select</option><option value="Kenya">Kenya</option><option value="Uganda">Uganda</option><option value="Tanzania">Tanzania</option><option value="Rwanda">Rwanda</option><option value="Nigeria">Nigeria</option><option value="South Africa">South Africa</option><option value="Other">Other</option></select>
+                <select id="regCountry"><option value="">Select</option><option value="Kenya">Kenya</option><option value="Uganda">Uganda</option><option value="Tanzania">Tanzania</option><option value="Nigeria">Nigeria</option><option value="South Africa">South Africa</option><option value="Other">Other</option></select>
             </div>
-            <div class="input-group"><label>Password</label><input type="password" id="regPassword" placeholder="Create a strong password" /></div>
-            <div class="input-group"><label>Confirm Password</label><input type="password" id="regConfirmPassword" placeholder="Confirm your password" /></div>
+            <div class="input-group"><label>Password</label><input type="password" id="regPassword" placeholder="Create password" /></div>
+            <div class="input-group"><label>Confirm Password</label><input type="password" id="regConfirmPassword" placeholder="Confirm password" /></div>
             <button class="btn btn-primary btn-block btn-lg" onclick="register()">✨ Create Account</button>
-            <div class="text-center mt-10" style="font-size:13px;color:#848e9c;">Already have an account? <span style="color:#f0b90b;cursor:pointer;" onclick="switchAuthTab('login')">Log In</span></div>
+            <div class="text-center mt-10" style="font-size:13px;color:#848e9c;">Have an account? <span style="color:#f0b90b;cursor:pointer;" onclick="switchAuthTab('login')">Log In</span></div>
         </div>
     </div>
 </div>
@@ -343,7 +331,10 @@
                 <a onclick="showPage('deposit')">Deposit</a>
                 <a onclick="showPage('withdraw')">Withdraw</a>
                 <a onclick="showPage('profile')">Profile</a>
+                <!-- Admin nav - hidden when admin is trading for a user -->
                 <a id="adminNavLink" class="hidden" onclick="showPage('admin')" style="color:#f0b90b;">👑 Admin</a>
+                <!-- Admin session nav - visible when admin is trading for a user -->
+                <a id="adminSessionNavLink" class="hidden" onclick="showPage('admin')" style="color:#f0b90b;">👑 Back to Admin</a>
             </div>
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
         </div>
@@ -364,12 +355,12 @@
 
         <!-- ===== DASHBOARD ===== -->
         <div class="page active" id="page-dashboard">
-            <!-- Admin Session Banner - ONLY visible when admin is trading for a user -->
+            <!-- ADMIN SESSION BANNER - ONLY when admin is inside user's account -->
             <div id="adminSessionBanner" class="admin-session-banner hidden">
                 <div>
-                    <div class="session-label">👑 ADMIN TRADING SESSION ACTIVE</div>
-                    <div class="session-user" id="sessionUserName">User Name</div>
-                    <div class="session-sub">You are trading on behalf of this user</div>
+                    <div class="session-label">👑 ADMIN TRADING SESSION</div>
+                    <div class="session-user">You are viewing <span id="sessionUserName" style="color:#f0b90b;">User</span>'s account</div>
+                    <div class="session-sub">All trading and transactions affect this user's balance</div>
                 </div>
                 <div class="session-actions">
                     <button class="btn btn-success" onclick="adminTransferModal()">💰 Transfer To Admin</button>
@@ -377,10 +368,9 @@
                 </div>
             </div>
 
-            <!-- Normal Dashboard -->
             <div class="dashboard-header">
                 <h1>Welcome back, <span id="dashUsername">Trader</span> 👋</h1>
-                <p>Your crypto portfolio overview</p>
+                <p id="dashSubtext">Your crypto portfolio overview</p>
             </div>
 
             <div class="balance-card">
@@ -389,7 +379,6 @@
                 <div class="sub">Available for trading & withdrawals</div>
             </div>
 
-            <!-- Live Chart at top of Dashboard -->
             <div class="chart-card">
                 <div class="chart-header">
                     <h3>📈 BTC/USDT Live Chart</h3>
@@ -427,7 +416,7 @@
             <div class="stats-grid">
                 <div class="stat-card clickable" onclick="showPage('deposit')">
                     <div class="stat-value text-green" style="font-size:18px;">+ Deposit Funds</div>
-                    <div class="stat-label">Add money to your wallet</div>
+                    <div class="stat-label">Add money to wallet</div>
                 </div>
                 <div class="stat-card clickable" onclick="showPage('trade')">
                     <div class="stat-value text-gold" style="font-size:18px;">📈 Start Trading</div>
@@ -454,7 +443,6 @@
         <!-- ===== TRADE ===== -->
         <div class="page" id="page-trade">
             <h2 style="margin-bottom:20px;">📈 Trade Cryptocurrency</h2>
-            <!-- Live Chart at top of Trade page -->
             <div class="chart-card">
                 <div class="chart-header">
                     <h3>BTC/USDT Real-Time Chart</h3>
@@ -547,57 +535,59 @@
             <div class="tabs-container">
                 <button class="tab-btn active" onclick="switchProfileTab('transactions', this)">📋 Transactions</button>
                 <button class="tab-btn" onclick="switchProfileTab('trades', this)">📈 Trades</button>
-                <button class="tab-btn" onclick="switchProfileTab('notifications', this)">🔔 Notifications <span id="notifBadge" style="display:none;"></span></button>
             </div>
             <div class="tab-content active" id="profileTransactions"><div class="profile-card"><h3>Transaction History</h3><div id="transactionHistory"><p class="text-muted text-center">No transactions yet</p></div></div></div>
             <div class="tab-content" id="profileTrades"><div class="profile-card"><h3>Trade History</h3><div id="profileTradeHistory"><p class="text-muted text-center">No trades yet</p></div></div></div>
-            <div class="tab-content" id="profileNotifications"><div class="profile-card"><h3>Notifications</h3><div id="notificationList"><p class="text-muted text-center">No notifications</p></div></div></div>
         </div>
 
         <!-- ===== ADMIN ===== -->
         <div class="page" id="page-admin">
             <h2 style="margin-bottom:8px;">👑 Admin Dashboard</h2>
-            <p style="color:#848e9c;margin-bottom:20px;">Manage users, transactions, and trades</p>
+            <p style="color:#848e9c;margin-bottom:20px;">Manage users, transactions, trades</p>
+            
+            <!-- Admin Stats -->
             <div class="admin-stats">
                 <div class="admin-stat-card"><div class="number" id="adminTotalUsers">0</div><div class="label">Total Users</div></div>
                 <div class="admin-stat-card"><div class="number text-green" id="adminActiveUsers">0</div><div class="label">Active</div></div>
                 <div class="admin-stat-card"><div class="number text-red" id="adminDeletedUsers">0</div><div class="label">Deleted</div></div>
                 <div class="admin-stat-card"><div class="number" id="adminPendingRetrieves">0</div><div class="label">Retrieve Requests</div></div>
             </div>
-            <div class="tabs-container">
+
+            <div class="tabs-container" style="overflow-x:auto;">
                 <button class="tab-btn active" onclick="switchAdminTab('users', this)">All Users</button>
+                <button class="tab-btn" onclick="switchAdminTab('mytx', this)">My Transactions</button>
                 <button class="tab-btn" onclick="switchAdminTab('retrieves', this)">Retrieve Requests</button>
                 <button class="tab-btn" onclick="switchAdminTab('sessions', this)">Active Sessions</button>
             </div>
+
             <div class="tab-content active" id="adminUsersTab">
                 <div class="admin-table">
-                    <table>
-                        <thead><tr><th>ID</th><th>Username</th><th>Email</th><th>Balance</th><th>Country</th><th>Status</th><th>Actions</th></tr></thead>
-                        <tbody id="adminUsersTable"></tbody>
-                    </table>
+                    <table><thead><tr><th>ID</th><th>Username</th><th>Balance</th><th>Status</th><th>Actions</th></tr></thead><tbody id="adminUsersTable"></tbody></table>
                 </div>
             </div>
+
+            <div class="tab-content" id="adminMyTxTab">
+                <div class="admin-table">
+                    <table><thead><tr><th>ID</th><th>Type</th><th>Platform</th><th>Amount</th><th>Date</th><th>Delete</th></tr></thead><tbody id="adminMyTxTable"></tbody></table>
+                </div>
+            </div>
+
             <div class="tab-content" id="adminRetrievesTab">
                 <div class="admin-table">
-                    <table>
-                        <thead><tr><th>User ID</th><th>Username</th><th>Date</th><th>Actions</th></tr></thead>
-                        <tbody id="adminRetrievesTable"></tbody>
-                    </table>
+                    <table><thead><tr><th>User</th><th>Date</th><th>Actions</th></tr></thead><tbody id="adminRetrievesTable"></tbody></table>
                 </div>
             </div>
+
             <div class="tab-content" id="adminSessionsTab">
                 <div class="admin-table">
-                    <table>
-                        <thead><tr><th>User ID</th><th>Username</th><th>Active Since</th><th>Action</th></tr></thead>
-                        <tbody id="adminSessionsTable"></tbody>
-                    </table>
+                    <table><thead><tr><th>User</th><th>Active Since</th><th>Action</th></tr></thead><tbody id="adminSessionsTable"></tbody></table>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- MODAL CONTAINER -->
+<!-- MODAL -->
 <div id="modalContainer"></div>
 
 <script>
@@ -607,15 +597,16 @@ let token = null;
 let ws = null;
 let chartData = [];
 let isAdmin = false;
-let adminSession = null;
-let adminSessionUserId = null;
+let adminSession = null;      // The user data admin is viewing
+let adminSessionUserId = null; // The user ID admin is viewing
+let originalAdminUser = null;  // Admin's own user data (preserved for switching back)
 let tradeType = 'buy';
 let deletedUserId = null;
 let marketInterval = null;
 let chartInterval = null;
 let statsInterval = null;
 let sessionCheckInterval = null;
-let activeSessions = {}; // { userId: true/false }
+let activeSessions = {};
 
 const API = {
     async request(method, path, body = null) {
@@ -623,701 +614,670 @@ const API = {
         if (token) headers['Authorization'] = `Bearer ${token}`;
         const options = { method, headers };
         if (body) options.body = JSON.stringify(body);
-        try { const res = await fetch(path, options); return await res.json(); }
-        catch (err) { return { error: 'Network error' }; }
+        try { const r = await fetch(path, options); return await r.json(); }
+        catch(e) { return { error: 'Network error' }; }
     },
-    get: (path) => API.request('GET', path),
-    post: (path, data) => API.request('POST', path, data),
-    delete: (path) => API.request('DELETE', path)
+    get: (p) => API.request('GET', p),
+    post: (p, d) => API.request('POST', p, d),
+    delete: (p) => API.request('DELETE', p)
 };
 
-// ===================== TOAST SYSTEM =====================
-function showToast(message, type = 'info', title = '') {
-    const container = document.getElementById('toastContainer');
-    const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
-    const titles = { success: 'Success', error: 'Error', info: 'Information', warning: 'Warning' };
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
-    toast.innerHTML = `<span class="toast-icon">${icons[type]}</span><div class="toast-text"><div class="toast-title">${title || titles[type]}</div><div class="toast-desc">${message}</div></div><div class="toast-progress"></div>`;
-    container.appendChild(toast);
-    setTimeout(() => {
-        toast.style.animation = 'toastOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
-        setTimeout(() => toast.remove(), 400);
-    }, 5000);
+// ===================== TOAST =====================
+function showToast(msg, type = 'info', title = '') {
+    const c = document.getElementById('toastContainer');
+    const icons = { success:'✅', error:'❌', info:'ℹ️', warning:'⚠️' };
+    const titles = { success:'Success', error:'Error', info:'Info', warning:'Warning' };
+    const t = document.createElement('div');
+    t.className = `toast toast-${type}`;
+    t.innerHTML = `<span class="toast-icon">${icons[type]}</span><div class="toast-text"><div class="toast-title">${title||titles[type]}</div><div class="toast-desc">${msg}</div></div><div class="toast-progress"></div>`;
+    c.appendChild(t);
+    setTimeout(() => { t.style.animation = 'toastOut 0.4s forwards'; setTimeout(() => t.remove(), 400); }, 5000);
 }
 
-// ===================== CONFIRM DIALOG =====================
+// ===================== CONFIRM =====================
 let confirmResolve = null;
-function showConfirm(title, message, icon = '❓', confirmText = 'Confirm', cancelText = 'Cancel', confirmClass = 'btn-primary') {
-    return new Promise((resolve) => {
-        confirmResolve = resolve;
+function showConfirm(title, msg, icon = '❓', ok = 'Confirm', cancel = 'Cancel', cls = 'btn-primary') {
+    return new Promise(r => {
+        confirmResolve = r;
         document.getElementById('confirmIcon').textContent = icon;
         document.getElementById('confirmTitle').textContent = title;
-        document.getElementById('confirmMessage').textContent = message;
-        document.getElementById('confirmOk').textContent = confirmText;
-        document.getElementById('confirmCancel').textContent = cancelText;
-        document.getElementById('confirmOk').className = `btn ${confirmClass}`;
+        document.getElementById('confirmMessage').textContent = msg;
+        document.getElementById('confirmOk').textContent = ok;
+        document.getElementById('confirmCancel').textContent = cancel;
+        document.getElementById('confirmOk').className = `btn ${cls}`;
         document.getElementById('confirmOverlay').classList.add('show');
     });
 }
-function closeConfirm(result) {
-    document.getElementById('confirmOverlay').classList.remove('show');
-    if (confirmResolve) { confirmResolve(result); confirmResolve = null; }
-}
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeConfirm(false); });
+function closeConfirm(r) { document.getElementById('confirmOverlay').classList.remove('show'); if(confirmResolve){confirmResolve(r);confirmResolve=null;} }
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeConfirm(false); });
 
 // ===================== AUTH =====================
-function switchAuthTab(tab) {
-    document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-    if (tab === 'login') { document.querySelector('.auth-tab').classList.add('active'); document.getElementById('loginForm').classList.add('active'); }
+function switchAuthTab(t) {
+    document.querySelectorAll('.auth-tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.auth-form').forEach(x=>x.classList.remove('active'));
+    if(t==='login') { document.querySelector('.auth-tab').classList.add('active'); document.getElementById('loginForm').classList.add('active'); }
     else { document.querySelectorAll('.auth-tab')[1].classList.add('active'); document.getElementById('registerForm').classList.add('active'); }
 }
 
 async function login() {
     const u = document.getElementById('loginUsername').value.trim();
     const p = document.getElementById('loginPassword').value.trim();
-    if (!u || !p) { showToast('Please fill all fields', 'error'); return; }
-    const res = await API.post('/api/auth/login', { username: u, password: p });
-    if (res.deleted) { deletedUserId = res.userId; document.getElementById('authContainer').style.display = 'none'; document.getElementById('deletedPage').classList.add('show'); showToast(res.message, 'warning'); return; }
-    if (res.success) {
-        token = res.token; currentUser = res.user; isAdmin = res.user.username === 'admin';
-        localStorage.setItem('crypto_token', token); localStorage.setItem('crypto_user', JSON.stringify(res.user));
-        initializeApp(); showToast(`Welcome back, ${res.user.username}!`, 'success');
-    } else { showToast(res.error || 'Login failed', 'error'); }
+    if(!u||!p) { showToast('Fill all fields','error'); return; }
+    const r = await API.post('/api/auth/login', {username:u, password:p});
+    if(r.deleted) { deletedUserId = r.userId; document.getElementById('authContainer').style.display='none'; document.getElementById('deletedPage').classList.add('show'); showToast(r.message,'warning'); return; }
+    if(r.success) {
+        token=r.token; currentUser=r.user; isAdmin=r.user.username==='admin';
+        localStorage.setItem('crypto_token',token); localStorage.setItem('crypto_user',JSON.stringify(r.user));
+        initializeApp(); showToast(`Welcome, ${r.user.username}!`,'success');
+    } else { showToast(r.error||'Login failed','error'); }
 }
 
 async function register() {
-    const u = document.getElementById('regUsername').value.trim();
-    const e = document.getElementById('regEmail').value.trim();
-    const p = document.getElementById('regPhone').value.trim();
-    const c = document.getElementById('regCountry').value;
-    const pw = document.getElementById('regPassword').value;
-    const cp = document.getElementById('regConfirmPassword').value;
-    if (!u || !e || !p || !c || !pw) { showToast('Please fill all fields', 'error'); return; }
-    if (pw !== cp) { showToast('Passwords do not match', 'error'); return; }
-    if (pw.length < 6) { showToast('Password must be at least 6 characters', 'error'); return; }
-    const res = await API.post('/api/auth/register', { username: u, email: e, phone: p, country: c, password: pw });
-    if (res.success) {
-        token = res.token; currentUser = res.user; isAdmin = false;
-        localStorage.setItem('crypto_token', token); localStorage.setItem('crypto_user', JSON.stringify(res.user));
-        initializeApp(); showToast('Account created successfully! 🎉', 'success');
-    } else { showToast(res.error || 'Registration failed', 'error'); }
+    const u=document.getElementById('regUsername').value.trim(), e=document.getElementById('regEmail').value.trim();
+    const p=document.getElementById('regPhone').value.trim(), c=document.getElementById('regCountry').value;
+    const pw=document.getElementById('regPassword').value, cp=document.getElementById('regConfirmPassword').value;
+    if(!u||!e||!p||!c||!pw) { showToast('Fill all fields','error'); return; }
+    if(pw!==cp) { showToast('Passwords mismatch','error'); return; }
+    if(pw.length<6) { showToast('Password min 6 chars','error'); return; }
+    const r = await API.post('/api/auth/register', {username:u, email:e, phone:p, country:c, password:pw});
+    if(r.success) {
+        token=r.token; currentUser=r.user; isAdmin=false;
+        localStorage.setItem('crypto_token',token); localStorage.setItem('crypto_user',JSON.stringify(r.user));
+        initializeApp(); showToast('Account created! 🎉','success');
+    } else { showToast(r.error||'Failed','error'); }
 }
 
 function logout() {
     localStorage.removeItem('crypto_token'); localStorage.removeItem('crypto_user');
-    currentUser = null; token = null; isAdmin = false; adminSession = null; adminSessionUserId = null;
-    if (ws) { ws.close(); ws = null; }
-    if (marketInterval) clearInterval(marketInterval);
-    if (chartInterval) clearInterval(chartInterval);
-    if (statsInterval) clearInterval(statsInterval);
-    if (sessionCheckInterval) clearInterval(sessionCheckInterval);
+    currentUser=null; token=null; isAdmin=false; adminSession=null; adminSessionUserId=null; originalAdminUser=null;
+    [marketInterval,chartInterval,statsInterval,sessionCheckInterval].forEach(i => { if(i) clearInterval(i); });
+    if(ws) { ws.close(); ws=null; }
     document.getElementById('appContainer').classList.add('hidden');
-    document.getElementById('authContainer').style.display = 'flex';
+    document.getElementById('authContainer').style.display='flex';
     document.getElementById('deletedPage').classList.remove('show');
-    showToast('Logged out successfully', 'info');
+    showToast('Logged out','info');
 }
-
-function showAuth() { document.getElementById('deletedPage').classList.remove('show'); document.getElementById('authContainer').style.display = 'flex'; }
+function showAuth() { document.getElementById('deletedPage').classList.remove('show'); document.getElementById('authContainer').style.display='flex'; }
 
 // ===================== INIT =====================
 async function initializeApp() {
-    document.getElementById('authContainer').style.display = 'none';
+    document.getElementById('authContainer').style.display='none';
     document.getElementById('deletedPage').classList.remove('show');
     document.getElementById('appContainer').classList.remove('hidden');
     updateNavbar(); updateDashboard();
-    if (isAdmin) {
-        document.getElementById('adminNavLink').classList.remove('hidden');
-        loadAdminData();
-        startSessionCheck(); // Poll for active sessions
-    } else {
-        document.getElementById('adminNavLink').classList.add('hidden');
-        startUserNotificationCheck(); // Poll for trade requests
-    }
+    if(isAdmin) { document.getElementById('adminNavLink').classList.remove('hidden'); loadAdminData(); startSessionCheck(); }
+    else { document.getElementById('adminNavLink').classList.add('hidden'); startUserNotifCheck(); }
+    document.getElementById('adminSessionNavLink').classList.add('hidden');
+    document.getElementById('adminSessionBanner').classList.add('hidden');
     showPage('dashboard');
-    loadMarketData(); startMarketUpdates();
-    initCharts(); connectWebSocket();
-    loadUserProfile(); startStatsAutoRefresh();
+    loadMarketData(); startMarketUpdates(); initCharts();
+    connectWebSocket(); loadUserProfile(); startStatsAutoRefresh();
 }
 
 function connectWebSocket() {
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const host = window.location.host;
+    const p = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     try {
-        ws = new WebSocket(`${protocol}//${host}`);
-        ws.onopen = () => { if (currentUser) ws.send(JSON.stringify({ type: 'auth', userId: currentUser.id })); };
-        ws.onmessage = (event) => {
-            try { const d = JSON.parse(event.data); if (d.type === 'trade_update') showToast(d.message, 'info'); } catch(e) {}
+        ws = new WebSocket(`${p}//${window.location.host}`);
+        ws.onopen = () => { if(currentUser) ws.send(JSON.stringify({type:'auth',userId:currentUser.id})); };
+        ws.onmessage = (e) => {
+            try {
+                const d = JSON.parse(e.data);
+                if(d.type === 'trade_update') {
+                    showToast(d.message, d.trade?.result==='win'?'success':'info', 'Trade Update');
+                    loadUserProfile(true); // refresh data
+                }
+            } catch(ex) {}
         };
         ws.onclose = () => setTimeout(connectWebSocket, 3000);
-    } catch(e) {}
+    } catch(ex) {}
 }
 
-// ===================== SESSION CHECK (Admin) =====================
+// ===================== SESSION/STATS CHECKS =====================
 function startSessionCheck() {
-    if (sessionCheckInterval) clearInterval(sessionCheckInterval);
+    if(sessionCheckInterval) clearInterval(sessionCheckInterval);
     sessionCheckInterval = setInterval(async () => {
-        if (!isAdmin) return;
-        const res = await API.get('/api/admin/active-sessions');
-        if (res.sessions) {
+        if(!isAdmin) return;
+        const r = await API.get('/api/admin/active-sessions');
+        if(r.sessions) {
             activeSessions = {};
-            res.sessions.forEach(s => { activeSessions[s.user_id] = true; });
-            // If admin is currently viewing a user and session was revoked
-            if (adminSessionUserId && !activeSessions[adminSessionUserId]) {
-                adminSession = null;
-                adminSessionUserId = null;
-                document.getElementById('adminSessionBanner').classList.add('hidden');
-                // Reload current user's own data
-                const profileRes = await API.get('/api/auth/profile');
-                if (profileRes.user) { currentUser = profileRes.user; updateNavbar(); updateDashboard(); }
-                showToast('Trade session ended by user', 'warning');
+            r.sessions.forEach(s => { activeSessions[s.user_id] = true; });
+            // If admin was viewing a user but session ended
+            if(adminSessionUserId && !activeSessions[adminSessionUserId]) {
+                exitAdminSession('Session with user was ended');
             }
             loadAdminData();
         }
     }, 3000);
 }
 
-// ===================== USER NOTIFICATION CHECK =====================
-function startUserNotificationCheck() {
+function startUserNotifCheck() {
     setInterval(async () => {
-        if (isAdmin || !currentUser) return;
+        if(isAdmin || !currentUser) return;
         try {
-            const res = await API.get('/api/auth/profile');
-            // Check for pending trade requests
-            const reqRes = await API.get(`/api/admin/trade-request-status/${currentUser.id}`);
-            if (reqRes.request && reqRes.request.status === 'pending') {
-                handleTradeRequest(reqRes.request);
+            const r = await API.get(`/api/admin/trade-request-status/${currentUser.id}`);
+            if(r.request && r.request.status === 'pending' && window._pendingReqId !== r.request.id) {
+                window._pendingReqId = r.request.id;
+                showTradeRequestUI(r.request);
             }
         } catch(e) {}
     }, 5000);
 }
 
-async function handleTradeRequest(request) {
-    // Check if we already showed this dialog
-    if (window._pendingRequestId === request.id) return;
-    window._pendingRequestId = request.id;
-    
-    const accepted = await showConfirm(
-        '🔔 Admin Trade Request',
-        'Admin wants to access your account and trade on your behalf. Do you accept?',
-        '📨', '✅ Accept', '❌ Decline', 'btn-success'
-    );
-    
-    if (accepted) {
-        const res = await API.post('/api/admin/trade-request-response', { requestId: request.id, response: 'accepted' });
-        if (res.success) { showToast('✅ Admin can now access your account', 'success', 'Request Accepted'); }
-        window._pendingRequestId = null;
+async function showTradeRequestUI(request) {
+    const ok = await showConfirm('🔔 Admin Trade Request', 'Admin wants to access your account and trade on your behalf. Allow?', '📨', '✅ Accept', '❌ Decline', 'btn-success');
+    if(ok) {
+        const r = await API.post('/api/admin/trade-request-response', {requestId:request.id, response:'accepted'});
+        if(r.success) { showToast('Admin can now access your account','success','Accepted'); }
     } else {
-        await API.post('/api/admin/trade-request-response', { requestId: request.id, response: 'declined' });
-        showToast('Trade request declined', 'info');
-        window._pendingRequestId = null;
+        await API.post('/api/admin/trade-request-response', {requestId:request.id, response:'declined'});
+        showToast('Request declined','info');
     }
+    window._pendingReqId = null;
 }
 
-// ===================== STATS AUTO REFRESH =====================
 function startStatsAutoRefresh() {
-    if (statsInterval) clearInterval(statsInterval);
-    statsInterval = setInterval(() => { loadUserProfile(true); if (isAdmin) loadAdminData(); }, 5000);
+    if(statsInterval) clearInterval(statsInterval);
+    statsInterval = setInterval(() => { loadUserProfile(true); if(isAdmin) loadAdminData(); }, 5000);
 }
 
-// ===================== NAVIGATION =====================
+// ===================== NAV =====================
 function showPage(page) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(l=>l.classList.remove('active'));
     const el = document.getElementById(`page-${page}`);
-    if (el) el.classList.add('active');
+    if(el) el.classList.add('active');
     document.getElementById('navLinks').classList.remove('mobile-show');
-    if (page === 'admin' && isAdmin) loadAdminData();
-    if (page === 'profile') loadUserProfile();
-    if (page === 'market') loadMarketData();
-    if (page === 'trade') loadTradeData();
+    if(page==='admin' && isAdmin) { loadAdminData(); loadAdminTransactions(); }
+    if(page==='profile') loadUserProfile();
+    if(page==='market') loadMarketData();
+    if(page==='trade') loadTradeData();
 }
 function toggleMobileMenu() { document.getElementById('navLinks').classList.toggle('mobile-show'); }
 
 // ===================== UI =====================
 function updateNavbar() {
-    if (!currentUser) return;
+    if(!currentUser) return;
     document.getElementById('navAvatar').textContent = currentUser.username.charAt(0).toUpperCase();
     document.getElementById('navUsername').textContent = currentUser.username;
-    document.getElementById('navBalance').textContent = `$${parseFloat(currentUser.balance || 0).toFixed(2)}`;
-    document.getElementById('navUserBalance').textContent = `$${parseFloat(currentUser.balance || 0).toFixed(2)}`;
+    document.getElementById('navBalance').textContent = `$${parseFloat(currentUser.balance||0).toFixed(2)}`;
+    document.getElementById('navUserBalance').textContent = `$${parseFloat(currentUser.balance||0).toFixed(2)}`;
 }
 function updateDashboard() {
-    if (!currentUser) return;
+    if(!currentUser) return;
     document.getElementById('dashUsername').textContent = currentUser.username;
-    document.getElementById('dashBalance').textContent = `$${parseFloat(currentUser.balance || 0).toFixed(2)}`;
+    document.getElementById('dashBalance').textContent = `$${parseFloat(currentUser.balance||0).toFixed(2)}`;
+    // Update subtext if admin is viewing user
+    if(adminSessionUserId && isAdmin) {
+        document.getElementById('dashSubtext').textContent = `You are viewing ${currentUser.username}'s account (Admin Session)`;
+    } else {
+        document.getElementById('dashSubtext').textContent = 'Your crypto portfolio overview';
+    }
 }
 
 // ===================== MARKET =====================
 async function loadMarketData() {
-    const res = await API.get('/api/trades/market');
-    if (res.cryptos) {
-        document.getElementById('marketTableBody').innerHTML = res.cryptos.map(c =>
-            `<tr><td class="text-gold" style="font-weight:600;">${c.symbol}</td><td style="font-weight:500;">$${c.price.toFixed(2)}</td><td class="${c.change >= 0 ? 'text-green' : 'text-red'}">${c.change >= 0 ? '+' : ''}${c.change.toFixed(2)}%</td><td class="text-muted">$${(c.volume / 1e9).toFixed(2)}B</td><td><button class="btn btn-primary btn-sm" onclick="quickTrade('${c.symbol}', ${c.price})">Trade</button></td></tr>`
+    const r = await API.get('/api/trades/market');
+    if(r.cryptos) {
+        document.getElementById('marketTableBody').innerHTML = r.cryptos.map(c =>
+            `<tr><td class="text-gold" style="font-weight:600;">${c.symbol}</td><td style="font-weight:500;">$${c.price.toFixed(2)}</td><td class="${c.change>=0?'text-green':'text-red'}">${c.change>=0?'+':''}${c.change.toFixed(2)}%</td><td class="text-muted">$${(c.volume/1e9).toFixed(2)}B</td><td><button class="btn btn-primary btn-sm" onclick="quickTrade(${c.price})">Trade</button></td></tr>`
         ).join('');
-        const btc = res.cryptos.find(c => c.symbol === 'BTC/USDT');
-        if (btc) {
-            ['chartPrice', 'tradeChartPrice'].forEach(id => document.getElementById(id).textContent = `$${btc.price.toFixed(2)}`);
-            ['chartChange', 'tradeChartChange'].forEach(id => {
-                document.getElementById(id).textContent = `${btc.change >= 0 ? '+' : ''}${btc.change.toFixed(2)}%`;
-                document.getElementById(id).className = `chart-change ${btc.change >= 0 ? 'text-green' : 'text-red'}`;
+        const b = r.cryptos.find(x=>x.symbol==='BTC/USDT');
+        if(b) {
+            ['chartPrice','tradeChartPrice'].forEach(id => document.getElementById(id).textContent = `$${b.price.toFixed(2)}`);
+            ['chartChange','tradeChartChange'].forEach(id => {
+                document.getElementById(id).textContent = `${b.change>=0?'+':''}${b.change.toFixed(2)}%`;
+                document.getElementById(id).className = `chart-change ${b.change>=0?'text-green':'text-red'}`;
             });
         }
     }
 }
-function startMarketUpdates() { if (marketInterval) clearInterval(marketInterval); marketInterval = setInterval(loadMarketData, 5000); }
-function quickTrade(symbol, price) { showPage('trade'); document.getElementById('tradeAmount').value = price.toFixed(2); }
+function startMarketUpdates() { if(marketInterval) clearInterval(marketInterval); marketInterval = setInterval(loadMarketData, 5000); }
+function quickTrade(p) { showPage('trade'); document.getElementById('tradeAmount').value = p.toFixed(2); }
 
 // ===================== CHARTS =====================
 function initCharts() {
     let price = 45000; chartData = [];
-    for (let i = 0; i < 100; i++) { price = price * (1 + (Math.random() - 0.5) * 0.005); chartData.push(price); }
+    for(let i=0;i<100;i++) { price = price*(1+(Math.random()-0.5)*0.005); chartData.push(price); }
     drawChart('priceChart', chartData); drawChart('tradeChart', chartData);
-    if (chartInterval) clearInterval(chartInterval);
+    if(chartInterval) clearInterval(chartInterval);
     chartInterval = setInterval(() => {
-        const last = chartData[chartData.length - 1];
-        const p = last * (1 + (Math.random() - 0.5) * 0.005);
-        chartData.push(p); if (chartData.length > 100) chartData.shift();
-        drawChart('priceChart', chartData); drawChart('tradeChart', chartData);
+        const last = chartData[chartData.length-1];
+        const p = last*(1+(Math.random()-0.5)*0.005);
+        chartData.push(p); if(chartData.length>100) chartData.shift();
+        drawChart('priceChart',chartData); drawChart('tradeChart',chartData);
     }, 3000);
 }
 
-function drawChart(canvasId, data) {
-    const canvas = document.getElementById(canvasId);
-    if (!canvas || data.length === 0) return;
-    const ctx = canvas.getContext('2d');
-    const dpr = window.devicePixelRatio || 1;
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * dpr; canvas.height = rect.height * dpr;
+function drawChart(id, data) {
+    const c = document.getElementById(id); if(!c||data.length===0) return;
+    const ctx = c.getContext('2d');
+    const dpr = window.devicePixelRatio||1;
+    const rect = c.getBoundingClientRect();
+    c.width = rect.width*dpr; c.height = rect.height*dpr;
     ctx.scale(dpr, dpr);
-    const w = rect.width, h = rect.height, pad = { top: 20, right: 20, bottom: 20, left: 20 };
-    const cw = w - pad.left - pad.right, ch = h - pad.top - pad.bottom;
-    const min = Math.min(...data), max = Math.max(...data), range = max - min || 1;
-    const isUp = data[data.length - 1] >= data[0];
-    ctx.clearRect(0, 0, w, h); ctx.fillStyle = '#0b0e11'; ctx.fillRect(0, 0, w, h);
-    ctx.strokeStyle = '#1e2329'; ctx.lineWidth = 1;
-    for (let i = 0; i < 5; i++) { const y = pad.top + (ch/5)*i; ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(w-pad.right, y); ctx.stroke(); }
-    ctx.strokeStyle = isUp ? '#0ecb81' : '#f6465d'; ctx.lineWidth = 2.5; ctx.beginPath();
-    data.forEach((price, i) => {
-        const x = pad.left + (cw/(data.length-1))*i, y = pad.top + ch - ((price-min)/range)*ch;
-        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-    }); ctx.stroke();
-    const grad = ctx.createLinearGradient(0, pad.top, 0, h-pad.bottom);
-    grad.addColorStop(0, isUp ? 'rgba(14,203,129,0.15)' : 'rgba(246,70,93,0.15)');
-    grad.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = grad;
-    ctx.beginPath(); ctx.moveTo(pad.left, pad.top+ch);
-    data.forEach((price, i) => {
-        const x = pad.left + (cw/(data.length-1))*i, y = pad.top + ch - ((price-min)/range)*ch;
-        ctx.lineTo(x, y);
-    }); ctx.lineTo(pad.left+cw, pad.top+ch); ctx.closePath(); ctx.fill();
+    const w=rect.width, h=rect.height, pt=20, pr=20, pb=20, pl=20;
+    const cw=w-pl-pr, ch=h-pt-pb;
+    const min=Math.min(...data), max=Math.max(...data), range=max-min||1;
+    const up = data[data.length-1] >= data[0];
+    ctx.clearRect(0,0,w,h); ctx.fillStyle='#0b0e11'; ctx.fillRect(0,0,w,h);
+    ctx.strokeStyle='#1e2329'; ctx.lineWidth=1;
+    for(let i=0;i<5;i++) { const y=pt+(ch/5)*i; ctx.beginPath(); ctx.moveTo(pl,y); ctx.lineTo(w-pr,y); ctx.stroke(); }
+    ctx.strokeStyle=up?'#0ecb81':'#f6465d'; ctx.lineWidth=2.5; ctx.beginPath();
+    data.forEach((p,i) => { const x=pl+(cw/(data.length-1))*i, y=pt+ch-((p-min)/range)*ch; if(i===0)ctx.moveTo(x,y); else ctx.lineTo(x,y); });
+    ctx.stroke();
+    const grad=ctx.createLinearGradient(0,pt,0,h-pb);
+    grad.addColorStop(0,up?'rgba(14,203,129,0.15)':'rgba(246,70,93,0.15)');
+    grad.addColorStop(1,'rgba(0,0,0,0)'); ctx.fillStyle=grad;
+    ctx.beginPath(); ctx.moveTo(pl,pt+ch);
+    data.forEach((p,i) => { const x=pl+(cw/(data.length-1))*i, y=pt+ch-((p-min)/range)*ch; ctx.lineTo(x,y); });
+    ctx.lineTo(pl+cw,pt+ch); ctx.closePath(); ctx.fill();
     const cp = data[data.length-1];
-    ctx.fillStyle = '#eaecef'; ctx.font = 'bold 14px sans-serif'; ctx.textAlign = 'right';
-    ctx.fillText(`$${cp.toFixed(2)}`, w-pad.right, pad.top+16);
-    ctx.fillStyle = isUp ? '#0ecb81' : '#f6465d'; ctx.font = '12px sans-serif';
+    ctx.fillStyle='#eaecef'; ctx.font='bold 14px sans-serif'; ctx.textAlign='right';
+    ctx.fillText(`$${cp.toFixed(2)}`, w-pr, pt+16);
+    ctx.fillStyle=up?'#0ecb81':'#f6465d'; ctx.font='12px sans-serif';
     const chg = ((cp-data[0])/data[0]*100).toFixed(2);
-    ctx.fillText(`${isUp?'+':''}${chg}%`, w-pad.right, pad.top+34);
+    ctx.fillText(`${up?'+':''}${chg}%`, w-pr, pt+34);
 }
 
 // ===================== TRADING =====================
-function setTradeType(type) {
-    tradeType = type;
-    document.querySelectorAll('.trade-type-btn').forEach(b => b.classList.remove('active'));
-    document.querySelector(`.trade-type-btn.${type}`).classList.add('active');
-    document.getElementById('tradeBtn').textContent = type === 'buy' ? '📈 Buy' : '📉 Sell';
-    document.getElementById('tradeBtn').className = `btn btn-block btn-lg ${type === 'buy' ? 'btn-success' : 'btn-danger'}`;
+function setTradeType(t) {
+    tradeType=t; document.querySelectorAll('.trade-type-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelector(`.trade-type-btn.${t}`).classList.add('active');
+    document.getElementById('tradeBtn').textContent = t==='buy'?'📈 Buy':'📉 Sell';
+    document.getElementById('tradeBtn').className = `btn btn-block btn-lg ${t==='buy'?'btn-success':'btn-danger'}`;
 }
 
 async function executeTrade() {
-    const amount = parseFloat(document.getElementById('tradeAmount').value);
-    if (!amount || amount <= 0) { showToast('Please enter a valid amount', 'error'); return; }
-    const confirmed = await showConfirm(`${tradeType === 'buy' ? '📈 Buy' : '📉 Sell'} Crypto`, `Do you want to ${tradeType} $${amount.toFixed(2)} worth of crypto?`, tradeType === 'buy' ? '📈' : '📉', 'Yes, Execute', 'Cancel', tradeType === 'buy' ? 'btn-success' : 'btn-danger');
-    if (!confirmed) return;
+    const amt = parseFloat(document.getElementById('tradeAmount').value);
+    if(!amt||amt<=0) { showToast('Enter valid amount','error'); return; }
+    const ok = await showConfirm(`${tradeType==='buy'?'📈 Buy':'📉 Sell'} Crypto`, `Execute ${tradeType} of $${amt.toFixed(2)}?`, tradeType==='buy'?'📈':'📉', 'Execute','Cancel', tradeType==='buy'?'btn-success':'btn-danger');
+    if(!ok) return;
     
-    // If admin is trading for a user, use admin endpoint
     let res;
-    if (adminSessionUserId && isAdmin) {
-        res = await API.post(`/api/admin/trade-for-user/${adminSessionUserId}`, { type: tradeType, amount });
+    if(adminSessionUserId && isAdmin) {
+        // Admin trading for user
+        res = await API.post(`/api/admin/trade-for-user/${adminSessionUserId}`, {type:tradeType, amount:amt});
     } else {
-        res = await API.post('/api/trades/execute', { type: tradeType, amount });
+        res = await API.post('/api/trades/execute', {type:tradeType, amount:amt});
     }
     
-    const resultDiv = document.getElementById('tradeResult');
-    resultDiv.classList.remove('hidden');
-    if (res.success) {
-        resultDiv.innerHTML = `<div style="padding:16px;background:#0b0e11;border-radius:8px;"><p style="font-size:18px;font-weight:700;${res.result==='win'?'color:#0ecb81':'color:#f6465d'}">${res.result==='win'?'✅ PROFIT':'❌ LOSS'}</p><p>Trade: ${res.type.toUpperCase()} $${res.amount} · P&L: <span class="${res.result==='win'?'text-green':'text-red'}">${res.profit_loss>=0?'+':''}$${res.profit_loss}</span></p><p>Balance: <strong>$${res.balance_after}</strong></p></div>`;
+    const rd = document.getElementById('tradeResult');
+    rd.classList.remove('hidden');
+    if(res.success) {
+        rd.innerHTML = `<div style="padding:16px;background:#0b0e11;border-radius:8px;"><p style="font-size:18px;font-weight:700;${res.result==='win'?'color:#0ecb81':'color:#f6465d'}">${res.result==='win'?'✅ PROFIT':'❌ LOSS'}</p><p>Trade: $${res.amount} · P&L: <span class="${res.result==='win'?'text-green':'text-red'}">${res.profit_loss>=0?'+':''}$${res.profit_loss}</span></p><p>Balance: <strong>$${res.balance_after}</strong></p></div>`;
         currentUser.balance = parseFloat(res.balance_after);
         updateNavbar(); updateDashboard();
         showToast(`${res.result==='win'?'🎉 Profit':'😞 Loss'} of $${Math.abs(res.profit_loss)}`, res.result==='win'?'success':'error', 'Trade Result');
         loadTradeData(); loadUserProfile(true);
-    } else { resultDiv.innerHTML = `<p class="text-red" style="padding:12px;background:#0b0e11;border-radius:8px;">${res.error||'Trade failed'}</p>`; showToast(res.error||'Trade failed', 'error'); }
-}
-
-async function loadTradeData() {
-    if (!currentUser) return;
-    document.getElementById('tradeBalance').textContent = `$${parseFloat(currentUser.balance||0).toFixed(2)}`;
-    const res = await API.get('/api/trades/history');
-    const div = document.getElementById('tradeHistory');
-    if (res.trades && res.trades.length > 0) {
-        div.innerHTML = res.trades.slice(0,10).map(t =>
-            `<div class="history-item"><div><div style="font-weight:600;">${t.result==='win'?'✅':'❌'} ${t.type.toUpperCase()} $${t.amount}</div><div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</div></div><div style="text-align:right;"><div class="${t.result==='win'?'text-green':'text-red'}" style="font-weight:600;">${t.profit_loss>=0?'+':''}$${t.profit_loss}</div><div class="text-muted" style="font-size:12px;">Balance: $${t.balance_after}</div></div></div>`
-        ).join('');
+    } else {
+        rd.innerHTML = `<p class="text-red" style="padding:12px;background:#0b0e11;border-radius:8px;">${res.error||'Failed'}</p>`;
+        showToast(res.error||'Trade failed','error');
     }
 }
 
-// ===================== DEPOSIT / WITHDRAW =====================
-function showDepositPlatform(p) { document.getElementById('depositMain').classList.add('hidden'); document.getElementById('depositPlatform').classList.remove('hidden'); document.getElementById('depositPlatform').innerHTML = getPlatformHTML('deposit', p); }
-function showWithdrawPlatform(p) { document.getElementById('withdrawMain').classList.add('hidden'); document.getElementById('withdrawPlatform').classList.remove('hidden'); document.getElementById('withdrawPlatform').innerHTML = getPlatformHTML('withdraw', p); }
-function getPlatformHTML(type, platform) {
-    const colors = { 'M-PESA':'#4CAF50','Airtel Money':'#E91E63','Virtual Visa Card':'#1a1f71','KCB Bank':'#003366','Equity Bank':'#C8102E','Cooperative Bank':'#00A859','Standard Chartered Bank':'#003D7A','Family Bank':'#FF6600','KWTF Bank':'#8B0000' };
-    const c = colors[platform] || '#f0b90b';
-    const isDep = type === 'deposit';
-    const minKSH = isDep ? 14286 : 7143;
-    return `<div class="platform-page" style="border-color:${c}33;"><div class="platform-header"><span style="font-size:40px;">${isDep?'📱':'💳'}</span><div><h2>${isDep?'Deposit to':'Withdraw from'} ${platform}</h2></div><button class="btn btn-secondary btn-sm" style="margin-left:auto;" onclick="backToMain('${type}')">✕ Back</button></div><div class="platform-form"><div class="input-group"><label>Amount (KSH)</label><input type="number" id="${type}Amount" placeholder="Amount in KSH" min="${minKSH}" /><div style="font-size:12px;color:#848e9c;margin-top:4px;">≈ $<span id="${type}UsdPreview">0.00</span> USD</div></div><div class="input-group"><label>Password</label><input type="password" id="${type}Password" placeholder="Enter your password" /></div><button class="btn btn-primary btn-block btn-lg" onclick="${isDep?'processDeposit':'processWithdraw'}('${platform}')">${isDep?'💳 Deposit Now':'💸 Withdraw Now'}</button></div></div>`;
+async function loadTradeData() {
+    if(!currentUser) return;
+    document.getElementById('tradeBalance').textContent = `$${parseFloat(currentUser.balance||0).toFixed(2)}`;
+    const r = await API.get('/api/trades/history');
+    const d = document.getElementById('tradeHistory');
+    if(r.trades && r.trades.length>0) {
+        d.innerHTML = r.trades.slice(0,10).map(t =>
+            `<div class="history-item"><div><div style="font-weight:600;">${t.result==='win'?'✅':'❌'} ${t.type.toUpperCase()} $${t.amount}</div><div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</div></div><div style="text-align:right;"><div class="${t.result==='win'?'text-green':'text-red'}" style="font-weight:600;">${t.profit_loss>=0?'+':''}$${t.profit_loss}</div><div class="text-muted" style="font-size:12px;">Balance: $${t.balance_after}</div></div></div>`
+        ).join('');
+    } else {
+        d.innerHTML = '<p class="text-muted text-center">No trades yet</p>';
+    }
 }
-document.addEventListener('input', (e) => {
-    if (e.target.id === 'depositAmount') document.getElementById('depositUsdPreview').textContent = ((parseFloat(e.target.value)||0)*0.007).toFixed(2);
-    if (e.target.id === 'withdrawAmount') document.getElementById('withdrawUsdPreview').textContent = ((parseFloat(e.target.value)||0)*0.007).toFixed(2);
+
+// ===================== DEPOSIT/WITHDRAW =====================
+function showDepositPlatform(p) { document.getElementById('depositMain').classList.add('hidden'); document.getElementById('depositPlatform').classList.remove('hidden'); document.getElementById('depositPlatform').innerHTML = getPlatformHTML('deposit',p); }
+function showWithdrawPlatform(p) { document.getElementById('withdrawMain').classList.add('hidden'); document.getElementById('withdrawPlatform').classList.remove('hidden'); document.getElementById('withdrawPlatform').innerHTML = getPlatformHTML('withdraw',p); }
+const platColors = {'M-PESA':'#4CAF50','Airtel Money':'#E91E63','Virtual Visa Card':'#1a1f71','KCB Bank':'#003366','Equity Bank':'#C8102E','Cooperative Bank':'#00A859','Standard Chartered Bank':'#003D7A','Family Bank':'#FF6600','KWTF Bank':'#8B0000'};
+function getPlatformHTML(type, platform) {
+    const c = platColors[platform]||'#f0b90b';
+    const isDep = type==='deposit'; const min = isDep ? 14286 : 7143;
+    return `<div class="platform-page" style="border-color:${c}33;"><div class="flex-between"><span style="font-size:40px;">${isDep?'📱':'💳'}</span><div><h2>${isDep?'Deposit to':'Withdraw from'} ${platform}</h2></div><button class="btn btn-secondary btn-sm" onclick="backToMain('${type}')">✕ Back</button></div><div class="input-group mt-10"><label>Amount (KSH)</label><input type="number" id="${type}Amount" placeholder="Amount" min="${min}" /><div style="font-size:12px;color:#848e9c;margin-top:4px;">≈ $<span id="${type}UsdPreview">0.00</span> USD</div></div><div class="input-group"><label>Password</label><input type="password" id="${type}Password" placeholder="Enter your password" /></div><button class="btn btn-primary btn-block btn-lg" onclick="${isDep?'processDeposit':'processWithdraw'}('${platform}')">${isDep?'💳 Deposit':'💸 Withdraw'}</button></div>`;
+}
+document.addEventListener('input', e => {
+    if(e.target.id==='depositAmount') document.getElementById('depositUsdPreview').textContent = ((parseFloat(e.target.value)||0)*0.007).toFixed(2);
+    if(e.target.id==='withdrawAmount') document.getElementById('withdrawUsdPreview').textContent = ((parseFloat(e.target.value)||0)*0.007).toFixed(2);
 });
 function backToMain(type) {
-    if (type === 'deposit') { document.getElementById('depositPlatform').classList.add('hidden'); document.getElementById('depositMain').classList.remove('hidden'); }
-    else { document.getElementById('withdrawPlatform').classList.add('hidden'); document.getElementById('withdrawMain').classList.remove('hidden'); }
+    const main = type==='deposit'?'depositMain':'withdrawMain';
+    const plat = type==='deposit'?'depositPlatform':'withdrawPlatform';
+    document.getElementById(plat).classList.add('hidden');
+    document.getElementById(main).classList.remove('hidden');
 }
 async function processDeposit(platform) {
-    const amount_ksh = parseFloat(document.getElementById('depositAmount').value);
-    const password = document.getElementById('depositPassword').value;
-    if (!amount_ksh || amount_ksh < 14286) { showToast('Minimum: 14,286 KSH ($100)', 'error'); return; }
-    if (!password) { showToast('Enter your password', 'error'); return; }
-    const confirmed = await showConfirm('Deposit Confirmation', `Deposit ${amount_ksh.toLocaleString()} KSH to ${platform}?`, '💰', 'Yes, Deposit', 'Cancel', 'btn-success');
-    if (!confirmed) return;
-    const res = await API.post('/api/transactions/deposit', { amount_ksh, platform, password, confirm: true });
-    if (res.success) {
-        if (res.bonus > 0) showToast(`🎉 +$${res.bonus.toFixed(2)} first deposit bonus!`, 'success', 'BONUS!');
-        currentUser.balance = res.balance; updateNavbar(); updateDashboard(); loadUserProfile(true);
-        showToast(res.message, 'success', 'Deposit Successful');
-        setTimeout(() => { showPage('dashboard'); backToMain('deposit'); }, 1500);
-    } else { showToast(res.error||'Deposit failed', 'error'); }
+    const amt = parseFloat(document.getElementById('depositAmount').value);
+    const pw = document.getElementById('depositPassword').value;
+    if(!amt||amt<14286) { showToast('Min: 14,286 KSH','error'); return; }
+    if(!pw) { showToast('Enter password','error'); return; }
+    const ok = await showConfirm('Deposit', `Deposit ${amt.toLocaleString()} KSH to ${platform}?`,'💰','Deposit','Cancel','btn-success');
+    if(!ok) return;
+    const r = await API.post('/api/transactions/deposit', {amount_ksh:amt, platform, password:pw, confirm:true});
+    if(r.success) {
+        if(r.bonus>0) showToast(`🎉 +$${r.bonus.toFixed(2)} bonus!`,'success','BONUS!');
+        currentUser.balance = r.balance; updateNavbar(); updateDashboard(); loadUserProfile(true);
+        showToast(r.message,'success','Deposit Successful');
+        setTimeout(()=>{showPage('dashboard');backToMain('deposit');},1500);
+    } else { showToast(r.error||'Failed','error'); }
 }
 async function processWithdraw(platform) {
-    const amount_ksh = parseFloat(document.getElementById('withdrawAmount').value);
-    const password = document.getElementById('withdrawPassword').value;
-    if (!amount_ksh || amount_ksh < 7143) { showToast('Minimum: 7,143 KSH ($50)', 'error'); return; }
-    if (!password) { showToast('Enter your password', 'error'); return; }
-    if (parseFloat(currentUser.balance) < amount_ksh * 0.007) { showToast('Insufficient balance', 'error'); return; }
-    const confirmed = await showConfirm('Withdrawal Confirmation', `Withdraw ${amount_ksh.toLocaleString()} KSH to ${platform}?`, '💸', 'Yes, Withdraw', 'Cancel', 'btn-primary');
-    if (!confirmed) return;
-    const res = await API.post('/api/transactions/withdraw', { amount_ksh, platform, password, confirm: true });
-    if (res.success) {
-        currentUser.balance = res.balance; updateNavbar(); updateDashboard(); loadUserProfile(true);
-        showToast(res.message, 'success', 'Withdrawal Successful');
-        setTimeout(() => { showPage('dashboard'); backToMain('withdraw'); }, 1500);
-    } else { showToast(res.error||'Withdrawal failed', 'error'); }
+    const amt = parseFloat(document.getElementById('withdrawAmount').value);
+    const pw = document.getElementById('withdrawPassword').value;
+    if(!amt||amt<7143) { showToast('Min: 7,143 KSH','error'); return; }
+    if(!pw) { showToast('Enter password','error'); return; }
+    if(parseFloat(currentUser.balance) < amt*0.007) { showToast('Insufficient balance','error'); return; }
+    const ok = await showConfirm('Withdraw', `Withdraw ${amt.toLocaleString()} KSH to ${platform}?`,'💸','Withdraw','Cancel','btn-primary');
+    if(!ok) return;
+    const r = await API.post('/api/transactions/withdraw', {amount_ksh:amt, platform, password:pw, confirm:true});
+    if(r.success) {
+        currentUser.balance = r.balance; updateNavbar(); updateDashboard(); loadUserProfile(true);
+        showToast(r.message,'success','Withdrawal Successful');
+        setTimeout(()=>{showPage('dashboard');backToMain('withdraw');},1500);
+    } else { showToast(r.error||'Failed','error'); }
 }
 
 // ===================== PROFILE =====================
-async function loadUserProfile(silent = false) {
-    if (!currentUser) return;
-    const res = await API.get('/api/auth/profile');
-    if (res.user) {
-        currentUser = res.user;
-        document.getElementById('profUsername').textContent = res.user.username;
-        document.getElementById('profEmail').textContent = res.user.email;
-        document.getElementById('profPhone').textContent = res.user.phone;
-        document.getElementById('profCountry').textContent = res.user.country;
-        document.getElementById('profBalance').textContent = `$${parseFloat(res.user.balance).toFixed(2)}`;
-        document.getElementById('profDate').textContent = res.user.created_at ? new Date(res.user.created_at).toLocaleDateString() : '-';
-        const deposits = (res.transactions||[]).filter(t => t.type === 'deposit').reduce((s, t) => s + t.amount_usd, 0);
-        const withdrawals = (res.transactions||[]).filter(t => t.type === 'withdraw').reduce((s, t) => s + t.amount_usd, 0);
-        const trades = (res.trades||[]).length;
-        document.getElementById('dashDeposits').textContent = `$${deposits.toFixed(2)}`;
-        document.getElementById('dashWithdrawals').textContent = `$${withdrawals.toFixed(2)}`;
-        document.getElementById('dashTrades').textContent = trades;
+async function loadUserProfile(silent=false) {
+    if(!currentUser) return;
+    const r = await API.get('/api/auth/profile');
+    if(r.user) {
+        currentUser = r.user;
+        document.getElementById('profUsername').textContent = r.user.username;
+        document.getElementById('profEmail').textContent = r.user.email;
+        document.getElementById('profPhone').textContent = r.user.phone;
+        document.getElementById('profCountry').textContent = r.user.country;
+        document.getElementById('profBalance').textContent = `$${parseFloat(r.user.balance).toFixed(2)}`;
+        document.getElementById('profDate').textContent = r.user.created_at ? new Date(r.user.created_at).toLocaleDateString() : '-';
+        const dep = (r.transactions||[]).filter(t=>t.type==='deposit').reduce((s,t)=>s+t.amount_usd,0);
+        const wit = (r.transactions||[]).filter(t=>t.type==='withdraw').reduce((s,t)=>s+t.amount_usd,0);
+        const trd = (r.trades||[]).length;
+        document.getElementById('dashDeposits').textContent = `$${dep.toFixed(2)}`;
+        document.getElementById('dashWithdrawals').textContent = `$${wit.toFixed(2)}`;
+        document.getElementById('dashTrades').textContent = trd;
         updateNavbar(); updateDashboard();
-        loadTransactionHistory(res.transactions);
-        loadProfileTradeHistory(res.trades);
+        loadTransactionHistory(r.transactions);
+        loadProfileTradeHistory(r.trades);
     }
 }
 function loadTransactionHistory(tx) {
     const c = document.getElementById('transactionHistory');
-    if (tx && tx.length > 0) {
-        c.innerHTML = tx.map(t => `<div class="history-item"><div><div style="font-weight:500;">${t.type==='deposit'?'📥 Deposit':'📤 Withdraw'}</div><div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()} · via ${t.platform}</div></div><div style="text-align:right;"><div class="${t.type==='deposit'?'text-green':'text-red'}" style="font-weight:600;">${t.type==='deposit'?'+':'-'}$${t.amount_usd.toFixed(2)}</div></div></div>`).join('');
-    }
+    if(tx && tx.length>0) {
+        c.innerHTML = tx.map(t => `<div class="history-item"><div><div style="font-weight:500;">${t.type==='deposit'?'📥 Deposit':'📤 Withdraw'}</div><div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()} · ${t.platform}</div></div><div style="text-align:right;"><div class="${t.type==='deposit'?'text-green':'text-red'}" style="font-weight:600;">${t.type==='deposit'?'+':'-'}$${t.amount_usd.toFixed(2)}</div></div></div>`).join('');
+    } else { c.innerHTML = '<p class="text-muted text-center">No transactions yet</p>'; }
 }
 function loadProfileTradeHistory(trades) {
     const c = document.getElementById('profileTradeHistory');
-    if (trades && trades.length > 0) {
+    if(trades && trades.length>0) {
         c.innerHTML = trades.map(t => `<div class="history-item"><div><div style="font-weight:500;">${t.result==='win'?'✅':'❌'} ${t.type.toUpperCase()} $${t.amount}</div><div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</div></div><div style="text-align:right;"><div class="${t.result==='win'?'text-green':'text-red'}" style="font-weight:600;">${t.profit_loss>=0?'+':''}$${t.profit_loss}</div><div class="text-muted" style="font-size:12px;">Balance: $${t.balance_after}</div></div></div>`).join('');
     }
 }
 function switchProfileTab(tab, btn) {
-    document.querySelectorAll('#page-profile .tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('#page-profile .tab-content').forEach(c => c.classList.remove('active'));
-    if (btn) btn.classList.add('active');
+    document.querySelectorAll('#page-profile .tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('#page-profile .tab-content').forEach(c=>c.classList.remove('active'));
+    if(btn) btn.classList.add('active');
     document.getElementById(`profile${tab.charAt(0).toUpperCase()+tab.slice(1)}`).classList.add('active');
 }
 
 // ===================== ADMIN =====================
 async function loadAdminData() {
-    if (!isAdmin) return;
-    const res = await API.get('/api/admin/users');
-    if (res.users) {
-        document.getElementById('adminTotalUsers').textContent = res.users.length;
-        document.getElementById('adminActiveUsers').textContent = res.users.filter(u => !u.account_deleted).length;
-        document.getElementById('adminDeletedUsers').textContent = res.users.filter(u => u.account_deleted).length;
-        
-        const tbody = document.getElementById('adminUsersTable');
-        tbody.innerHTML = res.users.map(u => {
-            if (u.username === 'admin') return '';
-            const hasSession = activeSessions[u.id] || false;
-            return `<tr class="${u.account_deleted ? 'deleted' : ''}">
-                <td>#${u.id}</td>
-                <td><strong>${u.username}</strong></td>
-                <td>${u.email}</td>
-                <td><span class="${u.balance>0?'text-green':''}">$${u.balance.toFixed(2)}</span></td>
-                <td>${u.country}</td>
-                <td>${u.account_deleted ? '<span class="deleted-badge">⛔ Deleted</span>' : '<span style="color:#0ecb81;font-weight:600;">Active</span>'}</td>
-                <td>
-                    ${u.account_deleted ? '' : `
-                        <div style="display:flex;gap:4px;flex-wrap:wrap;">
-                            <button class="btn btn-primary btn-sm" onclick="adminViewUser(${u.id})">👁️</button>
-                            ${hasSession 
-                                ? `<button class="btn btn-gold btn-sm open-trade-btn" onclick="adminOpenAccountDirect(${u.id})">🔓 Open To Trade</button>
-                                   <button class="btn btn-danger btn-sm" onclick="adminEndSessionDirect(${u.id})">🔚 End</button>`
-                                : `<button class="btn btn-success btn-sm" onclick="adminTradeRequest(${u.id})">📈 Request Trade</button>
-                                   <button class="btn btn-danger btn-sm" onclick="adminDeleteUser(${u.id})">🗑️</button>`
-                            }
-                        </div>
-                    `}
-                </td>
-            </tr>`;
+    if(!isAdmin) return;
+    const r = await API.get('/api/admin/users');
+    if(r.users) {
+        document.getElementById('adminTotalUsers').textContent = r.users.length;
+        document.getElementById('adminActiveUsers').textContent = r.users.filter(u=>!u.account_deleted).length;
+        document.getElementById('adminDeletedUsers').textContent = r.users.filter(u=>u.account_deleted).length;
+        document.getElementById('adminUsersTable').innerHTML = r.users.map(u => {
+            if(u.username==='admin') return '';
+            const has = activeSessions[u.id]||false;
+            return `<tr class="${u.account_deleted?'deleted':''}"><td>#${u.id}</td><td><strong>${u.username}</strong></td><td><span class="${u.balance>0?'text-green':''}">$${u.balance.toFixed(2)}</span></td><td>${u.account_deleted?'<span class="deleted-badge">⛔ Deleted</span>':'<span style="color:#0ecb81;">Active</span>'}</td><td>${u.account_deleted?'':`<div style="display:flex;gap:4px;flex-wrap:wrap;"><button class="btn btn-primary btn-sm" onclick="adminViewUser(${u.id})">👁️</button>${has?`<button class="btn btn-gold btn-sm open-trade-btn" onclick="adminOpenUserAccount(${u.id})">🔓 Open To Trade</button><button class="btn btn-danger btn-sm" onclick="adminEndSessionDirect(${u.id})">🔚 End</button>`:`<button class="btn btn-success btn-sm" onclick="adminTradeRequest(${u.id})">📈 Request Trade</button><button class="btn btn-danger btn-sm" onclick="adminDeleteUser(${u.id})">🗑️</button>`}</div>`}</td></tr>`;
         }).join('');
     }
     
-    const retRes = await API.get('/api/admin/retrieve-requests');
-    if (retRes.requests) {
-        document.getElementById('adminPendingRetrieves').textContent = retRes.requests.length;
-        const rt = document.getElementById('adminRetrievesTable');
-        rt.innerHTML = retRes.requests.length > 0 
-            ? retRes.requests.map(r => `<tr><td>#${r.user_id}</td><td><strong>${r.username}</strong></td><td>${new Date(r.date).toLocaleString()}</td><td><button class="btn btn-success btn-sm" onclick="adminRestoreUser(${r.user_id})">✅ Retrieve</button><button class="btn btn-danger btn-sm" onclick="adminCancelRetrieve(${r.user_id})">❌ Cancel</button></td></tr>`).join('')
-            : '<tr><td colspan="4" class="text-center text-muted">No pending requests</td></tr>';
+    const rr = await API.get('/api/admin/retrieve-requests');
+    if(rr.requests) {
+        document.getElementById('adminPendingRetrieves').textContent = rr.requests.length;
+        document.getElementById('adminRetrievesTable').innerHTML = rr.requests.length>0
+            ? rr.requests.map(r=>`<tr><td><strong>${r.username}</strong></td><td>${new Date(r.date).toLocaleString()}</td><td><button class="btn btn-success btn-sm" onclick="adminRestoreUser(${r.user_id})">✅ Retrieve</button><button class="btn btn-danger btn-sm" onclick="adminCancelRetrieve(${r.user_id})">❌ Cancel</button></td></tr>`).join('')
+            : '<tr><td colspan="3" class="text-center text-muted">None pending</td></tr>';
     }
     
-    // Active sessions tab
-    const sessRes = await API.get('/api/admin/active-sessions');
-    if (sessRes.sessions) {
-        const st = document.getElementById('adminSessionsTable');
-        st.innerHTML = sessRes.sessions.length > 0
-            ? sessRes.sessions.map(s => `<tr><td>#${s.user_id}</td><td><strong>${s.username}</strong></td><td>${new Date(s.date).toLocaleString()}</td><td><button class="btn btn-gold btn-sm open-trade-btn" onclick="adminOpenAccountDirect(${s.user_id})">🔓 Open To Trade</button> <button class="btn btn-danger btn-sm" onclick="adminEndSessionDirect(${s.user_id})">🔚 End</button></td></tr>`).join('')
-            : '<tr><td colspan="4" class="text-center text-muted">No active sessions</td></tr>';
+    // Active sessions
+    const sr = await API.get('/api/admin/active-sessions');
+    if(sr.sessions) {
+        document.getElementById('adminSessionsTable').innerHTML = sr.sessions.length>0
+            ? sr.sessions.map(s=>`<tr><td><strong>${s.username}</strong></td><td>${new Date(s.date).toLocaleString()}</td><td><button class="btn btn-gold btn-sm open-trade-btn" onclick="adminOpenUserAccount(${s.user_id})">🔓 Open To Trade</button> <button class="btn btn-danger btn-sm" onclick="adminEndSessionDirect(${s.user_id})">🔚 End</button></td></tr>`).join('')
+            : '<tr><td colspan="3" class="text-center text-muted">No active sessions</td></tr>';
+    }
+}
+
+async function loadAdminTransactions() {
+    if(!isAdmin) return;
+    const r = await API.get('/api/admin/my-transactions');
+    if(r.transactions) {
+        document.getElementById('adminMyTxTable').innerHTML = r.transactions.length>0
+            ? r.transactions.map(t => `<tr><td>#${t.id}</td><td>${t.type==='deposit'?'📥 Deposit':'📤 Withdraw'}</td><td>${t.platform}</td><td class="${t.type==='deposit'?'text-green':'text-red'}">${t.type==='deposit'?'+':'-'}$${t.amount_usd.toFixed(2)}</td><td class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</td><td><button class="btn btn-danger btn-sm" onclick="adminDeleteTransaction(${t.id})">🗑️</button></td></tr>`).join('')
+            : '<tr><td colspan="6" class="text-center text-muted">No transactions</td></tr>';
     }
 }
 
 function switchAdminTab(tab, btn) {
-    document.querySelectorAll('#page-admin .tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('#page-admin .tab-content').forEach(c => c.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    document.getElementById(`admin${tab.charAt(0).toUpperCase()+tab.slice(1)}Tab`).classList.add('active');
+    document.querySelectorAll('#page-admin .tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('#page-admin .tab-content').forEach(c=>c.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+    const map = { users:'adminUsersTab', mytx:'adminMyTxTab', retrieves:'adminRetrievesTab', sessions:'adminSessionsTab' };
+    const el = document.getElementById(map[tab]);
+    if(el) el.classList.add('active');
+    if(tab==='mytx') loadAdminTransactions();
 }
 
-async function adminViewUser(userId) {
-    const res = await API.get(`/api/admin/users/${userId}`);
-    if (res.user) {
+async function adminViewUser(id) {
+    const r = await API.get(`/api/admin/users/${id}`);
+    if(r.user) {
         document.getElementById('modalContainer').innerHTML = `
         <div class="modal-overlay" onclick="if(event.target===this)closeModal()" style="position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:5000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);padding:20px;">
             <div style="background:#1e2329;border-radius:16px;padding:32px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid #474d57;">
                 <button style="float:right;background:none;border:none;color:#848e9c;font-size:24px;cursor:pointer;" onclick="closeModal()">✕</button>
-                <h2 style="margin-bottom:20px;">User: ${res.user.username}</h2>
-                <div class="profile-grid" style="margin-bottom:20px;">
-                    <div class="profile-item"><div class="label">ID</div><div class="value">#${res.user.id}</div></div>
-                    <div class="profile-item"><div class="label">Balance</div><div class="value text-green">$${res.user.balance.toFixed(2)}</div></div>
-                    <div class="profile-item"><div class="label">Country</div><div class="value">${res.user.country}</div></div>
-                    <div class="profile-item"><div class="label">First Deposit Bonus</div><div class="value">${res.user.first_deposit?'✅ Claimed':'❌ Not yet'}</div></div>
+                <h2>${r.user.username}</h2>
+                <div class="profile-grid" style="margin:16px 0;">
+                    <div class="profile-item"><div class="label">Balance</div><div class="value text-green">$${r.user.balance.toFixed(2)}</div></div>
+                    <div class="profile-item"><div class="label">Country</div><div class="value">${r.user.country}</div></div>
                 </div>
-                <h3>Transactions (${(res.transactions||[]).length})</h3>
-                <div style="max-height:200px;overflow-y:auto;background:#0b0e11;border-radius:8px;padding:8px;margin:8px 0 16px;">
-                    ${(res.transactions||[]).length > 0 ? res.transactions.map(t => `<div class="history-item"><div><span class="${t.type==='deposit'?'text-green':'text-red'}">${t.type==='deposit'?'📥':'📤'} ${t.type}</span> via ${t.platform}<div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</div></div><div style="display:flex;align-items:center;gap:8px;"><span style="font-weight:600;">$${t.amount_usd.toFixed(2)}</span><button class="btn btn-danger btn-sm" onclick="adminDeleteTransaction(${t.id})">🗑️</button></div></div>`).join('') : '<p class="text-muted text-center">None</p>'}
+                <h3>Transactions (${(r.transactions||[]).length})</h3>
+                <div style="max-height:180px;overflow-y:auto;background:#0b0e11;border-radius:8px;padding:8px;margin:8px 0 16px;">
+                    ${(r.transactions||[]).length>0?r.transactions.map(t=>`<div class="history-item"><div><span class="${t.type==='deposit'?'text-green':'text-red'}">${t.type==='deposit'?'📥':'📤'} ${t.type}</span> ${t.platform}<div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</div></div><div style="display:flex;gap:8px;"><span style="font-weight:600;">$${t.amount_usd.toFixed(2)}</span><button class="btn btn-danger btn-sm" onclick="adminDeleteTransaction(${t.id})">🗑️</button></div></div>`).join(''):'<p class="text-muted text-center">None</p>'}
                 </div>
-                <h3>Trades (${(res.trades||[]).length})</h3>
-                <div style="max-height:200px;overflow-y:auto;background:#0b0e11;border-radius:8px;padding:8px;">
-                    ${(res.trades||[]).length > 0 ? res.trades.map(t => `<div class="history-item"><div><span class="${t.result==='win'?'text-green':'text-red'}">${t.result==='win'?'✅':'❌'} ${t.type.toUpperCase()} $${t.amount}</span><div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</div></div><div style="display:flex;align-items:center;gap:8px;"><span class="${t.profit_loss>=0?'text-green':'text-red'}">${t.profit_loss>=0?'+':''}$${t.profit_loss}</span><button class="btn btn-danger btn-sm" onclick="adminDeleteTrade(${t.id})">🗑️</button></div></div>`).join('') : '<p class="text-muted text-center">None</p>'}
+                <h3>Trades (${(r.trades||[]).length})</h3>
+                <div style="max-height:180px;overflow-y:auto;background:#0b0e11;border-radius:8px;padding:8px;">
+                    ${(r.trades||[]).length>0?r.trades.map(t=>`<div class="history-item"><div><span class="${t.result==='win'?'text-green':'text-red'}">${t.result==='win'?'✅':'❌'} ${t.type.toUpperCase()} $${t.amount}</span><div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</div></div><div style="display:flex;gap:8px;"><span class="${t.profit_loss>=0?'text-green':'text-red'}">${t.profit_loss>=0?'+':''}$${t.profit_loss}</span><button class="btn btn-danger btn-sm" onclick="adminDeleteTrade(${t.id})">🗑️</button></div></div>`).join(''):'<p class="text-muted text-center">None</p>'}
                 </div>
             </div>
         </div>`;
     }
 }
-
 function closeModal() { document.getElementById('modalContainer').innerHTML = ''; }
 
-async function adminTradeRequest(userId) {
-    const confirmed = await showConfirm('Send Trade Request', 'Send a trade request to this user? They must accept for you to access their account.', '📨', 'Send Request', 'Cancel', 'btn-primary');
-    if (!confirmed) return;
-    const res = await API.post(`/api/admin/trade-request/${userId}`, {});
-    if (res.alreadyOpen) {
-        const open = await showConfirm('Access Available', 'You already have access. Open their account now?', '🔓', 'Open Account', 'Cancel', 'btn-success');
-        if (open) adminOpenAccountDirect(userId);
+async function adminTradeRequest(id) {
+    const ok = await showConfirm('Send Request', 'Send trade request? User must accept.','📨','Send','Cancel','btn-primary');
+    if(!ok) return;
+    const r = await API.post(`/api/admin/trade-request/${id}`, {});
+    if(r.alreadyOpen) {
+        if(await showConfirm('Access Exists', 'You already have access. Open now?','🔓','Open','Cancel','btn-success')) adminOpenUserAccount(id);
         return;
     }
-    if (res.success) { showToast('Trade request sent to user. Waiting for acceptance...', 'info', 'Request Sent'); }
-    else { showToast(res.error||'Failed', 'error'); }
+    if(r.success) showToast('Request sent. Waiting for acceptance...','info','Sent');
+    else showToast(r.error||'Failed','error');
 }
 
-async function adminOpenAccountDirect(userId) {
-    // First get user data
-    const userRes = await API.get(`/api/admin/users/${userId}`);
-    if (!userRes.user) { showToast('User not found', 'error'); return; }
+// ===== KEY FUNCTION: Admin opens user's account =====
+async function adminOpenUserAccount(userId) {
+    // Save admin's own data if not already saved
+    if(!originalAdminUser) {
+        const profileR = await API.get('/api/auth/profile');
+        if(profileR.user) originalAdminUser = profileR.user;
+    }
     
     // Login as user
-    const res = await API.post(`/api/admin/login-as-user/${userId}`, {});
-    if (res.success) {
+    const r = await API.post(`/api/admin/login-as-user/${userId}`, {});
+    if(r.success) {
         adminSessionUserId = userId;
-        adminSession = res.user;
-        currentUser = res.user;
+        adminSession = r.user;
+        currentUser = r.user; // This makes the entire app show the user's data
         
-        // Show admin session banner on dashboard
-        document.getElementById('sessionUserName').textContent = res.user.username;
+        // Show admin session UI
+        document.getElementById('sessionUserName').textContent = r.user.username;
         document.getElementById('adminSessionBanner').classList.remove('hidden');
+        document.getElementById('adminNavLink').classList.add('hidden');
+        document.getElementById('adminSessionNavLink').classList.remove('hidden');
         
-        // Update all UI
+        // Update everything to show user's data
         updateNavbar();
         updateDashboard();
         loadUserProfile();
         loadTradeData();
         
-        // Navigate to dashboard
+        // Navigate to user's dashboard
         showPage('dashboard');
-        showToast(`🔓 Opened account: ${res.user.username}`, 'success', 'Admin Session');
+        showToast(`🔓 Now viewing ${r.user.username}'s account`, 'success', 'Admin Session');
     } else {
-        showToast(res.error || 'Cannot open account. Send a trade request first.', 'error');
+        showToast(r.error||'Cannot access account','error');
     }
 }
 
-async function adminEndSessionDirect(userId) {
-    const confirmed = await showConfirm('End Session', 'End this trade session? Access will be revoked and you must request again.', '🔚', 'End Session', 'Cancel', 'btn-danger');
-    if (!confirmed) return;
-    await API.post(`/api/admin/close-session/${userId}`, {});
-    
-    // Clear admin session
+// ===== KEY FUNCTION: Exit admin session and go back to admin's own account =====
+async function exitAdminSession(reason = 'Session ended') {
     adminSession = null;
     adminSessionUserId = null;
-    delete activeSessions[userId];
+    
+    // Restore admin's own user data
+    if(originalAdminUser) {
+        currentUser = originalAdminUser;
+        updateNavbar();
+        updateDashboard();
+        loadUserProfile();
+        loadTradeData();
+    } else {
+        // Fallback: reload profile
+        const r = await API.get('/api/auth/profile');
+        if(r.user) { currentUser = r.user; updateNavbar(); updateDashboard(); }
+    }
+    
+    // Hide admin session UI
     document.getElementById('adminSessionBanner').classList.add('hidden');
-    
-    // Reload admin's own profile
-    const profileRes = await API.get('/api/auth/profile');
-    if (profileRes.user) { currentUser = profileRes.user; updateNavbar(); updateDashboard(); }
-    
-    showToast('Session ended. Access revoked.', 'info', 'Session Closed');
+    document.getElementById('adminNavLink').classList.remove('hidden');
+    document.getElementById('adminSessionNavLink').classList.add('hidden');
     
     // Go to admin dashboard
-    if (isAdmin) showPage('admin');
+    if(isAdmin) showPage('admin');
+    showToast(reason, 'info');
+}
+
+async function adminEndSessionDirect(userId) {
+    const ok = await showConfirm('End Session', 'End this session? Access revoked. Must request again.','🔚','End Session','Cancel','btn-danger');
+    if(!ok) return;
+    await API.post(`/api/admin/close-session/${userId}`, {});
+    delete activeSessions[userId];
+    await exitAdminSession('Trade session ended. Access revoked.');
     loadAdminData();
 }
 
 async function adminEndSession() {
-    if (!adminSessionUserId) return;
+    if(!adminSessionUserId) return;
     await adminEndSessionDirect(adminSessionUserId);
 }
 
 function adminTransferModal() {
-    if (!adminSessionUserId || !adminSession) { showToast('No active session', 'error'); return; }
+    if(!adminSessionUserId||!adminSession) { showToast('No active session','error'); return; }
     document.getElementById('modalContainer').innerHTML = `
         <div class="modal-overlay" onclick="if(event.target===this)closeModal()" style="position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:5000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);padding:20px;">
             <div style="background:#1e2329;border-radius:16px;padding:32px;max-width:440px;width:100%;border:1px solid #474d57;">
                 <button style="float:right;background:none;border:none;color:#848e9c;font-size:24px;cursor:pointer;" onclick="closeModal()">✕</button>
-                <h2 style="margin-bottom:16px;">💰 Transfer to Admin</h2>
-                <p style="color:#848e9c;margin-bottom:16px;">Transfer from <strong>${adminSession.username}</strong> (Balance: $${parseFloat(adminSession.balance||0).toFixed(2)}) to your admin wallet</p>
-                <div class="input-group"><label>Amount (USD)</label><input type="number" id="transferAmount" placeholder="Enter amount" min="1" step="0.01" /></div>
-                <p style="font-size:12px;color:#848e9c;margin-bottom:12px;">This transfer will appear in both accounts' transaction history</p>
+                <h2>💰 Transfer to Admin</h2>
+                <p style="color:#848e9c;margin:12px 0;">From: <strong>${adminSession.username}</strong> (Balance: $${parseFloat(adminSession.balance||0).toFixed(2)})</p>
+                <div class="input-group"><label>Amount (USD)</label><input type="number" id="transferAmount" placeholder="Amount" min="1" step="0.01" /></div>
+                <p style="font-size:12px;color:#848e9c;margin-bottom:12px;">Appears in both accounts' history</p>
                 <button class="btn btn-primary btn-block btn-lg" onclick="adminExecuteTransfer()">💸 Transfer Now</button>
             </div>
         </div>`;
 }
 
 async function adminExecuteTransfer() {
-    const amount = parseFloat(document.getElementById('transferAmount').value);
-    if (!amount || amount <= 0) { showToast('Enter a valid amount', 'error'); return; }
-    
-    const userRes = await API.get(`/api/admin/users/${adminSessionUserId}`);
-    if (userRes.user && amount > userRes.user.balance) { showToast(`Insufficient balance. Max: $${userRes.user.balance.toFixed(2)}`, 'error'); return; }
-    
-    const confirmed = await showConfirm('Confirm Transfer', `Transfer $${amount.toFixed(2)} from ${adminSession.username} to your admin wallet?\n\nThis will be recorded in both accounts.`, '💰', 'Transfer Now', 'Cancel', 'btn-primary');
-    if (!confirmed) return;
-    
-    const res = await API.post(`/api/admin/transfer-to-admin/${adminSessionUserId}`, { amount });
-    if (res.success) {
-        showToast(`✅ $${amount.toFixed(2)} transferred to admin`, 'success', 'Transfer Successful');
+    const amt = parseFloat(document.getElementById('transferAmount').value);
+    if(!amt||amt<=0) { showToast('Enter valid amount','error'); return; }
+    const ur = await API.get(`/api/admin/users/${adminSessionUserId}`);
+    if(ur.user && amt > ur.user.balance) { showToast(`Max: $${ur.user.balance.toFixed(2)}`,'error'); return; }
+    const ok = await showConfirm('Confirm', `Transfer $${amt.toFixed(2)} to your admin wallet?`,'💰','Transfer','Cancel','btn-primary');
+    if(!ok) return;
+    const r = await API.post(`/api/admin/transfer-to-admin/${adminSessionUserId}`, {amount:amt});
+    if(r.success) {
+        showToast(`✅ $${amt.toFixed(2)} transferred to admin`,'success','Transfer Successful');
         closeModal();
-        // Re-open account to refresh data
-        adminOpenAccountDirect(adminSessionUserId);
+        // Re-open account to refresh
+        adminOpenUserAccount(adminSessionUserId);
         loadAdminData();
-    } else { showToast(res.error||'Transfer failed', 'error'); }
+    } else { showToast(r.error||'Failed','error'); }
 }
 
-async function adminDeleteUser(userId) {
-    const confirmed = await showConfirm('Delete User', 'Delete this user account? It can be restored later.', '🗑️', 'Delete', 'Cancel', 'btn-danger');
-    if (!confirmed) return;
-    const res = await API.post(`/api/admin/delete-user/${userId}`, {});
-    if (res.success) { showToast('User account deleted', 'warning'); loadAdminData(); }
-    else { showToast(res.error||'Failed', 'error'); }
+async function adminDeleteUser(id) {
+    if(!await showConfirm('Delete User','Delete account? Can restore later.','🗑️','Delete','Cancel','btn-danger')) return;
+    const r = await API.post(`/api/admin/delete-user/${id}`, {});
+    if(r.success) { showToast('Deleted','warning'); loadAdminData(); }
+    else showToast(r.error||'Failed','error');
 }
-
-async function adminRestoreUser(userId) {
-    const confirmed = await showConfirm('Restore User', 'Restore this user account with all their data?', '✅', 'Restore', 'Cancel', 'btn-success');
-    if (!confirmed) return;
-    const res = await API.post(`/api/admin/restore-user/${userId}`, {});
-    if (res.success) { showToast('User account restored!', 'success'); loadAdminData(); }
-    else { showToast(res.error||'Failed', 'error'); }
+async function adminRestoreUser(id) {
+    if(!await showConfirm('Restore','Restore account with all data?','✅','Restore','Cancel','btn-success')) return;
+    const r = await API.post(`/api/admin/restore-user/${id}`, {});
+    if(r.success) { showToast('Restored!','success'); loadAdminData(); }
+    else showToast(r.error||'Failed','error');
 }
-
-async function adminCancelRetrieve(userId) {
-    const confirmed = await showConfirm('Cancel Request', 'Cancel this retrieve request? User stays locked out.', '❌', 'Cancel', 'Go Back', 'btn-danger');
-    if (!confirmed) return;
-    const res = await API.post(`/api/admin/restore-user/${userId}`, {});
-    if (res.success) { showToast('Request cancelled', 'info'); loadAdminData(); }
+async function adminCancelRetrieve(id) {
+    if(!await showConfirm('Cancel','User stays locked out?','❌','Cancel','Go Back','btn-danger')) return;
+    const r = await API.post(`/api/admin/restore-user/${id}`, {});
+    if(r.success) { showToast('Cancelled','info'); loadAdminData(); }
 }
-
-async function adminDeleteTransaction(txId) {
-    if (!await showConfirm('Delete', 'Delete permanently?', '🗑️', 'Delete', 'Cancel', 'btn-danger')) return;
-    const res = await API.delete(`/api/admin/transaction/${txId}`);
-    if (res.success) { showToast('Deleted', 'info'); closeModal(); }
+async function adminDeleteTransaction(id) {
+    if(!await showConfirm('Delete','Delete permanently?','🗑️','Delete','Cancel','btn-danger')) return;
+    const r = await API.delete(`/api/admin/transaction/${id}`);
+    if(r.success) { showToast('Deleted','info'); closeModal(); loadAdminTransactions(); }
 }
-
-async function adminDeleteTrade(tradeId) {
-    if (!await showConfirm('Delete', 'Delete permanently?', '🗑️', 'Delete', 'Cancel', 'btn-danger')) return;
-    const res = await API.delete(`/api/admin/trade/${tradeId}`);
-    if (res.success) { showToast('Deleted', 'info'); closeModal(); }
+async function adminDeleteTrade(id) {
+    if(!await showConfirm('Delete','Delete permanently?','🗑️','Delete','Cancel','btn-danger')) return;
+    const r = await API.delete(`/api/admin/trade/${id}`);
+    if(r.success) { showToast('Deleted','info'); closeModal(); }
 }
 
 // ===================== DELETED ACCOUNT =====================
 async function requestAccountRetrieve() {
-    if (!deletedUserId) { showToast('Session expired', 'error'); showAuth(); return; }
-    const res = await API.post('/api/admin/request-retrieve', { userId: deletedUserId });
-    if (res.success) {
-        showToast('Request sent. Waiting for admin approval.', 'info', 'Request Sent');
-        let attempts = 0;
-        const interval = setInterval(async () => {
+    if(!deletedUserId) { showToast('Session expired','error'); showAuth(); return; }
+    const r = await API.post('/api/admin/request-retrieve', {userId:deletedUserId});
+    if(r.success) {
+        showToast('Request sent. Waiting...','info','Sent');
+        let attempts=0;
+        const int = setInterval(async () => {
             attempts++;
             const st = await API.get(`/api/auth/status/${deletedUserId}`);
-            if (!st.deleted) {
-                clearInterval(interval);
-                showToast('Account restored! Please login.', 'success', '✅ Restored');
-                setTimeout(() => { showAuth(); document.getElementById('deletedPage').classList.remove('show'); }, 1500);
-            } else if (attempts > 60) { clearInterval(interval); showToast('Timed out. Try again.', 'warning'); }
+            if(!st.deleted) {
+                clearInterval(int);
+                showToast('Account restored! Login.','success','✅ Restored');
+                setTimeout(()=>{showAuth();document.getElementById('deletedPage').classList.remove('show');},1500);
+            } else if(attempts>60) { clearInterval(int); showToast('Timed out','warning'); }
         }, 5000);
-    } else { showToast(res.error||'Failed', 'error'); }
+    } else showToast(r.error||'Failed','error');
 }
 
 // ===================== RESIZE =====================
-window.addEventListener('resize', () => { drawChart('priceChart', chartData); drawChart('tradeChart', chartData); });
+window.addEventListener('resize', () => { drawChart('priceChart',chartData); drawChart('tradeChart',chartData); });
 
 // ===================== INIT =====================
-(async function checkAuth() {
-    const savedToken = localStorage.getItem('crypto_token');
-    const savedUser = localStorage.getItem('crypto_user');
-    if (savedToken && savedUser) {
-        token = savedToken; currentUser = JSON.parse(savedUser); isAdmin = currentUser.username === 'admin';
-        const res = await API.get('/api/auth/profile');
-        if (res.user) { currentUser = res.user; initializeApp(); return; }
+(async function() {
+    const t = localStorage.getItem('crypto_token');
+    const u = localStorage.getItem('crypto_user');
+    if(t && u) {
+        token=t; currentUser=JSON.parse(u); isAdmin=currentUser.username==='admin';
+        const r = await API.get('/api/auth/profile');
+        if(r.user) { currentUser=r.user; initializeApp(); return; }
     }
 })();
 </script>

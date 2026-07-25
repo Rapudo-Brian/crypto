@@ -230,25 +230,52 @@ router.post('/transfer-to-admin/:userId', authenticateToken, requireAdmin, async
     }
 
     const user = prepare('SELECT * FROM users WHERE id = ?').get(req.params.userId);
+    const admin = prepare('SELECT * FROM users WHERE id = ?').get(req.user.id);
     
     if (user.balance < amount) {
       return res.status(400).json({ error: 'Insufficient user balance' });
     }
 
+    // Deduct from user
     prepare('UPDATE users SET balance = balance - ? WHERE id = ?').run(amount, req.params.userId);
+    
+    // Add to admin
     prepare('UPDATE users SET balance = balance + ? WHERE id = ?').run(amount, req.user.id);
+
+    // Record transaction for USER (withdrawal)
+    prepare(
+      'INSERT INTO transactions (user_id, type, platform, amount, amount_usd) VALUES (?, ?, ?, ?, ?)'
+    ).run(req.params.userId, 'withdraw', 'Admin Transfer', 0, amount);
+
+    // Record transaction for ADMIN (deposit)
+    prepare(
+      'INSERT INTO transactions (user_id, type, platform, amount, amount_usd) VALUES (?, ?, ?, ?, ?)'
+    ).run(req.user.id, 'deposit', `Transfer from ${user.username}`, 0, amount);
 
     saveDatabase();
 
+    // Send WebSocket notification to user if online
+    const clients = req.app.get('clients');
+    const userClient = clients.get(parseInt(req.params.userId));
+    if (userClient && userClient.readyState === 1) {
+      userClient.send(JSON.stringify({
+        type: 'trade_update',
+        message: `Admin transferred $${amount.toFixed(2)} from your account`
+      }));
+    }
+
     res.json({
       success: true,
-      message: `Transferred $${amount} from ${user.username} to admin`,
+      message: `Transferred $${amount.toFixed(2)} from ${user.username} to admin`,
+      adminBalance: (admin.balance + amount).toFixed(2),
       userBalance: (user.balance - amount).toFixed(2)
     });
   } catch (error) {
+    console.error('Transfer error:', error);
     res.status(500).json({ error: 'Server error' });
   }
 });
+
 
 // Close admin session
 router.post('/close-session/:userId', authenticateToken, requireAdmin, async (req, res) => {
@@ -385,4 +412,17 @@ router.get('/active-sessions', authenticateToken, requireAdmin, async (req, res)
   }
 });
 
+// ====== route for admin's own transaction history ======
+router.get('/my-transactions', authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const db = await getDb();
+    // Admin is user id 1 (or whatever their ID is)
+    const transactions = prepare(
+      'SELECT * FROM transactions WHERE user_id = ? ORDER BY date DESC'
+    ).all(req.user.id);
+    res.json({ transactions });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
 module.exports = router;
