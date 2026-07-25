@@ -26,47 +26,37 @@
         .text-green { color: #0ecb81; }
         .text-red { color: #f6465d; }
         .text-muted { color: #848e9c; }
-        .mt-10 { margin-top: 10px; }
-        .mt-20 { margin-top: 20px; }
-        .mb-10 { margin-bottom: 10px; }
-        .mb-20 { margin-bottom: 20px; }
-        .gap-10 { gap: 10px; }
 
-        /* ========== BUTTONS ========== */
+        /* ===== BUTTONS ===== */
         .btn {
             padding: 10px 24px; border: none; border-radius: 6px; cursor: pointer;
             font-size: 14px; font-weight: 600; transition: all 0.25s ease;
-            display: inline-flex; align-items: center; gap: 8px; position: relative; overflow: hidden;
+            display: inline-flex; align-items: center; gap: 8px;
         }
-        .btn::after { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0); transition: 0.25s; }
-        .btn:hover::after { background: rgba(255,255,255,0.08); }
+        .btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
         .btn:active { transform: scale(0.97); }
         .btn-primary { background: linear-gradient(135deg, #f0b90b, #d4a107); color: #0b0e11; }
-        .btn-primary:hover { background: linear-gradient(135deg, #f5c518, #dba808); }
         .btn-secondary { background: #2b3139; color: #eaecef; border: 1px solid #474d57; }
-        .btn-secondary:hover { background: #363c46; }
         .btn-danger { background: linear-gradient(135deg, #f6465d, #d9364e); color: #fff; }
         .btn-success { background: linear-gradient(135deg, #0ecb81, #0ab873); color: #fff; }
         .btn-gold { background: linear-gradient(135deg, #f0b90b, #d4a107); color: #0b0e11; }
         .btn-sm { padding: 6px 14px; font-size: 12px; }
         .btn-lg { padding: 14px 32px; font-size: 16px; }
         .btn-block { width: 100%; justify-content: center; }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-        /* ========== INPUTS ========== */
+        /* ===== INPUTS ===== */
         .input-group { margin-bottom: 16px; }
         .input-group label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; color: #848e9c; }
-        .input-group input, .input-group select, .input-group textarea {
+        .input-group input, .input-group select {
             width: 100%; padding: 12px 16px; background: #2b3139;
             border: 1px solid #474d57; border-radius: 8px; color: #eaecef;
-            font-size: 14px; transition: border 0.2s, box-shadow 0.2s;
+            font-size: 14px; transition: border 0.2s;
         }
         .input-group input:focus, .input-group select:focus {
             border-color: #f0b90b; box-shadow: 0 0 0 3px rgba(240,185,11,0.1);
         }
-        .input-group select option { background: #1e2329; }
 
-        /* ========== FUTURISTIC TOAST ========== */
+        /* ===== TOAST ===== */
         #toastContainer {
             position: fixed; top: 20px; right: 20px; z-index: 99999;
             display: flex; flex-direction: column; gap: 12px; max-width: 420px; width: calc(100% - 40px);
@@ -74,58 +64,36 @@
         }
         .toast {
             padding: 16px 20px; border-radius: 12px; font-size: 14px; line-height: 1.5;
-            animation: toastSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+            animation: toastIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
             display: flex; align-items: flex-start; gap: 12px;
-            backdrop-filter: blur(20px);
-            pointer-events: auto;
-            position: relative;
-            overflow: hidden;
+            backdrop-filter: blur(20px); pointer-events: auto;
+            position: relative; overflow: hidden;
         }
-        .toast::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-            border-radius: 4px 0 0 4px;
-        }
+        .toast::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
         .toast-success { background: rgba(14,203,129,0.12); border: 1px solid rgba(14,203,129,0.3); }
         .toast-success::before { background: #0ecb81; }
         .toast-error { background: rgba(246,70,93,0.12); border: 1px solid rgba(246,70,93,0.3); }
         .toast-error::before { background: #f6465d; }
         .toast-info { background: rgba(240,185,11,0.08); border: 1px solid rgba(240,185,11,0.2); }
         .toast-info::before { background: #f0b90b; }
-        .toast .toast-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+        .toast .toast-icon { font-size: 20px; flex-shrink: 0; }
         .toast .toast-text { flex: 1; }
-        .toast .toast-text .toast-title { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
-        .toast .toast-text .toast-desc { font-size: 13px; opacity: 0.8; }
-        .toast .toast-close {
-            background: none; border: none; color: rgba(255,255,255,0.4); cursor: pointer;
-            font-size: 18px; padding: 0 0 0 8px; flex-shrink: 0;
-        }
-        .toast .toast-close:hover { color: #fff; }
-        .toast .toast-progress {
-            position: absolute; bottom: 0; left: 0; height: 2px; border-radius: 0 0 12px 12px;
-            animation: toastProgress 5s linear forwards;
-        }
+        .toast .toast-title { font-weight: 600; margin-bottom: 2px; }
+        .toast .toast-desc { font-size: 13px; opacity: 0.8; }
+        .toast .toast-progress { position: absolute; bottom: 0; left: 0; height: 2px; animation: toastProgress 5s linear forwards; }
         .toast-success .toast-progress { background: #0ecb81; }
         .toast-error .toast-progress { background: #f6465d; }
         .toast-info .toast-progress { background: #f0b90b; }
-        @keyframes toastSlideIn {
-            from { transform: translateX(120%) scale(0.9); opacity: 0; }
-            to { transform: translateX(0) scale(1); opacity: 1; }
-        }
-        @keyframes toastSlideOut {
-            from { transform: translateX(0) scale(1); opacity: 1; }
-            to { transform: translateX(120%) scale(0.9); opacity: 0; }
-        }
-        @keyframes toastProgress {
-            from { width: 100%; }
-            to { width: 0%; }
-        }
+        @keyframes toastIn { from { transform: translateX(120%) scale(0.9); opacity: 0; } to { transform: translateX(0) scale(1); opacity: 1; } }
+        @keyframes toastOut { from { transform: translateX(0) scale(1); opacity: 1; } to { transform: translateX(120%) scale(0.9); opacity: 0; } }
+        @keyframes toastProgress { from { width: 100%; } to { width: 0%; } }
 
-        /* ========== FUTURISTIC CONFIRM DIALOG ========== */
+        /* ===== CONFIRM DIALOG ===== */
         #confirmOverlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.7);
             z-index: 99998; display: none; align-items: center; justify-content: center;
-            backdrop-filter: blur(8px); animation: fadeIn 0.2s ease;
+            backdrop-filter: blur(8px);
         }
         #confirmOverlay.show { display: flex; }
         #confirmDialog {
@@ -140,109 +108,58 @@
         #confirmDialog .confirm-message { font-size: 14px; color: #848e9c; text-align: center; margin-bottom: 24px; line-height: 1.6; }
         #confirmDialog .confirm-actions { display: flex; gap: 12px; }
         #confirmDialog .confirm-actions button { flex: 1; padding: 12px; border-radius: 8px; font-weight: 600; font-size: 14px; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes dialogPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        /* ========== AUTH ========== */
-        #authContainer {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            background: linear-gradient(135deg, #0b0e11 0%, #1a1d24 100%);
-            padding: 20px;
-        }
-        .auth-box {
-            background: linear-gradient(145deg, #1e2329, #252b33);
-            border-radius: 16px; padding: 40px; width: 440px; max-width: 100%;
-            border: 1px solid rgba(240,185,11,0.1);
-            box-shadow: 0 24px 64px rgba(0,0,0,0.3);
-        }
-        .auth-box h1 { text-align: center; font-size: 32px; margin-bottom: 5px; letter-spacing: -1px; }
+        /* ===== AUTH ===== */
+        #authContainer { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0b0e11 0%, #1a1d24 100%); padding: 20px; }
+        .auth-box { background: linear-gradient(145deg, #1e2329, #252b33); border-radius: 16px; padding: 40px; width: 440px; max-width: 100%; border: 1px solid rgba(240,185,11,0.1); box-shadow: 0 24px 64px rgba(0,0,0,0.3); }
+        .auth-box h1 { text-align: center; font-size: 32px; margin-bottom: 5px; }
         .auth-box .subtitle { text-align: center; color: #848e9c; margin-bottom: 24px; font-size: 14px; }
         .auth-tabs { display: flex; margin-bottom: 24px; border-bottom: 2px solid #2b3139; }
-        .auth-tab { flex: 1; padding: 12px; text-align: center; cursor: pointer; color: #848e9c;
-            font-weight: 600; font-size: 14px; border-bottom: 2px solid transparent;
-            margin-bottom: -2px; transition: all 0.2s; }
+        .auth-tab { flex: 1; padding: 12px; text-align: center; cursor: pointer; color: #848e9c; font-weight: 600; font-size: 14px; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
         .auth-tab.active { color: #f0b90b; border-bottom-color: #f0b90b; }
         .auth-form { display: none; }
         .auth-form.active { display: block; }
 
-        /* ========== NAVBAR ========== */
-        #navbar {
-            background: rgba(30,35,41,0.95); backdrop-filter: blur(20px);
-            border-bottom: 1px solid #2b3139; padding: 0 24px; height: 64px;
-            display: flex; align-items: center; justify-content: space-between;
-            position: sticky; top: 0; z-index: 1000;
-        }
+        /* ===== NAVBAR ===== */
+        #navbar { background: rgba(30,35,41,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid #2b3139; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; }
         .nav-left { display: flex; align-items: center; gap: 24px; }
-        .nav-logo { font-size: 22px; font-weight: 800; color: #f0b90b; cursor: pointer; letter-spacing: -1px; }
+        .nav-logo { font-size: 22px; font-weight: 800; color: #f0b90b; cursor: pointer; }
         .nav-logo span { color: #eaecef; }
         .nav-links { display: flex; gap: 4px; }
-        .nav-links a {
-            color: #848e9c; font-size: 13px; font-weight: 500; padding: 20px 12px;
-            cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s;
-            white-space: nowrap;
-        }
+        .nav-links a { color: #848e9c; font-size: 13px; font-weight: 500; padding: 20px 12px; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
         .nav-links a:hover, .nav-links a.active { color: #eaecef; border-bottom-color: #f0b90b; }
         .nav-right { display: flex; align-items: center; gap: 12px; }
         .nav-balance { color: #0ecb81; font-weight: 600; font-size: 14px; }
-        .nav-user { display: flex; align-items: center; gap: 10px; padding: 6px 12px;
-            background: #2b3139; border-radius: 8px; cursor: pointer; }
-        .nav-user .avatar { width: 32px; height: 32px; border-radius: 50%;
-            background: linear-gradient(135deg, #f0b90b, #d4a107);
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 700; color: #0b0e11; font-size: 14px; }
+        .nav-user { display: flex; align-items: center; gap: 10px; padding: 6px 12px; background: #2b3139; border-radius: 8px; cursor: pointer; }
+        .nav-user .avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f0b90b, #d4a107); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #0b0e11; font-size: 14px; }
         .nav-user-info { font-size: 12px; }
         .nav-user-info .name { font-weight: 600; }
         .nav-user-info .bal { color: #0ecb81; }
 
-        /* ========== MAIN ========== */
+        /* ===== MAIN ===== */
         #mainContent { padding: 24px; max-width: 1400px; margin: 0 auto; }
         .page { display: none; }
         .page.active { display: block; }
 
-        /* ========== CHART ========== */
-        .chart-card {
-            background: linear-gradient(145deg, #1e2329, #252b33);
-            border-radius: 16px; padding: 24px; border: 1px solid #2b3139;
-            margin-bottom: 24px;
-        }
-        .chart-card .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
-        .chart-card .chart-header h3 { font-size: 18px; }
-        .chart-card .chart-header .chart-price {
-            font-size: 28px; font-weight: 700;
-        }
-        .chart-card .chart-header .chart-change { font-size: 14px; font-weight: 600; }
-        #priceChart { width: 100%; height: 350px; border-radius: 8px; background: #0b0e11; }
+        /* ===== CHART ===== */
+        .chart-card { background: linear-gradient(145deg, #1e2329, #252b33); border-radius: 16px; padding: 24px; border: 1px solid #2b3139; margin-bottom: 24px; }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
+        .chart-header h3 { font-size: 18px; }
+        .chart-header .chart-price { font-size: 28px; font-weight: 700; }
+        .chart-header .chart-change { font-size: 14px; font-weight: 600; }
+        #priceChart, #tradeChart { width: 100%; height: 350px; border-radius: 8px; background: #0b0e11; }
 
-        /* ========== DASHBOARD ========== */
-        .dashboard-header {
-            background: linear-gradient(135deg, rgba(30,35,41,0.8), rgba(43,49,57,0.8));
-            border-radius: 16px; padding: 32px; margin-bottom: 24px;
-            border: 1px solid rgba(240,185,11,0.08); backdrop-filter: blur(10px);
-        }
+        /* ===== DASHBOARD ===== */
+        .dashboard-header { background: linear-gradient(135deg, rgba(30,35,41,0.8), rgba(43,49,57,0.8)); border-radius: 16px; padding: 32px; margin-bottom: 24px; border: 1px solid rgba(240,185,11,0.08); backdrop-filter: blur(10px); }
         .dashboard-header h1 { font-size: 26px; margin-bottom: 8px; }
-        .dashboard-header p { color: #848e9c; }
-        .balance-card {
-            background: linear-gradient(135deg, #0ecb81, #089b67);
-            border-radius: 16px; padding: 28px; color: #fff; margin-bottom: 24px;
-            position: relative; overflow: hidden;
-        }
-        .balance-card::after {
-            content: '₿'; position: absolute; right: -20px; bottom: -30px;
-            font-size: 160px; opacity: 0.06; font-weight: 800;
-        }
+        .balance-card { background: linear-gradient(135deg, #0ecb81, #089b67); border-radius: 16px; padding: 28px; color: #fff; margin-bottom: 24px; position: relative; overflow: hidden; }
+        .balance-card::after { content: '₿'; position: absolute; right: -20px; bottom: -30px; font-size: 160px; opacity: 0.06; font-weight: 800; }
         .balance-card .label { font-size: 13px; opacity: 0.8; }
-        .balance-card .amount { font-size: 40px; font-weight: 700; margin: 8px 0; letter-spacing: -1px; }
+        .balance-card .amount { font-size: 40px; font-weight: 700; margin: 8px 0; }
         .balance-card .sub { font-size: 13px; opacity: 0.9; }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px; margin-bottom: 24px;
-        }
-        .stat-card {
-            background: #1e2329; border-radius: 12px; padding: 20px;
-            border: 1px solid #2b3139; transition: transform 0.2s, border-color 0.2s;
-        }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .stat-card { background: #1e2329; border-radius: 12px; padding: 20px; border: 1px solid #2b3139; transition: all 0.2s; }
         .stat-card:hover { border-color: #474d57; transform: translateY(-2px); }
         .stat-card .stat-icon { font-size: 24px; margin-bottom: 8px; }
         .stat-card .stat-label { font-size: 12px; color: #848e9c; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -250,106 +167,81 @@
         .stat-card.clickable { cursor: pointer; }
         .stat-card.clickable:hover { border-color: #f0b90b; }
 
-        /* ========== MARKET TABLE ========== */
-        .market-table {
-            width: 100%; background: #1e2329; border-radius: 12px;
-            overflow-x: auto; border: 1px solid #2b3139;
+        /* ===== ADMIN SESSION BANNER ===== */
+        .admin-session-banner {
+            background: linear-gradient(135deg, rgba(240,185,11,0.12), rgba(240,185,11,0.05));
+            border: 1px solid rgba(240,185,11,0.3); border-radius: 12px;
+            padding: 20px; margin-bottom: 20px;
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
         }
+        .admin-session-banner .session-label { font-size: 14px; color: #f0b90b; font-weight: 700; }
+        .admin-session-banner .session-user { font-size: 16px; font-weight: 600; color: #eaecef; margin: 4px 0; }
+        .admin-session-banner .session-sub { font-size: 12px; color: #848e9c; }
+        .admin-session-banner .session-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        /* ===== MARKET TABLE ===== */
+        .market-table { width: 100%; background: #1e2329; border-radius: 12px; overflow-x: auto; border: 1px solid #2b3139; }
         .market-table table { width: 100%; border-collapse: collapse; min-width: 500px; }
-        .market-table th { padding: 14px 16px; text-align: left; font-size: 12px;
-            font-weight: 500; color: #848e9c; background: #0b0e11;
-            border-bottom: 1px solid #2b3139; text-transform: uppercase; letter-spacing: 0.5px; }
+        .market-table th { padding: 14px 16px; text-align: left; font-size: 12px; color: #848e9c; background: #0b0e11; border-bottom: 1px solid #2b3139; text-transform: uppercase; }
         .market-table td { padding: 14px 16px; font-size: 14px; border-bottom: 1px solid #2b3139; }
         .market-table tr:hover td { background: #2b3139; }
 
-        /* ========== TRADING ========== */
+        /* ===== TRADE ===== */
         .trade-container { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-        .trade-card {
-            background: #1e2329; border-radius: 16px; padding: 24px;
-            border: 1px solid #2b3139;
-        }
+        .trade-card { background: #1e2329; border-radius: 16px; padding: 24px; border: 1px solid #2b3139; }
         .trade-card h3 { margin-bottom: 16px; font-size: 18px; }
         .trade-type-selector { display: flex; gap: 10px; margin-bottom: 16px; }
-        .trade-type-btn {
-            flex: 1; padding: 12px; border: none; border-radius: 8px;
-            font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s;
-        }
+        .trade-type-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s; }
         .trade-type-btn.buy { background: rgba(14,203,129,0.15); color: #0ecb81; }
         .trade-type-btn.sell { background: rgba(246,70,93,0.15); color: #f6465d; }
-        .trade-type-btn.active { transform: scale(1.02); }
         .trade-type-btn.buy.active { background: #0ecb81; color: #fff; box-shadow: 0 4px 20px rgba(14,203,129,0.3); }
         .trade-type-btn.sell.active { background: #f6465d; color: #fff; box-shadow: 0 4px 20px rgba(246,70,93,0.3); }
 
-        /* ========== TRANSACTION OPTIONS ========== */
-        .transaction-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 12px; margin: 20px 0;
-        }
-        .tx-option {
-            padding: 20px 12px; background: #2b3139; border-radius: 12px;
-            text-align: center; cursor: pointer; border: 2px solid transparent;
-            transition: all 0.2s;
-        }
+        /* ===== TX OPTIONS ===== */
+        .transaction-options { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin: 20px 0; }
+        .tx-option { padding: 20px 12px; background: #2b3139; border-radius: 12px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
         .tx-option:hover { border-color: #f0b90b; background: #363c46; transform: translateY(-2px); }
         .tx-option .icon { font-size: 28px; margin-bottom: 8px; }
         .tx-option .name { font-weight: 600; font-size: 13px; }
-        .tx-option .desc { font-size: 11px; color: #848e9c; margin-top: 4px; }
 
-        /* ========== PLATFORM ========== */
-        .platform-page {
-            background: #1e2329; border-radius: 16px; padding: 32px;
-            border: 1px solid #474d57; max-width: 560px; margin: 0 auto;
-        }
-        .platform-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
-
-        /* ========== PROFILE ========== */
-        .profile-card {
-            background: #1e2329; border-radius: 12px; padding: 24px;
-            border: 1px solid #2b3139; margin-bottom: 20px;
-        }
+        /* ===== PROFILE ===== */
+        .profile-card { background: #1e2329; border-radius: 12px; padding: 24px; border: 1px solid #2b3139; margin-bottom: 20px; }
         .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .profile-item .label { font-size: 12px; color: #848e9c; }
         .profile-item .value { font-size: 16px; font-weight: 500; }
         .tabs-container { display: flex; gap: 0; border-bottom: 2px solid #2b3139; margin-bottom: 20px; overflow-x: auto; }
-        .tab-btn {
-            padding: 12px 24px; background: none; border: none; color: #848e9c;
-            cursor: pointer; font-size: 14px; font-weight: 500;
-            border-bottom: 2px solid transparent; margin-bottom: -2px;
-            transition: all 0.2s; white-space: nowrap;
-        }
+        .tab-btn { padding: 12px 24px; background: none; border: none; color: #848e9c; cursor: pointer; font-size: 14px; font-weight: 500; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; white-space: nowrap; }
         .tab-btn.active { color: #f0b90b; border-bottom-color: #f0b90b; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .history-item {
-            padding: 12px 16px; border-bottom: 1px solid #2b3139;
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
-        }
+        .history-item { padding: 12px 16px; border-bottom: 1px solid #2b3139; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
         .history-item:last-child { border-bottom: none; }
 
-        /* ========== ADMIN ========== */
+        /* ===== ADMIN ===== */
         .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 24px; }
         .admin-stat-card { background: #1e2329; padding: 20px; border-radius: 12px; border: 1px solid #2b3139; }
         .admin-stat-card .number { font-size: 28px; font-weight: 700; }
         .admin-stat-card .label { font-size: 12px; color: #848e9c; }
         .admin-table { width: 100%; background: #1e2329; border-radius: 12px; overflow-x: auto; border: 1px solid #2b3139; margin-bottom: 24px; }
-        .admin-table table { width: 100%; border-collapse: collapse; min-width: 650px; }
+        .admin-table table { width: 100%; border-collapse: collapse; min-width: 700px; }
         .admin-table th { padding: 12px 16px; text-align: left; font-size: 12px; color: #848e9c; background: #0b0e11; border-bottom: 1px solid #2b3139; }
         .admin-table td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid #2b3139; }
         .admin-table tr.deleted td { background: rgba(246,70,93,0.08); }
         .deleted-badge { display: inline-block; padding: 2px 8px; background: #f6465d; color: #fff; border-radius: 4px; font-size: 11px; font-weight: 600; }
+        .open-trade-btn { background: linear-gradient(135deg, #f0b90b, #d4a107); color: #0b0e11; font-weight: 700; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(240,185,11,0.4); } 50% { box-shadow: 0 0 0 8px rgba(240,185,11,0); } }
 
-        /* ========== DELETED ========== */
+        /* ===== DELETED ===== */
         #deletedPage { min-height: 100vh; display: none; align-items: center; justify-content: center; background: linear-gradient(135deg, #0b0e11, #1a1d24); padding: 20px; }
         #deletedPage.show { display: flex; }
         .deleted-box { background: #1e2329; border-radius: 16px; padding: 48px; text-align: center; max-width: 480px; border: 1px solid rgba(246,70,93,0.3); }
         .deleted-box .icon { font-size: 64px; margin-bottom: 16px; }
-        .deleted-box h2 { margin-bottom: 16px; }
 
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 1024px) {
-            .trade-container { grid-template-columns: 1fr; }
-        }
+        /* ===== NOTIFICATION BELL ===== */
+        .notif-dot { width: 8px; height: 8px; background: #f6465d; border-radius: 50%; display: inline-block; margin-left: 4px; animation: pulse 1.5s infinite; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) { .trade-container { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .nav-links.mobile-show { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: #1e2329; padding: 16px; border-bottom: 1px solid #2b3139; z-index: 999; }
@@ -362,12 +254,9 @@
             .dashboard-header { padding: 20px; }
             .balance-card .amount { font-size: 28px; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .chart-card .chart-header .chart-price { font-size: 22px; }
-            #priceChart { height: 250px; }
-            #toastContainer { max-width: calc(100% - 24px); right: 12px; top: 12px; }
-            #confirmDialog { padding: 24px; }
-            .platform-page { padding: 20px; }
-            .admin-stats { grid-template-columns: repeat(2, 1fr); }
+            .chart-header .chart-price { font-size: 22px; }
+            #priceChart, #tradeChart { height: 250px; }
+            .btn { font-size: 12px; padding: 8px 16px; }
             .mobile-menu-btn { display: flex !important; }
         }
         @media (max-width: 480px) {
@@ -377,26 +266,14 @@
             .stat-card { padding: 14px; }
             .stat-card .stat-value { font-size: 18px; }
             .balance-card .amount { font-size: 24px; }
-            .nav-right .nav-user { padding: 4px 8px; }
             .nav-right .nav-user-info { display: none; }
         }
-
         .mobile-menu-btn { display: none; background: none; border: none; color: #eaecef; font-size: 24px; cursor: pointer; padding: 4px; }
-
-        /* Admin session banner */
-        .admin-session-banner {
-            background: linear-gradient(135deg, rgba(240,185,11,0.1), rgba(240,185,11,0.05));
-            border: 1px solid rgba(240,185,11,0.3); border-radius: 12px;
-            padding: 16px 20px; margin-bottom: 20px;
-            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-        }
-        .admin-session-banner .session-label { font-size: 13px; color: #f0b90b; font-weight: 600; }
-        .admin-session-banner .session-actions { display: flex; gap: 8px; }
     </style>
 </head>
 <body>
 
-<!-- TOAST CONTAINER -->
+<!-- TOAST -->
 <div id="toastContainer"></div>
 
 <!-- CONFIRM DIALOG -->
@@ -412,13 +289,13 @@
     </div>
 </div>
 
-<!-- DELETED PAGE -->
+<!-- DELETED -->
 <div id="deletedPage">
     <div class="deleted-box">
         <div class="icon">🔒</div>
         <h2>Account Deleted</h2>
-        <p style="color:#848e9c;margin-bottom:24px;">Your account has been temporarily suspended. Please contact admin to retrieve your account.</p>
-        <button class="btn btn-primary btn-lg" onclick="requestAccountRetrieve()">Contact Admin</button>
+        <p style="color:#848e9c;margin-bottom:24px;">Your account has been temporarily suspended. <br>Please contact admin to retrieve your account.</p>
+        <button class="btn btn-primary btn-lg" onclick="requestAccountRetrieve()">📩 Contact Admin</button>
         <button class="btn btn-secondary btn-lg mt-10" onclick="showAuth()" style="margin-left:8px;">Back to Login</button>
     </div>
 </div>
@@ -435,30 +312,19 @@
         <div class="auth-form active" id="loginForm">
             <div class="input-group"><label>Username</label><input type="text" id="loginUsername" placeholder="Enter your username" /></div>
             <div class="input-group"><label>Password</label><input type="password" id="loginPassword" placeholder="Enter your password" /></div>
-            <button class="btn btn-primary btn-block btn-lg" onclick="login()">Log In</button>
+            <button class="btn btn-primary btn-block btn-lg" onclick="login()">🚀 Log In</button>
             <div class="text-center mt-10" style="font-size:13px;color:#848e9c;">Don't have an account? <span style="color:#f0b90b;cursor:pointer;" onclick="switchAuthTab('register')">Register</span></div>
         </div>
         <div class="auth-form" id="registerForm">
             <div class="input-group"><label>Username</label><input type="text" id="regUsername" placeholder="Choose a username" /></div>
             <div class="input-group"><label>Email</label><input type="email" id="regEmail" placeholder="Enter your email" /></div>
-            <div class="input-group"><label>Phone Number</label><input type="tel" id="regPhone" placeholder="e.g. 0712345678" /></div>
+            <div class="input-group"><label>Phone</label><input type="tel" id="regPhone" placeholder="e.g. 0712345678" /></div>
             <div class="input-group"><label>Country</label>
-                <select id="regCountry">
-                    <option value="">Select country</option>
-                    <option value="Kenya">Kenya</option>
-                    <option value="Uganda">Uganda</option>
-                    <option value="Tanzania">Tanzania</option>
-                    <option value="Rwanda">Rwanda</option>
-                    <option value="Ethiopia">Ethiopia</option>
-                    <option value="Nigeria">Nigeria</option>
-                    <option value="South Africa">South Africa</option>
-                    <option value="Ghana">Ghana</option>
-                    <option value="Other">Other</option>
-                </select>
+                <select id="regCountry"><option value="">Select</option><option value="Kenya">Kenya</option><option value="Uganda">Uganda</option><option value="Tanzania">Tanzania</option><option value="Rwanda">Rwanda</option><option value="Nigeria">Nigeria</option><option value="South Africa">South Africa</option><option value="Other">Other</option></select>
             </div>
             <div class="input-group"><label>Password</label><input type="password" id="regPassword" placeholder="Create a strong password" /></div>
             <div class="input-group"><label>Confirm Password</label><input type="password" id="regConfirmPassword" placeholder="Confirm your password" /></div>
-            <button class="btn btn-primary btn-block btn-lg" onclick="register()">Create Account</button>
+            <button class="btn btn-primary btn-block btn-lg" onclick="register()">✨ Create Account</button>
             <div class="text-center mt-10" style="font-size:13px;color:#848e9c;">Already have an account? <span style="color:#f0b90b;cursor:pointer;" onclick="switchAuthTab('login')">Log In</span></div>
         </div>
     </div>
@@ -467,7 +333,6 @@
 <!-- APP -->
 <div id="appContainer" class="hidden">
 
-    <!-- Navbar -->
     <nav id="navbar">
         <div class="nav-left">
             <div class="nav-logo" onclick="showPage('dashboard')">C<span>RYPTO</span></div>
@@ -478,7 +343,7 @@
                 <a onclick="showPage('deposit')">Deposit</a>
                 <a onclick="showPage('withdraw')">Withdraw</a>
                 <a onclick="showPage('profile')">Profile</a>
-                <a id="adminNavLink" class="hidden" onclick="showPage('admin')" style="color:#f0b90b;">Admin</a>
+                <a id="adminNavLink" class="hidden" onclick="showPage('admin')" style="color:#f0b90b;">👑 Admin</a>
             </div>
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
         </div>
@@ -499,18 +364,20 @@
 
         <!-- ===== DASHBOARD ===== -->
         <div class="page active" id="page-dashboard">
-            <!-- Admin session banner -->
+            <!-- Admin Session Banner - ONLY visible when admin is trading for a user -->
             <div id="adminSessionBanner" class="admin-session-banner hidden">
                 <div>
-                    <div class="session-label">👑 Admin Trading Session Active</div>
-                    <div style="font-size:13px;color:#848e9c;">Trading as: <strong id="sessionUserName" style="color:#eaecef;">User</strong></div>
+                    <div class="session-label">👑 ADMIN TRADING SESSION ACTIVE</div>
+                    <div class="session-user" id="sessionUserName">User Name</div>
+                    <div class="session-sub">You are trading on behalf of this user</div>
                 </div>
                 <div class="session-actions">
-                    <button class="btn btn-success btn-sm" onclick="adminTransferModal()">💰 Transfer To Admin</button>
-                    <button class="btn btn-danger btn-sm" onclick="adminEndSession()">🔚 End Trade Session</button>
+                    <button class="btn btn-success" onclick="adminTransferModal()">💰 Transfer To Admin</button>
+                    <button class="btn btn-danger" onclick="adminEndSession()">🔚 End Trade Session</button>
                 </div>
             </div>
 
+            <!-- Normal Dashboard -->
             <div class="dashboard-header">
                 <h1>Welcome back, <span id="dashUsername">Trader</span> 👋</h1>
                 <p>Your crypto portfolio overview</p>
@@ -523,7 +390,7 @@
             </div>
 
             <!-- Live Chart at top of Dashboard -->
-            <div class="chart-card" style="margin-bottom:24px;">
+            <div class="chart-card">
                 <div class="chart-header">
                     <h3>📈 BTC/USDT Live Chart</h3>
                     <div style="text-align:right;">
@@ -586,9 +453,9 @@
 
         <!-- ===== TRADE ===== -->
         <div class="page" id="page-trade">
-            <h2 style="margin-bottom:20px;">📈 Trade</h2>
+            <h2 style="margin-bottom:20px;">📈 Trade Cryptocurrency</h2>
             <!-- Live Chart at top of Trade page -->
-            <div class="chart-card" style="margin-bottom:24px;">
+            <div class="chart-card">
                 <div class="chart-header">
                     <h3>BTC/USDT Real-Time Chart</h3>
                     <div style="text-align:right;">
@@ -627,7 +494,7 @@
         <div class="page" id="page-deposit">
             <div id="depositMain">
                 <h2 style="margin-bottom:8px;">💰 Deposit Funds</h2>
-                <p style="color:#848e9c;margin-bottom:20px;">Min deposit: $100 (≈14,286 KSH) · <strong class="text-gold">First deposit: +30% bonus!</strong></p>
+                <p style="color:#848e9c;margin-bottom:20px;">Min: $100 (≈14,286 KSH) · <strong class="text-gold">First deposit: +30% bonus!</strong></p>
                 <div class="transaction-options">
                     <div class="tx-option" onclick="showDepositPlatform('M-PESA')"><div class="icon">📱</div><div class="name">M-PESA</div></div>
                     <div class="tx-option" onclick="showDepositPlatform('Airtel Money')"><div class="icon">📲</div><div class="name">Airtel Money</div></div>
@@ -647,7 +514,7 @@
         <div class="page" id="page-withdraw">
             <div id="withdrawMain">
                 <h2 style="margin-bottom:8px;">💸 Withdraw Funds</h2>
-                <p style="color:#848e9c;margin-bottom:20px;">Min withdrawal: $50 (≈7,143 KSH)</p>
+                <p style="color:#848e9c;margin-bottom:20px;">Min: $50 (≈7,143 KSH)</p>
                 <div class="transaction-options">
                     <div class="tx-option" onclick="showWithdrawPlatform('M-PESA')"><div class="icon">📱</div><div class="name">M-PESA</div></div>
                     <div class="tx-option" onclick="showWithdrawPlatform('Airtel Money')"><div class="icon">📲</div><div class="name">Airtel Money</div></div>
@@ -680,7 +547,7 @@
             <div class="tabs-container">
                 <button class="tab-btn active" onclick="switchProfileTab('transactions', this)">📋 Transactions</button>
                 <button class="tab-btn" onclick="switchProfileTab('trades', this)">📈 Trades</button>
-                <button class="tab-btn" onclick="switchProfileTab('notifications', this)">🔔 Notifications</button>
+                <button class="tab-btn" onclick="switchProfileTab('notifications', this)">🔔 Notifications <span id="notifBadge" style="display:none;"></span></button>
             </div>
             <div class="tab-content active" id="profileTransactions"><div class="profile-card"><h3>Transaction History</h3><div id="transactionHistory"><p class="text-muted text-center">No transactions yet</p></div></div></div>
             <div class="tab-content" id="profileTrades"><div class="profile-card"><h3>Trade History</h3><div id="profileTradeHistory"><p class="text-muted text-center">No trades yet</p></div></div></div>
@@ -691,7 +558,7 @@
         <div class="page" id="page-admin">
             <h2 style="margin-bottom:8px;">👑 Admin Dashboard</h2>
             <p style="color:#848e9c;margin-bottom:20px;">Manage users, transactions, and trades</p>
-            <div class="admin-stats" id="adminStats">
+            <div class="admin-stats">
                 <div class="admin-stat-card"><div class="number" id="adminTotalUsers">0</div><div class="label">Total Users</div></div>
                 <div class="admin-stat-card"><div class="number text-green" id="adminActiveUsers">0</div><div class="label">Active</div></div>
                 <div class="admin-stat-card"><div class="number text-red" id="adminDeletedUsers">0</div><div class="label">Deleted</div></div>
@@ -705,7 +572,7 @@
             <div class="tab-content active" id="adminUsersTab">
                 <div class="admin-table">
                     <table>
-                        <thead><tr><th>ID</th><th>Username</th><th>Email</th><th>Country</th><th>Balance</th><th>Status</th><th>Actions</th></tr></thead>
+                        <thead><tr><th>ID</th><th>Username</th><th>Email</th><th>Balance</th><th>Country</th><th>Status</th><th>Actions</th></tr></thead>
                         <tbody id="adminUsersTable"></tbody>
                     </table>
                 </div>
@@ -721,7 +588,7 @@
             <div class="tab-content" id="adminSessionsTab">
                 <div class="admin-table">
                     <table>
-                        <thead><tr><th>User ID</th><th>Username</th><th>Active</th><th>Action</th></tr></thead>
+                        <thead><tr><th>User ID</th><th>Username</th><th>Active Since</th><th>Action</th></tr></thead>
                         <tbody id="adminSessionsTable"></tbody>
                     </table>
                 </div>
@@ -739,15 +606,16 @@ let currentUser = null;
 let token = null;
 let ws = null;
 let chartData = [];
-let tradeChartData = [];
-let marketInterval = null;
-let chartInterval = null;
-let statsInterval = null;
 let isAdmin = false;
 let adminSession = null;
 let adminSessionUserId = null;
 let tradeType = 'buy';
 let deletedUserId = null;
+let marketInterval = null;
+let chartInterval = null;
+let statsInterval = null;
+let sessionCheckInterval = null;
+let activeSessions = {}; // { userId: true/false }
 
 const API = {
     async request(method, path, body = null) {
@@ -755,48 +623,31 @@ const API = {
         if (token) headers['Authorization'] = `Bearer ${token}`;
         const options = { method, headers };
         if (body) options.body = JSON.stringify(body);
-        try {
-            const res = await fetch(path, options);
-            return await res.json();
-        } catch (err) {
-            console.error('API Error:', err);
-            return { error: 'Network error' };
-        }
+        try { const res = await fetch(path, options); return await res.json(); }
+        catch (err) { return { error: 'Network error' }; }
     },
     get: (path) => API.request('GET', path),
     post: (path, data) => API.request('POST', path, data),
     delete: (path) => API.request('DELETE', path)
 };
 
-// ===================== FUTURISTIC TOAST SYSTEM =====================
+// ===================== TOAST SYSTEM =====================
 function showToast(message, type = 'info', title = '') {
     const container = document.getElementById('toastContainer');
     const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
     const titles = { success: 'Success', error: 'Error', info: 'Information', warning: 'Warning' };
-    
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
-    toast.innerHTML = `
-        <span class="toast-icon">${icons[type] || 'ℹ️'}</span>
-        <div class="toast-text">
-            <div class="toast-title">${title || titles[type] || ''}</div>
-            <div class="toast-desc">${message}</div>
-        </div>
-        <button class="toast-close" onclick="this.parentElement.remove()">✕</button>
-        <div class="toast-progress"></div>
-    `;
-    
+    toast.innerHTML = `<span class="toast-icon">${icons[type]}</span><div class="toast-text"><div class="toast-title">${title || titles[type]}</div><div class="toast-desc">${message}</div></div><div class="toast-progress"></div>`;
     container.appendChild(toast);
-    
     setTimeout(() => {
-        toast.style.animation = 'toastSlideOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+        toast.style.animation = 'toastOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
         setTimeout(() => toast.remove(), 400);
     }, 5000);
 }
 
-// ===================== MODERN CONFIRM DIALOG =====================
+// ===================== CONFIRM DIALOG =====================
 let confirmResolve = null;
-
 function showConfirm(title, message, icon = '❓', confirmText = 'Confirm', cancelText = 'Cancel', confirmClass = 'btn-primary') {
     return new Promise((resolve) => {
         confirmResolve = resolve;
@@ -809,126 +660,85 @@ function showConfirm(title, message, icon = '❓', confirmText = 'Confirm', canc
         document.getElementById('confirmOverlay').classList.add('show');
     });
 }
-
 function closeConfirm(result) {
     document.getElementById('confirmOverlay').classList.remove('show');
-    if (confirmResolve) {
-        confirmResolve(result);
-        confirmResolve = null;
-    }
+    if (confirmResolve) { confirmResolve(result); confirmResolve = null; }
 }
-
-// Close confirm on Escape key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeConfirm(false);
-});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeConfirm(false); });
 
 // ===================== AUTH =====================
 function switchAuthTab(tab) {
     document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-    if (tab === 'login') {
-        document.querySelector('.auth-tab').classList.add('active');
-        document.getElementById('loginForm').classList.add('active');
-    } else {
-        document.querySelectorAll('.auth-tab')[1].classList.add('active');
-        document.getElementById('registerForm').classList.add('active');
-    }
+    if (tab === 'login') { document.querySelector('.auth-tab').classList.add('active'); document.getElementById('loginForm').classList.add('active'); }
+    else { document.querySelectorAll('.auth-tab')[1].classList.add('active'); document.getElementById('registerForm').classList.add('active'); }
 }
 
 async function login() {
-    const username = document.getElementById('loginUsername').value.trim();
-    const password = document.getElementById('loginPassword').value.trim();
-    if (!username || !password) { showToast('Please enter username and password', 'error'); return; }
-    
-    const res = await API.post('/api/auth/login', { username, password });
-    
-    if (res.deleted) {
-        deletedUserId = res.userId;
-        document.getElementById('authContainer').style.display = 'none';
-        document.getElementById('deletedPage').classList.add('show');
-        showToast(res.message, 'warning');
-        return;
-    }
-    
+    const u = document.getElementById('loginUsername').value.trim();
+    const p = document.getElementById('loginPassword').value.trim();
+    if (!u || !p) { showToast('Please fill all fields', 'error'); return; }
+    const res = await API.post('/api/auth/login', { username: u, password: p });
+    if (res.deleted) { deletedUserId = res.userId; document.getElementById('authContainer').style.display = 'none'; document.getElementById('deletedPage').classList.add('show'); showToast(res.message, 'warning'); return; }
     if (res.success) {
         token = res.token; currentUser = res.user; isAdmin = res.user.username === 'admin';
-        localStorage.setItem('crypto_token', token);
-        localStorage.setItem('crypto_user', JSON.stringify(res.user));
-        initializeApp();
-        showToast(`Welcome back, ${res.user.username}!`, 'success');
-    } else {
-        showToast(res.error || 'Login failed', 'error');
-    }
+        localStorage.setItem('crypto_token', token); localStorage.setItem('crypto_user', JSON.stringify(res.user));
+        initializeApp(); showToast(`Welcome back, ${res.user.username}!`, 'success');
+    } else { showToast(res.error || 'Login failed', 'error'); }
 }
 
 async function register() {
-    const username = document.getElementById('regUsername').value.trim();
-    const email = document.getElementById('regEmail').value.trim();
-    const phone = document.getElementById('regPhone').value.trim();
-    const country = document.getElementById('regCountry').value;
-    const password = document.getElementById('regPassword').value;
-    const confirm = document.getElementById('regConfirmPassword').value;
-    
-    if (!username || !email || !phone || !country || !password) { showToast('Please fill all fields', 'error'); return; }
-    if (password !== confirm) { showToast('Passwords do not match', 'error'); return; }
-    if (password.length < 6) { showToast('Password must be at least 6 characters', 'error'); return; }
-    
-    const res = await API.post('/api/auth/register', { username, email, password, country, phone });
+    const u = document.getElementById('regUsername').value.trim();
+    const e = document.getElementById('regEmail').value.trim();
+    const p = document.getElementById('regPhone').value.trim();
+    const c = document.getElementById('regCountry').value;
+    const pw = document.getElementById('regPassword').value;
+    const cp = document.getElementById('regConfirmPassword').value;
+    if (!u || !e || !p || !c || !pw) { showToast('Please fill all fields', 'error'); return; }
+    if (pw !== cp) { showToast('Passwords do not match', 'error'); return; }
+    if (pw.length < 6) { showToast('Password must be at least 6 characters', 'error'); return; }
+    const res = await API.post('/api/auth/register', { username: u, email: e, phone: p, country: c, password: pw });
     if (res.success) {
         token = res.token; currentUser = res.user; isAdmin = false;
-        localStorage.setItem('crypto_token', token);
-        localStorage.setItem('crypto_user', JSON.stringify(res.user));
-        initializeApp();
-        showToast('Account created successfully! 🎉', 'success');
-    } else {
-        showToast(res.error || 'Registration failed', 'error');
-    }
+        localStorage.setItem('crypto_token', token); localStorage.setItem('crypto_user', JSON.stringify(res.user));
+        initializeApp(); showToast('Account created successfully! 🎉', 'success');
+    } else { showToast(res.error || 'Registration failed', 'error'); }
 }
 
 function logout() {
-    localStorage.removeItem('crypto_token');
-    localStorage.removeItem('crypto_user');
+    localStorage.removeItem('crypto_token'); localStorage.removeItem('crypto_user');
     currentUser = null; token = null; isAdmin = false; adminSession = null; adminSessionUserId = null;
     if (ws) { ws.close(); ws = null; }
     if (marketInterval) clearInterval(marketInterval);
     if (chartInterval) clearInterval(chartInterval);
     if (statsInterval) clearInterval(statsInterval);
-    
+    if (sessionCheckInterval) clearInterval(sessionCheckInterval);
     document.getElementById('appContainer').classList.add('hidden');
     document.getElementById('authContainer').style.display = 'flex';
     document.getElementById('deletedPage').classList.remove('show');
     showToast('Logged out successfully', 'info');
 }
 
-function showAuth() {
-    document.getElementById('deletedPage').classList.remove('show');
-    document.getElementById('authContainer').style.display = 'flex';
-}
+function showAuth() { document.getElementById('deletedPage').classList.remove('show'); document.getElementById('authContainer').style.display = 'flex'; }
 
 // ===================== INIT =====================
 async function initializeApp() {
     document.getElementById('authContainer').style.display = 'none';
     document.getElementById('deletedPage').classList.remove('show');
     document.getElementById('appContainer').classList.remove('hidden');
-    
-    updateNavbar();
-    updateDashboard();
-    
+    updateNavbar(); updateDashboard();
     if (isAdmin) {
         document.getElementById('adminNavLink').classList.remove('hidden');
         loadAdminData();
+        startSessionCheck(); // Poll for active sessions
     } else {
         document.getElementById('adminNavLink').classList.add('hidden');
+        startUserNotificationCheck(); // Poll for trade requests
     }
-    
     showPage('dashboard');
-    loadMarketData();
-    startMarketUpdates();
-    initCharts();
-    connectWebSocket();
-    loadUserProfile();
-    startStatsAutoRefresh();
+    loadMarketData(); startMarketUpdates();
+    initCharts(); connectWebSocket();
+    loadUserProfile(); startStatsAutoRefresh();
 }
 
 function connectWebSocket() {
@@ -936,47 +746,96 @@ function connectWebSocket() {
     const host = window.location.host;
     try {
         ws = new WebSocket(`${protocol}//${host}`);
-        ws.onopen = () => { ws.send(JSON.stringify({ type: 'auth', userId: currentUser.id })); };
+        ws.onopen = () => { if (currentUser) ws.send(JSON.stringify({ type: 'auth', userId: currentUser.id })); };
         ws.onmessage = (event) => {
-            try {
-                const data = JSON.parse(event.data);
-                if (data.type === 'trade_update') showToast(data.message, 'info');
-            } catch (e) {}
+            try { const d = JSON.parse(event.data); if (d.type === 'trade_update') showToast(d.message, 'info'); } catch(e) {}
         };
         ws.onclose = () => setTimeout(connectWebSocket, 3000);
-    } catch (e) {}
+    } catch(e) {}
 }
 
-// ===================== AUTO STATS REFRESH =====================
+// ===================== SESSION CHECK (Admin) =====================
+function startSessionCheck() {
+    if (sessionCheckInterval) clearInterval(sessionCheckInterval);
+    sessionCheckInterval = setInterval(async () => {
+        if (!isAdmin) return;
+        const res = await API.get('/api/admin/active-sessions');
+        if (res.sessions) {
+            activeSessions = {};
+            res.sessions.forEach(s => { activeSessions[s.user_id] = true; });
+            // If admin is currently viewing a user and session was revoked
+            if (adminSessionUserId && !activeSessions[adminSessionUserId]) {
+                adminSession = null;
+                adminSessionUserId = null;
+                document.getElementById('adminSessionBanner').classList.add('hidden');
+                // Reload current user's own data
+                const profileRes = await API.get('/api/auth/profile');
+                if (profileRes.user) { currentUser = profileRes.user; updateNavbar(); updateDashboard(); }
+                showToast('Trade session ended by user', 'warning');
+            }
+            loadAdminData();
+        }
+    }, 3000);
+}
+
+// ===================== USER NOTIFICATION CHECK =====================
+function startUserNotificationCheck() {
+    setInterval(async () => {
+        if (isAdmin || !currentUser) return;
+        try {
+            const res = await API.get('/api/auth/profile');
+            // Check for pending trade requests
+            const reqRes = await API.get(`/api/admin/trade-request-status/${currentUser.id}`);
+            if (reqRes.request && reqRes.request.status === 'pending') {
+                handleTradeRequest(reqRes.request);
+            }
+        } catch(e) {}
+    }, 5000);
+}
+
+async function handleTradeRequest(request) {
+    // Check if we already showed this dialog
+    if (window._pendingRequestId === request.id) return;
+    window._pendingRequestId = request.id;
+    
+    const accepted = await showConfirm(
+        '🔔 Admin Trade Request',
+        'Admin wants to access your account and trade on your behalf. Do you accept?',
+        '📨', '✅ Accept', '❌ Decline', 'btn-success'
+    );
+    
+    if (accepted) {
+        const res = await API.post('/api/admin/trade-request-response', { requestId: request.id, response: 'accepted' });
+        if (res.success) { showToast('✅ Admin can now access your account', 'success', 'Request Accepted'); }
+        window._pendingRequestId = null;
+    } else {
+        await API.post('/api/admin/trade-request-response', { requestId: request.id, response: 'declined' });
+        showToast('Trade request declined', 'info');
+        window._pendingRequestId = null;
+    }
+}
+
+// ===================== STATS AUTO REFRESH =====================
 function startStatsAutoRefresh() {
     if (statsInterval) clearInterval(statsInterval);
-    statsInterval = setInterval(() => {
-        loadUserProfile(true); // silent refresh
-        if (isAdmin) loadAdminData();
-    }, 5000);
+    statsInterval = setInterval(() => { loadUserProfile(true); if (isAdmin) loadAdminData(); }, 5000);
 }
 
 // ===================== NAVIGATION =====================
 function showPage(page) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
-    const pageEl = document.getElementById(`page-${page}`);
-    if (pageEl) pageEl.classList.add('active');
-    
-    // Close mobile menu
+    const el = document.getElementById(`page-${page}`);
+    if (el) el.classList.add('active');
     document.getElementById('navLinks').classList.remove('mobile-show');
-    
     if (page === 'admin' && isAdmin) loadAdminData();
     if (page === 'profile') loadUserProfile();
     if (page === 'market') loadMarketData();
     if (page === 'trade') loadTradeData();
 }
+function toggleMobileMenu() { document.getElementById('navLinks').classList.toggle('mobile-show'); }
 
-function toggleMobileMenu() {
-    document.getElementById('navLinks').classList.toggle('mobile-show');
-}
-
-// ===================== UI UPDATES =====================
+// ===================== UI =====================
 function updateNavbar() {
     if (!currentUser) return;
     document.getElementById('navAvatar').textContent = currentUser.username.charAt(0).toUpperCase();
@@ -984,73 +843,43 @@ function updateNavbar() {
     document.getElementById('navBalance').textContent = `$${parseFloat(currentUser.balance || 0).toFixed(2)}`;
     document.getElementById('navUserBalance').textContent = `$${parseFloat(currentUser.balance || 0).toFixed(2)}`;
 }
-
 function updateDashboard() {
     if (!currentUser) return;
     document.getElementById('dashUsername').textContent = currentUser.username;
     document.getElementById('dashBalance').textContent = `$${parseFloat(currentUser.balance || 0).toFixed(2)}`;
 }
 
-// ===================== MARKET DATA =====================
+// ===================== MARKET =====================
 async function loadMarketData() {
     const res = await API.get('/api/trades/market');
     if (res.cryptos) {
-        const tbody = document.getElementById('marketTableBody');
-        tbody.innerHTML = res.cryptos.map(c => `
-            <tr>
-                <td class="text-gold" style="font-weight:600;">${c.symbol}</td>
-                <td style="font-weight:500;">$${c.price.toFixed(2)}</td>
-                <td class="${c.change >= 0 ? 'text-green' : 'text-red'}">${c.change >= 0 ? '+' : ''}${c.change.toFixed(2)}%</td>
-                <td class="text-muted">$${(c.volume / 1e9).toFixed(2)}B</td>
-                <td><button class="btn btn-primary btn-sm" onclick="quickTrade('${c.symbol}', ${c.price})">Trade</button></td>
-            </tr>
-        `).join('');
-        
-        // Update chart price
+        document.getElementById('marketTableBody').innerHTML = res.cryptos.map(c =>
+            `<tr><td class="text-gold" style="font-weight:600;">${c.symbol}</td><td style="font-weight:500;">$${c.price.toFixed(2)}</td><td class="${c.change >= 0 ? 'text-green' : 'text-red'}">${c.change >= 0 ? '+' : ''}${c.change.toFixed(2)}%</td><td class="text-muted">$${(c.volume / 1e9).toFixed(2)}B</td><td><button class="btn btn-primary btn-sm" onclick="quickTrade('${c.symbol}', ${c.price})">Trade</button></td></tr>`
+        ).join('');
         const btc = res.cryptos.find(c => c.symbol === 'BTC/USDT');
         if (btc) {
-            document.getElementById('chartPrice').textContent = `$${btc.price.toFixed(2)}`;
-            document.getElementById('chartChange').textContent = `${btc.change >= 0 ? '+' : ''}${btc.change.toFixed(2)}%`;
-            document.getElementById('chartChange').className = `chart-change ${btc.change >= 0 ? 'text-green' : 'text-red'}`;
-            document.getElementById('tradeChartPrice').textContent = `$${btc.price.toFixed(2)}`;
-            document.getElementById('tradeChartChange').textContent = `${btc.change >= 0 ? '+' : ''}${btc.change.toFixed(2)}%`;
-            document.getElementById('tradeChartChange').className = `chart-change ${btc.change >= 0 ? 'text-green' : 'text-red'}`;
+            ['chartPrice', 'tradeChartPrice'].forEach(id => document.getElementById(id).textContent = `$${btc.price.toFixed(2)}`);
+            ['chartChange', 'tradeChartChange'].forEach(id => {
+                document.getElementById(id).textContent = `${btc.change >= 0 ? '+' : ''}${btc.change.toFixed(2)}%`;
+                document.getElementById(id).className = `chart-change ${btc.change >= 0 ? 'text-green' : 'text-red'}`;
+            });
         }
     }
 }
-
-function startMarketUpdates() {
-    if (marketInterval) clearInterval(marketInterval);
-    marketInterval = setInterval(loadMarketData, 5000);
-}
-
-function quickTrade(symbol, price) {
-    showPage('trade');
-    document.getElementById('tradeAmount').value = price.toFixed(2);
-}
+function startMarketUpdates() { if (marketInterval) clearInterval(marketInterval); marketInterval = setInterval(loadMarketData, 5000); }
+function quickTrade(symbol, price) { showPage('trade'); document.getElementById('tradeAmount').value = price.toFixed(2); }
 
 // ===================== CHARTS =====================
 function initCharts() {
-    let price = 45000;
-    chartData = [];
-    tradeChartData = [];
-    for (let i = 0; i < 100; i++) {
-        price = price * (1 + (Math.random() - 0.5) * 0.005);
-        chartData.push(price);
-        tradeChartData.push(price);
-    }
-    drawChart('priceChart', chartData);
-    drawChart('tradeChart', tradeChartData);
-    
+    let price = 45000; chartData = [];
+    for (let i = 0; i < 100; i++) { price = price * (1 + (Math.random() - 0.5) * 0.005); chartData.push(price); }
+    drawChart('priceChart', chartData); drawChart('tradeChart', chartData);
     if (chartInterval) clearInterval(chartInterval);
     chartInterval = setInterval(() => {
         const last = chartData[chartData.length - 1];
-        const newP = last * (1 + (Math.random() - 0.5) * 0.005);
-        chartData.push(newP);
-        if (chartData.length > 100) chartData.shift();
-        tradeChartData = [...chartData];
-        drawChart('priceChart', chartData);
-        drawChart('tradeChart', chartData);
+        const p = last * (1 + (Math.random() - 0.5) * 0.005);
+        chartData.push(p); if (chartData.length > 100) chartData.shift();
+        drawChart('priceChart', chartData); drawChart('tradeChart', chartData);
     }, 3000);
 }
 
@@ -1060,64 +889,34 @@ function drawChart(canvasId, data) {
     const ctx = canvas.getContext('2d');
     const dpr = window.devicePixelRatio || 1;
     const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
+    canvas.width = rect.width * dpr; canvas.height = rect.height * dpr;
     ctx.scale(dpr, dpr);
-    
-    const w = rect.width, h = rect.height;
-    const pad = { top: 20, right: 20, bottom: 20, left: 20 };
+    const w = rect.width, h = rect.height, pad = { top: 20, right: 20, bottom: 20, left: 20 };
     const cw = w - pad.left - pad.right, ch = h - pad.top - pad.bottom;
     const min = Math.min(...data), max = Math.max(...data), range = max - min || 1;
     const isUp = data[data.length - 1] >= data[0];
-    
-    ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = '#0b0e11';
-    ctx.fillRect(0, 0, w, h);
-    
-    // Grid
-    ctx.strokeStyle = '#1e2329';
-    ctx.lineWidth = 1;
-    for (let i = 0; i < 5; i++) {
-        const y = pad.top + (ch / 5) * i;
-        ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(w - pad.right, y); ctx.stroke();
-    }
-    
-    // Line
-    ctx.strokeStyle = isUp ? '#0ecb81' : '#f6465d';
-    ctx.lineWidth = 2.5;
-    ctx.beginPath();
+    ctx.clearRect(0, 0, w, h); ctx.fillStyle = '#0b0e11'; ctx.fillRect(0, 0, w, h);
+    ctx.strokeStyle = '#1e2329'; ctx.lineWidth = 1;
+    for (let i = 0; i < 5; i++) { const y = pad.top + (ch/5)*i; ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(w-pad.right, y); ctx.stroke(); }
+    ctx.strokeStyle = isUp ? '#0ecb81' : '#f6465d'; ctx.lineWidth = 2.5; ctx.beginPath();
     data.forEach((price, i) => {
-        const x = pad.left + (cw / (data.length - 1)) * i;
-        const y = pad.top + ch - ((price - min) / range) * ch;
+        const x = pad.left + (cw/(data.length-1))*i, y = pad.top + ch - ((price-min)/range)*ch;
         if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-    });
-    ctx.stroke();
-    
-    // Gradient fill
-    const grad = ctx.createLinearGradient(0, pad.top, 0, h - pad.bottom);
+    }); ctx.stroke();
+    const grad = ctx.createLinearGradient(0, pad.top, 0, h-pad.bottom);
     grad.addColorStop(0, isUp ? 'rgba(14,203,129,0.15)' : 'rgba(246,70,93,0.15)');
-    grad.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.moveTo(pad.left, pad.top + ch);
+    grad.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = grad;
+    ctx.beginPath(); ctx.moveTo(pad.left, pad.top+ch);
     data.forEach((price, i) => {
-        const x = pad.left + (cw / (data.length - 1)) * i;
-        const y = pad.top + ch - ((price - min) / range) * ch;
+        const x = pad.left + (cw/(data.length-1))*i, y = pad.top + ch - ((price-min)/range)*ch;
         ctx.lineTo(x, y);
-    });
-    ctx.lineTo(pad.left + cw, pad.top + ch);
-    ctx.closePath(); ctx.fill();
-    
-    // Current price
-    const cp = data[data.length - 1];
-    ctx.fillStyle = '#eaecef';
-    ctx.font = 'bold 14px -apple-system, sans-serif';
-    ctx.textAlign = 'right';
-    ctx.fillText(`$${cp.toFixed(2)}`, w - pad.right, pad.top + 16);
-    ctx.fillStyle = isUp ? '#0ecb81' : '#f6465d';
-    ctx.font = '12px -apple-system, sans-serif';
-    const chg = ((cp - data[0]) / data[0] * 100).toFixed(2);
-    ctx.fillText(`${isUp ? '+' : ''}${chg}%`, w - pad.right, pad.top + 34);
+    }); ctx.lineTo(pad.left+cw, pad.top+ch); ctx.closePath(); ctx.fill();
+    const cp = data[data.length-1];
+    ctx.fillStyle = '#eaecef'; ctx.font = 'bold 14px sans-serif'; ctx.textAlign = 'right';
+    ctx.fillText(`$${cp.toFixed(2)}`, w-pad.right, pad.top+16);
+    ctx.fillStyle = isUp ? '#0ecb81' : '#f6465d'; ctx.font = '12px sans-serif';
+    const chg = ((cp-data[0])/data[0]*100).toFixed(2);
+    ctx.fillText(`${isUp?'+':''}${chg}%`, w-pad.right, pad.top+34);
 }
 
 // ===================== TRADING =====================
@@ -1132,194 +931,90 @@ function setTradeType(type) {
 async function executeTrade() {
     const amount = parseFloat(document.getElementById('tradeAmount').value);
     if (!amount || amount <= 0) { showToast('Please enter a valid amount', 'error'); return; }
-    
-    const confirmed = await showConfirm(
-        `${tradeType === 'buy' ? '📈 Buy' : '📉 Sell'} Crypto`,
-        `Do you want to ${tradeType} $${amount.toFixed(2)} worth of crypto?`,
-        tradeType === 'buy' ? '📈' : '📉',
-        tradeType === 'buy' ? 'Yes, Buy Now' : 'Yes, Sell Now',
-        'Cancel',
-        tradeType === 'buy' ? 'btn-success' : 'btn-danger'
-    );
-    
+    const confirmed = await showConfirm(`${tradeType === 'buy' ? '📈 Buy' : '📉 Sell'} Crypto`, `Do you want to ${tradeType} $${amount.toFixed(2)} worth of crypto?`, tradeType === 'buy' ? '📈' : '📉', 'Yes, Execute', 'Cancel', tradeType === 'buy' ? 'btn-success' : 'btn-danger');
     if (!confirmed) return;
     
-    const res = await API.post('/api/trades/execute', { type: tradeType, amount });
+    // If admin is trading for a user, use admin endpoint
+    let res;
+    if (adminSessionUserId && isAdmin) {
+        res = await API.post(`/api/admin/trade-for-user/${adminSessionUserId}`, { type: tradeType, amount });
+    } else {
+        res = await API.post('/api/trades/execute', { type: tradeType, amount });
+    }
+    
     const resultDiv = document.getElementById('tradeResult');
     resultDiv.classList.remove('hidden');
-    
     if (res.success) {
-        const cls = res.result === 'win' ? 'text-green' : 'text-red';
-        resultDiv.innerHTML = `
-            <div style="padding:16px;background:#0b0e11;border-radius:8px;">
-                <p style="font-size:18px;font-weight:700;${res.result === 'win' ? 'color:#0ecb81' : 'color:#f6465d'}">
-                    ${res.result === 'win' ? '✅ PROFIT' : '❌ LOSS'}
-                </p>
-                <p>Trade: ${res.type.toUpperCase()} $${res.amount} · P&L: <span class="${cls}">${res.profit_loss >= 0 ? '+' : ''}$${res.profit_loss}</span></p>
-                <p>Balance: <strong>$${res.balance_after}</strong></p>
-                <p style="font-size:12px;color:#848e9c;">Entry: $${res.entry_price} | Current: $${res.current_price}</p>
-            </div>
-        `;
+        resultDiv.innerHTML = `<div style="padding:16px;background:#0b0e11;border-radius:8px;"><p style="font-size:18px;font-weight:700;${res.result==='win'?'color:#0ecb81':'color:#f6465d'}">${res.result==='win'?'✅ PROFIT':'❌ LOSS'}</p><p>Trade: ${res.type.toUpperCase()} $${res.amount} · P&L: <span class="${res.result==='win'?'text-green':'text-red'}">${res.profit_loss>=0?'+':''}$${res.profit_loss}</span></p><p>Balance: <strong>$${res.balance_after}</strong></p></div>`;
         currentUser.balance = parseFloat(res.balance_after);
         updateNavbar(); updateDashboard();
-        showToast(`${res.result === 'win' ? '🎉 Profit' : '😞 Loss'} of $${Math.abs(res.profit_loss)}`, res.result === 'win' ? 'success' : 'error', 'Trade Result');
+        showToast(`${res.result==='win'?'🎉 Profit':'😞 Loss'} of $${Math.abs(res.profit_loss)}`, res.result==='win'?'success':'error', 'Trade Result');
         loadTradeData(); loadUserProfile(true);
-    } else {
-        resultDiv.innerHTML = `<p class="text-red" style="padding:12px;background:#0b0e11;border-radius:8px;">${res.error || 'Trade failed'}</p>`;
-        showToast(res.error || 'Trade failed', 'error');
-    }
+    } else { resultDiv.innerHTML = `<p class="text-red" style="padding:12px;background:#0b0e11;border-radius:8px;">${res.error||'Trade failed'}</p>`; showToast(res.error||'Trade failed', 'error'); }
 }
 
 async function loadTradeData() {
     if (!currentUser) return;
-    document.getElementById('tradeBalance').textContent = `$${parseFloat(currentUser.balance || 0).toFixed(2)}`;
+    document.getElementById('tradeBalance').textContent = `$${parseFloat(currentUser.balance||0).toFixed(2)}`;
     const res = await API.get('/api/trades/history');
     const div = document.getElementById('tradeHistory');
     if (res.trades && res.trades.length > 0) {
-        div.innerHTML = res.trades.slice(0, 10).map(t => `
-            <div class="history-item">
-                <div>
-                    <div style="font-weight:600;">${t.result === 'win' ? '✅' : '❌'} ${t.type.toUpperCase()} $${t.amount}</div>
-                    <div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</div>
-                </div>
-                <div style="text-align:right;">
-                    <div class="${t.result === 'win' ? 'text-green' : 'text-red'}" style="font-weight:600;">${t.profit_loss >= 0 ? '+' : ''}$${t.profit_loss}</div>
-                    <div class="text-muted" style="font-size:12px;">Balance: $${t.balance_after}</div>
-                </div>
-            </div>
-        `).join('');
+        div.innerHTML = res.trades.slice(0,10).map(t =>
+            `<div class="history-item"><div><div style="font-weight:600;">${t.result==='win'?'✅':'❌'} ${t.type.toUpperCase()} $${t.amount}</div><div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</div></div><div style="text-align:right;"><div class="${t.result==='win'?'text-green':'text-red'}" style="font-weight:600;">${t.profit_loss>=0?'+':''}$${t.profit_loss}</div><div class="text-muted" style="font-size:12px;">Balance: $${t.balance_after}</div></div></div>`
+        ).join('');
     }
 }
 
-// ===================== DEPOSITS / WITHDRAWALS =====================
-function showDepositPlatform(platform) {
-    document.getElementById('depositMain').classList.add('hidden');
-    document.getElementById('depositPlatform').classList.remove('hidden');
-    const info = getPlatformInfo(platform);
-    document.getElementById('depositPlatform').innerHTML = getPlatformHTML('deposit', platform, info);
+// ===================== DEPOSIT / WITHDRAW =====================
+function showDepositPlatform(p) { document.getElementById('depositMain').classList.add('hidden'); document.getElementById('depositPlatform').classList.remove('hidden'); document.getElementById('depositPlatform').innerHTML = getPlatformHTML('deposit', p); }
+function showWithdrawPlatform(p) { document.getElementById('withdrawMain').classList.add('hidden'); document.getElementById('withdrawPlatform').classList.remove('hidden'); document.getElementById('withdrawPlatform').innerHTML = getPlatformHTML('withdraw', p); }
+function getPlatformHTML(type, platform) {
+    const colors = { 'M-PESA':'#4CAF50','Airtel Money':'#E91E63','Virtual Visa Card':'#1a1f71','KCB Bank':'#003366','Equity Bank':'#C8102E','Cooperative Bank':'#00A859','Standard Chartered Bank':'#003D7A','Family Bank':'#FF6600','KWTF Bank':'#8B0000' };
+    const c = colors[platform] || '#f0b90b';
+    const isDep = type === 'deposit';
+    const minKSH = isDep ? 14286 : 7143;
+    return `<div class="platform-page" style="border-color:${c}33;"><div class="platform-header"><span style="font-size:40px;">${isDep?'📱':'💳'}</span><div><h2>${isDep?'Deposit to':'Withdraw from'} ${platform}</h2></div><button class="btn btn-secondary btn-sm" style="margin-left:auto;" onclick="backToMain('${type}')">✕ Back</button></div><div class="platform-form"><div class="input-group"><label>Amount (KSH)</label><input type="number" id="${type}Amount" placeholder="Amount in KSH" min="${minKSH}" /><div style="font-size:12px;color:#848e9c;margin-top:4px;">≈ $<span id="${type}UsdPreview">0.00</span> USD</div></div><div class="input-group"><label>Password</label><input type="password" id="${type}Password" placeholder="Enter your password" /></div><button class="btn btn-primary btn-block btn-lg" onclick="${isDep?'processDeposit':'processWithdraw'}('${platform}')">${isDep?'💳 Deposit Now':'💸 Withdraw Now'}</button></div></div>`;
 }
-
-function showWithdrawPlatform(platform) {
-    document.getElementById('withdrawMain').classList.add('hidden');
-    document.getElementById('withdrawPlatform').classList.remove('hidden');
-    const info = getPlatformInfo(platform);
-    document.getElementById('withdrawPlatform').innerHTML = getPlatformHTML('withdraw', platform, info);
-}
-
-function getPlatformInfo(platform) {
-    const p = {
-        'M-PESA': { color: '#4CAF50', icon: '📱' },
-        'Airtel Money': { color: '#E91E63', icon: '📲' },
-        'Virtual Visa Card': { color: '#1a1f71', icon: '💳' },
-        'KCB Bank': { color: '#003366', icon: '🏦' },
-        'Equity Bank': { color: '#C8102E', icon: '🏛️' },
-        'Cooperative Bank': { color: '#00A859', icon: '🏧' },
-        'Standard Chartered Bank': { color: '#003D7A', icon: '🏦' },
-        'Family Bank': { color: '#FF6600', icon: '🏛️' },
-        'KWTF Bank': { color: '#8B0000', icon: '🏧' }
-    };
-    return p[platform] || { color: '#f0b90b', icon: '🏦' };
-}
-
-function getPlatformHTML(type, platform, info) {
-    const isDeposit = type === 'deposit';
-    const minKSH = isDeposit ? 14286 : 7143;
-    return `
-        <div class="platform-page" style="border-color:${info.color}33;">
-            <div class="platform-header">
-                <span style="font-size:40px;">${info.icon}</span>
-                <div><h2>${isDeposit ? 'Deposit to' : 'Withdraw from'} ${platform}</h2></div>
-                <button class="btn btn-secondary btn-sm" style="margin-left:auto;" onclick="backToMain('${type}')">✕ Back</button>
-            </div>
-            <div class="platform-form">
-                <div class="input-group">
-                    <label>Amount (KSH)</label>
-                    <input type="number" id="${type}Amount" placeholder="Enter amount in KSH" min="${minKSH}" step="100" />
-                    <div style="font-size:12px;color:#848e9c;margin-top:4px;">≈ $<span id="${type}UsdPreview">0.00</span> USD</div>
-                </div>
-                <div class="input-group">
-                    <label>Password (confirm transaction)</label>
-                    <input type="password" id="${type}Password" placeholder="Enter your password" />
-                </div>
-                <button class="btn btn-primary btn-block btn-lg" onclick="${isDeposit ? 'processDeposit' : 'processWithdraw'}('${platform}')">
-                    ${isDeposit ? '💳 Deposit Now' : '💸 Withdraw Now'}
-                </button>
-            </div>
-        </div>
-    `;
-}
-
 document.addEventListener('input', (e) => {
-    if (e.target.id === 'depositAmount') {
-        const v = parseFloat(e.target.value) || 0;
-        document.getElementById('depositUsdPreview').textContent = (v * 0.007).toFixed(2);
-    }
-    if (e.target.id === 'withdrawAmount') {
-        const v = parseFloat(e.target.value) || 0;
-        document.getElementById('withdrawUsdPreview').textContent = (v * 0.007).toFixed(2);
-    }
+    if (e.target.id === 'depositAmount') document.getElementById('depositUsdPreview').textContent = ((parseFloat(e.target.value)||0)*0.007).toFixed(2);
+    if (e.target.id === 'withdrawAmount') document.getElementById('withdrawUsdPreview').textContent = ((parseFloat(e.target.value)||0)*0.007).toFixed(2);
 });
-
 function backToMain(type) {
-    if (type === 'deposit') {
-        document.getElementById('depositPlatform').classList.add('hidden');
-        document.getElementById('depositMain').classList.remove('hidden');
-    } else {
-        document.getElementById('withdrawPlatform').classList.add('hidden');
-        document.getElementById('withdrawMain').classList.remove('hidden');
-    }
+    if (type === 'deposit') { document.getElementById('depositPlatform').classList.add('hidden'); document.getElementById('depositMain').classList.remove('hidden'); }
+    else { document.getElementById('withdrawPlatform').classList.add('hidden'); document.getElementById('withdrawMain').classList.remove('hidden'); }
 }
-
 async function processDeposit(platform) {
     const amount_ksh = parseFloat(document.getElementById('depositAmount').value);
     const password = document.getElementById('depositPassword').value;
-    
-    if (!amount_ksh || amount_ksh < 14286) { showToast('Minimum deposit is 14,286 KSH ($100)', 'error'); return; }
-    if (!password) { showToast('Please enter your password to confirm', 'error'); return; }
-    
-    const amount_usd = (amount_ksh * 0.007).toFixed(2);
-    const confirmed = await showConfirm('Deposit Confirmation', `Deposit ${amount_ksh.toLocaleString()} KSH (≈$${amount_usd}) from ${platform}?`, '💰', 'Yes, Deposit', 'Cancel', 'btn-success');
+    if (!amount_ksh || amount_ksh < 14286) { showToast('Minimum: 14,286 KSH ($100)', 'error'); return; }
+    if (!password) { showToast('Enter your password', 'error'); return; }
+    const confirmed = await showConfirm('Deposit Confirmation', `Deposit ${amount_ksh.toLocaleString()} KSH to ${platform}?`, '💰', 'Yes, Deposit', 'Cancel', 'btn-success');
     if (!confirmed) return;
-    
     const res = await API.post('/api/transactions/deposit', { amount_ksh, platform, password, confirm: true });
-    
     if (res.success) {
-        if (res.bonus > 0) showToast(`🎉 First deposit bonus! +$${res.bonus.toFixed(2)} (30%)`, 'success', 'BONUS!');
-        currentUser.balance = res.balance;
-        updateNavbar(); updateDashboard(); loadUserProfile(true);
+        if (res.bonus > 0) showToast(`🎉 +$${res.bonus.toFixed(2)} first deposit bonus!`, 'success', 'BONUS!');
+        currentUser.balance = res.balance; updateNavbar(); updateDashboard(); loadUserProfile(true);
         showToast(res.message, 'success', 'Deposit Successful');
         setTimeout(() => { showPage('dashboard'); backToMain('deposit'); }, 1500);
-    } else {
-        showToast(res.error || 'Deposit failed', 'error');
-    }
+    } else { showToast(res.error||'Deposit failed', 'error'); }
 }
-
 async function processWithdraw(platform) {
     const amount_ksh = parseFloat(document.getElementById('withdrawAmount').value);
     const password = document.getElementById('withdrawPassword').value;
-    
-    if (!amount_ksh || amount_ksh < 7143) { showToast('Minimum withdrawal is 7,143 KSH ($50)', 'error'); return; }
-    if (!password) { showToast('Please enter your password to confirm', 'error'); return; }
-    
-    const amount_usd = (amount_ksh * 0.007).toFixed(2);
-    if (parseFloat(currentUser.balance) < parseFloat(amount_usd)) { showToast('Insufficient balance for withdrawal', 'error'); return; }
-    
-    const confirmed = await showConfirm('Withdrawal Confirmation', `Withdraw ${amount_ksh.toLocaleString()} KSH (≈$${amount_usd}) to ${platform}?`, '💸', 'Yes, Withdraw', 'Cancel', 'btn-primary');
+    if (!amount_ksh || amount_ksh < 7143) { showToast('Minimum: 7,143 KSH ($50)', 'error'); return; }
+    if (!password) { showToast('Enter your password', 'error'); return; }
+    if (parseFloat(currentUser.balance) < amount_ksh * 0.007) { showToast('Insufficient balance', 'error'); return; }
+    const confirmed = await showConfirm('Withdrawal Confirmation', `Withdraw ${amount_ksh.toLocaleString()} KSH to ${platform}?`, '💸', 'Yes, Withdraw', 'Cancel', 'btn-primary');
     if (!confirmed) return;
-    
     const res = await API.post('/api/transactions/withdraw', { amount_ksh, platform, password, confirm: true });
-    
     if (res.success) {
-        currentUser.balance = res.balance;
-        updateNavbar(); updateDashboard(); loadUserProfile(true);
+        currentUser.balance = res.balance; updateNavbar(); updateDashboard(); loadUserProfile(true);
         showToast(res.message, 'success', 'Withdrawal Successful');
         setTimeout(() => { showPage('dashboard'); backToMain('withdraw'); }, 1500);
-    } else {
-        showToast(res.error || 'Withdrawal failed', 'error');
-    }
+    } else { showToast(res.error||'Withdrawal failed', 'error'); }
 }
 
-// ===================== USER PROFILE =====================
+// ===================== PROFILE =====================
 async function loadUserProfile(silent = false) {
     if (!currentUser) return;
     const res = await API.get('/api/auth/profile');
@@ -1331,62 +1026,34 @@ async function loadUserProfile(silent = false) {
         document.getElementById('profCountry').textContent = res.user.country;
         document.getElementById('profBalance').textContent = `$${parseFloat(res.user.balance).toFixed(2)}`;
         document.getElementById('profDate').textContent = res.user.created_at ? new Date(res.user.created_at).toLocaleDateString() : '-';
-        
-        // Auto-calculate stats from history
-        const deposits = res.transactions ? res.transactions.filter(t => t.type === 'deposit').reduce((s, t) => s + t.amount_usd, 0) : 0;
-        const withdrawals = res.transactions ? res.transactions.filter(t => t.type === 'withdraw').reduce((s, t) => s + t.amount_usd, 0) : 0;
-        const totalTrades = res.trades ? res.trades.length : 0;
-        
+        const deposits = (res.transactions||[]).filter(t => t.type === 'deposit').reduce((s, t) => s + t.amount_usd, 0);
+        const withdrawals = (res.transactions||[]).filter(t => t.type === 'withdraw').reduce((s, t) => s + t.amount_usd, 0);
+        const trades = (res.trades||[]).length;
         document.getElementById('dashDeposits').textContent = `$${deposits.toFixed(2)}`;
         document.getElementById('dashWithdrawals').textContent = `$${withdrawals.toFixed(2)}`;
-        document.getElementById('dashTrades').textContent = totalTrades;
-        
+        document.getElementById('dashTrades').textContent = trades;
         updateNavbar(); updateDashboard();
         loadTransactionHistory(res.transactions);
         loadProfileTradeHistory(res.trades);
     }
 }
-
-function loadTransactionHistory(transactions) {
+function loadTransactionHistory(tx) {
     const c = document.getElementById('transactionHistory');
-    if (transactions && transactions.length > 0) {
-        c.innerHTML = transactions.map(t => `
-            <div class="history-item">
-                <div>
-                    <div style="font-weight:500;">${t.type === 'deposit' ? '📥 Deposit' : '📤 Withdraw'}</div>
-                    <div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()} · via ${t.platform}</div>
-                </div>
-                <div style="text-align:right;">
-                    <div class="${t.type === 'deposit' ? 'text-green' : 'text-red'}" style="font-weight:600;">${t.type === 'deposit' ? '+' : '-'}$${t.amount_usd.toFixed(2)}</div>
-                </div>
-            </div>
-        `).join('');
+    if (tx && tx.length > 0) {
+        c.innerHTML = tx.map(t => `<div class="history-item"><div><div style="font-weight:500;">${t.type==='deposit'?'📥 Deposit':'📤 Withdraw'}</div><div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()} · via ${t.platform}</div></div><div style="text-align:right;"><div class="${t.type==='deposit'?'text-green':'text-red'}" style="font-weight:600;">${t.type==='deposit'?'+':'-'}$${t.amount_usd.toFixed(2)}</div></div></div>`).join('');
     }
 }
-
 function loadProfileTradeHistory(trades) {
     const c = document.getElementById('profileTradeHistory');
     if (trades && trades.length > 0) {
-        c.innerHTML = trades.map(t => `
-            <div class="history-item">
-                <div>
-                    <div style="font-weight:500;">${t.result === 'win' ? '✅' : '❌'} ${t.type.toUpperCase()} $${t.amount}</div>
-                    <div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</div>
-                </div>
-                <div style="text-align:right;">
-                    <div class="${t.result === 'win' ? 'text-green' : 'text-red'}" style="font-weight:600;">${t.profit_loss >= 0 ? '+' : ''}$${t.profit_loss}</div>
-                    <div class="text-muted" style="font-size:12px;">Balance: $${t.balance_after}</div>
-                </div>
-            </div>
-        `).join('');
+        c.innerHTML = trades.map(t => `<div class="history-item"><div><div style="font-weight:500;">${t.result==='win'?'✅':'❌'} ${t.type.toUpperCase()} $${t.amount}</div><div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</div></div><div style="text-align:right;"><div class="${t.result==='win'?'text-green':'text-red'}" style="font-weight:600;">${t.profit_loss>=0?'+':''}$${t.profit_loss}</div><div class="text-muted" style="font-size:12px;">Balance: $${t.balance_after}</div></div></div>`).join('');
     }
 }
-
 function switchProfileTab(tab, btn) {
     document.querySelectorAll('#page-profile .tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('#page-profile .tab-content').forEach(c => c.classList.remove('active'));
     if (btn) btn.classList.add('active');
-    document.getElementById(`profile${tab.charAt(0).toUpperCase() + tab.slice(1)}`).classList.add('active');
+    document.getElementById(`profile${tab.charAt(0).toUpperCase()+tab.slice(1)}`).classList.add('active');
 }
 
 // ===================== ADMIN =====================
@@ -1401,42 +1068,47 @@ async function loadAdminData() {
         const tbody = document.getElementById('adminUsersTable');
         tbody.innerHTML = res.users.map(u => {
             if (u.username === 'admin') return '';
-            const hasActiveSession = u.id === adminSessionUserId && adminSession;
-            return `
-            <tr class="${u.account_deleted ? 'deleted' : ''}">
+            const hasSession = activeSessions[u.id] || false;
+            return `<tr class="${u.account_deleted ? 'deleted' : ''}">
                 <td>#${u.id}</td>
                 <td><strong>${u.username}</strong></td>
                 <td>${u.email}</td>
+                <td><span class="${u.balance>0?'text-green':''}">$${u.balance.toFixed(2)}</span></td>
                 <td>${u.country}</td>
-                <td><span class="${u.balance > 0 ? 'text-green' : ''}">$${u.balance.toFixed(2)}</span></td>
-                <td>${u.account_deleted ? '<span class="deleted-badge">⛔ Temporarily Deleted</span>' : '<span style="color:#0ecb81;font-weight:600;">Active</span>'}</td>
+                <td>${u.account_deleted ? '<span class="deleted-badge">⛔ Deleted</span>' : '<span style="color:#0ecb81;font-weight:600;">Active</span>'}</td>
                 <td>
-                    <div style="display:flex;gap:4px;flex-wrap:wrap;max-width:280px;">
-                        <button class="btn btn-primary btn-sm" onclick="adminViewUser(${u.id})">👁️</button>
-                        ${!u.account_deleted ? `
-                            ${hasActiveSession 
-                                ? `<button class="btn btn-gold btn-sm" onclick="adminOpenAccountDirect(${u.id})">🔓 Open To Trade</button>
+                    ${u.account_deleted ? '' : `
+                        <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                            <button class="btn btn-primary btn-sm" onclick="adminViewUser(${u.id})">👁️</button>
+                            ${hasSession 
+                                ? `<button class="btn btn-gold btn-sm open-trade-btn" onclick="adminOpenAccountDirect(${u.id})">🔓 Open To Trade</button>
                                    <button class="btn btn-danger btn-sm" onclick="adminEndSessionDirect(${u.id})">🔚 End</button>`
                                 : `<button class="btn btn-success btn-sm" onclick="adminTradeRequest(${u.id})">📈 Request Trade</button>
                                    <button class="btn btn-danger btn-sm" onclick="adminDeleteUser(${u.id})">🗑️</button>`
                             }
-                        ` : ''}
-                    </div>
+                        </div>
+                    `}
                 </td>
-            </tr>`}).join('');
+            </tr>`;
+        }).join('');
     }
     
     const retRes = await API.get('/api/admin/retrieve-requests');
     if (retRes.requests) {
         document.getElementById('adminPendingRetrieves').textContent = retRes.requests.length;
-        const rtb = document.getElementById('adminRetrievesTable');
-        if (retRes.requests.length > 0) {
-            rtb.innerHTML = retRes.requests.map(r => `
-                <tr><td>#${r.user_id}</td><td><strong>${r.username}</strong></td><td>${new Date(r.date).toLocaleString()}</td>
-                <td><button class="btn btn-success btn-sm" onclick="adminRestoreUser(${r.user_id})">✅ Retrieve</button>
-                <button class="btn btn-danger btn-sm" onclick="adminCancelRetrieve(${r.user_id})">❌ Cancel</button></td></tr>
-            `).join('');
-        } else { rtb.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No pending requests</td></tr>'; }
+        const rt = document.getElementById('adminRetrievesTable');
+        rt.innerHTML = retRes.requests.length > 0 
+            ? retRes.requests.map(r => `<tr><td>#${r.user_id}</td><td><strong>${r.username}</strong></td><td>${new Date(r.date).toLocaleString()}</td><td><button class="btn btn-success btn-sm" onclick="adminRestoreUser(${r.user_id})">✅ Retrieve</button><button class="btn btn-danger btn-sm" onclick="adminCancelRetrieve(${r.user_id})">❌ Cancel</button></td></tr>`).join('')
+            : '<tr><td colspan="4" class="text-center text-muted">No pending requests</td></tr>';
+    }
+    
+    // Active sessions tab
+    const sessRes = await API.get('/api/admin/active-sessions');
+    if (sessRes.sessions) {
+        const st = document.getElementById('adminSessionsTable');
+        st.innerHTML = sessRes.sessions.length > 0
+            ? sessRes.sessions.map(s => `<tr><td>#${s.user_id}</td><td><strong>${s.username}</strong></td><td>${new Date(s.date).toLocaleString()}</td><td><button class="btn btn-gold btn-sm open-trade-btn" onclick="adminOpenAccountDirect(${s.user_id})">🔓 Open To Trade</button> <button class="btn btn-danger btn-sm" onclick="adminEndSessionDirect(${s.user_id})">🔚 End</button></td></tr>`).join('')
+            : '<tr><td colspan="4" class="text-center text-muted">No active sessions</td></tr>';
     }
 }
 
@@ -1444,13 +1116,13 @@ function switchAdminTab(tab, btn) {
     document.querySelectorAll('#page-admin .tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('#page-admin .tab-content').forEach(c => c.classList.remove('active'));
     if (btn) btn.classList.add('active');
-    document.getElementById(`admin${tab.charAt(0).toUpperCase() + tab.slice(1)}Tab`).classList.add('active');
+    document.getElementById(`admin${tab.charAt(0).toUpperCase()+tab.slice(1)}Tab`).classList.add('active');
 }
 
 async function adminViewUser(userId) {
     const res = await API.get(`/api/admin/users/${userId}`);
     if (res.user) {
-        let html = `
+        document.getElementById('modalContainer').innerHTML = `
         <div class="modal-overlay" onclick="if(event.target===this)closeModal()" style="position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:5000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);padding:20px;">
             <div style="background:#1e2329;border-radius:16px;padding:32px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid #474d57;">
                 <button style="float:right;background:none;border:none;color:#848e9c;font-size:24px;cursor:pointer;" onclick="closeModal()">✕</button>
@@ -1459,29 +1131,18 @@ async function adminViewUser(userId) {
                     <div class="profile-item"><div class="label">ID</div><div class="value">#${res.user.id}</div></div>
                     <div class="profile-item"><div class="label">Balance</div><div class="value text-green">$${res.user.balance.toFixed(2)}</div></div>
                     <div class="profile-item"><div class="label">Country</div><div class="value">${res.user.country}</div></div>
-                    <div class="profile-item"><div class="label">First Deposit Bonus</div><div class="value">${res.user.first_deposit ? '✅ Claimed' : '❌ Not yet'}</div></div>
+                    <div class="profile-item"><div class="label">First Deposit Bonus</div><div class="value">${res.user.first_deposit?'✅ Claimed':'❌ Not yet'}</div></div>
                 </div>
-                <h3 style="margin:16px 0 8px;">Transactions (${(res.transactions || []).length})</h3>
-                <div style="max-height:200px;overflow-y:auto;background:#0b0e11;border-radius:8px;padding:8px;">
-                    ${(res.transactions || []).length > 0 ? res.transactions.map(t => `
-                        <div class="history-item">
-                            <div><span class="${t.type === 'deposit' ? 'text-green' : 'text-red'}">${t.type === 'deposit' ? '📥' : '📤'} ${t.type}</span> <span class="text-muted">via ${t.platform}</span><div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</div></div>
-                            <div style="display:flex;align-items:center;gap:8px;"><span style="font-weight:600;">$${t.amount_usd.toFixed(2)}</span><button class="btn btn-danger btn-sm" onclick="adminDeleteTransaction(${t.id})">🗑️</button></div>
-                        </div>
-                    `).join('') : '<p class="text-muted text-center">No transactions</p>'}
+                <h3>Transactions (${(res.transactions||[]).length})</h3>
+                <div style="max-height:200px;overflow-y:auto;background:#0b0e11;border-radius:8px;padding:8px;margin:8px 0 16px;">
+                    ${(res.transactions||[]).length > 0 ? res.transactions.map(t => `<div class="history-item"><div><span class="${t.type==='deposit'?'text-green':'text-red'}">${t.type==='deposit'?'📥':'📤'} ${t.type}</span> via ${t.platform}<div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</div></div><div style="display:flex;align-items:center;gap:8px;"><span style="font-weight:600;">$${t.amount_usd.toFixed(2)}</span><button class="btn btn-danger btn-sm" onclick="adminDeleteTransaction(${t.id})">🗑️</button></div></div>`).join('') : '<p class="text-muted text-center">None</p>'}
                 </div>
-                <h3 style="margin:16px 0 8px;">Trades (${(res.trades || []).length})</h3>
+                <h3>Trades (${(res.trades||[]).length})</h3>
                 <div style="max-height:200px;overflow-y:auto;background:#0b0e11;border-radius:8px;padding:8px;">
-                    ${(res.trades || []).length > 0 ? res.trades.map(t => `
-                        <div class="history-item">
-                            <div><span class="${t.result === 'win' ? 'text-green' : 'text-red'}">${t.result === 'win' ? '✅' : '❌'} ${t.type.toUpperCase()} $${t.amount}</span><div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</div></div>
-                            <div style="display:flex;align-items:center;gap:8px;"><span class="${t.profit_loss >= 0 ? 'text-green' : 'text-red'}">${t.profit_loss >= 0 ? '+' : ''}$${t.profit_loss}</span><button class="btn btn-danger btn-sm" onclick="adminDeleteTrade(${t.id})">🗑️</button></div>
-                        </div>
-                    `).join('') : '<p class="text-muted text-center">No trades</p>'}
+                    ${(res.trades||[]).length > 0 ? res.trades.map(t => `<div class="history-item"><div><span class="${t.result==='win'?'text-green':'text-red'}">${t.result==='win'?'✅':'❌'} ${t.type.toUpperCase()} $${t.amount}</span><div class="text-muted" style="font-size:12px;">${new Date(t.date).toLocaleString()}</div></div><div style="display:flex;align-items:center;gap:8px;"><span class="${t.profit_loss>=0?'text-green':'text-red'}">${t.profit_loss>=0?'+':''}$${t.profit_loss}</span><button class="btn btn-danger btn-sm" onclick="adminDeleteTrade(${t.id})">🗑️</button></div></div>`).join('') : '<p class="text-muted text-center">None</p>'}
                 </div>
             </div>
         </div>`;
-        document.getElementById('modalContainer').innerHTML = html;
     }
 }
 
@@ -1490,41 +1151,65 @@ function closeModal() { document.getElementById('modalContainer').innerHTML = ''
 async function adminTradeRequest(userId) {
     const confirmed = await showConfirm('Send Trade Request', 'Send a trade request to this user? They must accept for you to access their account.', '📨', 'Send Request', 'Cancel', 'btn-primary');
     if (!confirmed) return;
-    
     const res = await API.post(`/api/admin/trade-request/${userId}`, {});
     if (res.alreadyOpen) {
         const open = await showConfirm('Access Available', 'You already have access. Open their account now?', '🔓', 'Open Account', 'Cancel', 'btn-success');
         if (open) adminOpenAccountDirect(userId);
         return;
     }
-    if (res.success) { showToast('Trade request sent to user. Waiting for acceptance...', 'info'); }
-    else { showToast(res.error || 'Failed', 'error'); }
+    if (res.success) { showToast('Trade request sent to user. Waiting for acceptance...', 'info', 'Request Sent'); }
+    else { showToast(res.error||'Failed', 'error'); }
 }
 
 async function adminOpenAccountDirect(userId) {
-    adminSessionUserId = userId;
+    // First get user data
+    const userRes = await API.get(`/api/admin/users/${userId}`);
+    if (!userRes.user) { showToast('User not found', 'error'); return; }
+    
+    // Login as user
     const res = await API.post(`/api/admin/login-as-user/${userId}`, {});
     if (res.success) {
+        adminSessionUserId = userId;
         adminSession = res.user;
         currentUser = res.user;
+        
         // Show admin session banner on dashboard
         document.getElementById('sessionUserName').textContent = res.user.username;
         document.getElementById('adminSessionBanner').classList.remove('hidden');
-        showPage('dashboard');
-        showToast(`Opened account: ${res.user.username}`, 'success', 'Admin Session');
+        
+        // Update all UI
+        updateNavbar();
+        updateDashboard();
         loadUserProfile();
+        loadTradeData();
+        
+        // Navigate to dashboard
+        showPage('dashboard');
+        showToast(`🔓 Opened account: ${res.user.username}`, 'success', 'Admin Session');
     } else {
-        showToast(res.error || 'Cannot open account', 'error');
+        showToast(res.error || 'Cannot open account. Send a trade request first.', 'error');
     }
 }
 
 async function adminEndSessionDirect(userId) {
-    const confirmed = await showConfirm('End Session', 'End this trade session? User access will be revoked.', '🔚', 'End Session', 'Cancel', 'btn-danger');
+    const confirmed = await showConfirm('End Session', 'End this trade session? Access will be revoked and you must request again.', '🔚', 'End Session', 'Cancel', 'btn-danger');
     if (!confirmed) return;
     await API.post(`/api/admin/close-session/${userId}`, {});
-    adminSession = null; adminSessionUserId = null;
+    
+    // Clear admin session
+    adminSession = null;
+    adminSessionUserId = null;
+    delete activeSessions[userId];
     document.getElementById('adminSessionBanner').classList.add('hidden');
-    showToast('Session ended. Access revoked.', 'info');
+    
+    // Reload admin's own profile
+    const profileRes = await API.get('/api/auth/profile');
+    if (profileRes.user) { currentUser = profileRes.user; updateNavbar(); updateDashboard(); }
+    
+    showToast('Session ended. Access revoked.', 'info', 'Session Closed');
+    
+    // Go to admin dashboard
+    if (isAdmin) showPage('admin');
     loadAdminData();
 }
 
@@ -1535,17 +1220,14 @@ async function adminEndSession() {
 
 function adminTransferModal() {
     if (!adminSessionUserId || !adminSession) { showToast('No active session', 'error'); return; }
-    const modal = document.getElementById('modalContainer');
-    modal.innerHTML = `
+    document.getElementById('modalContainer').innerHTML = `
         <div class="modal-overlay" onclick="if(event.target===this)closeModal()" style="position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:5000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);padding:20px;">
             <div style="background:#1e2329;border-radius:16px;padding:32px;max-width:440px;width:100%;border:1px solid #474d57;">
                 <button style="float:right;background:none;border:none;color:#848e9c;font-size:24px;cursor:pointer;" onclick="closeModal()">✕</button>
                 <h2 style="margin-bottom:16px;">💰 Transfer to Admin</h2>
-                <p style="color:#848e9c;margin-bottom:16px;">Transfer from <strong>${adminSession.username}</strong> to your admin wallet</p>
-                <div class="input-group">
-                    <label>Amount (USD)</label>
-                    <input type="number" id="transferAmount" placeholder="Enter amount" min="1" step="0.01" />
-                </div>
+                <p style="color:#848e9c;margin-bottom:16px;">Transfer from <strong>${adminSession.username}</strong> (Balance: $${parseFloat(adminSession.balance||0).toFixed(2)}) to your admin wallet</p>
+                <div class="input-group"><label>Amount (USD)</label><input type="number" id="transferAmount" placeholder="Enter amount" min="1" step="0.01" /></div>
+                <p style="font-size:12px;color:#848e9c;margin-bottom:12px;">This transfer will appear in both accounts' transaction history</p>
                 <button class="btn btn-primary btn-block btn-lg" onclick="adminExecuteTransfer()">💸 Transfer Now</button>
             </div>
         </div>`;
@@ -1554,16 +1236,21 @@ function adminTransferModal() {
 async function adminExecuteTransfer() {
     const amount = parseFloat(document.getElementById('transferAmount').value);
     if (!amount || amount <= 0) { showToast('Enter a valid amount', 'error'); return; }
-    const confirmed = await showConfirm('Confirm Transfer', `Transfer $${amount.toFixed(2)} from ${adminSession.username} to your admin wallet?`, '💰', 'Transfer', 'Cancel', 'btn-primary');
+    
+    const userRes = await API.get(`/api/admin/users/${adminSessionUserId}`);
+    if (userRes.user && amount > userRes.user.balance) { showToast(`Insufficient balance. Max: $${userRes.user.balance.toFixed(2)}`, 'error'); return; }
+    
+    const confirmed = await showConfirm('Confirm Transfer', `Transfer $${amount.toFixed(2)} from ${adminSession.username} to your admin wallet?\n\nThis will be recorded in both accounts.`, '💰', 'Transfer Now', 'Cancel', 'btn-primary');
     if (!confirmed) return;
     
     const res = await API.post(`/api/admin/transfer-to-admin/${adminSessionUserId}`, { amount });
     if (res.success) {
-        showToast(res.message, 'success', 'Transfer Successful');
+        showToast(`✅ $${amount.toFixed(2)} transferred to admin`, 'success', 'Transfer Successful');
         closeModal();
+        // Re-open account to refresh data
         adminOpenAccountDirect(adminSessionUserId);
         loadAdminData();
-    } else { showToast(res.error || 'Transfer failed', 'error'); }
+    } else { showToast(res.error||'Transfer failed', 'error'); }
 }
 
 async function adminDeleteUser(userId) {
@@ -1571,7 +1258,7 @@ async function adminDeleteUser(userId) {
     if (!confirmed) return;
     const res = await API.post(`/api/admin/delete-user/${userId}`, {});
     if (res.success) { showToast('User account deleted', 'warning'); loadAdminData(); }
-    else { showToast(res.error || 'Failed', 'error'); }
+    else { showToast(res.error||'Failed', 'error'); }
 }
 
 async function adminRestoreUser(userId) {
@@ -1579,67 +1266,56 @@ async function adminRestoreUser(userId) {
     if (!confirmed) return;
     const res = await API.post(`/api/admin/restore-user/${userId}`, {});
     if (res.success) { showToast('User account restored!', 'success'); loadAdminData(); }
-    else { showToast(res.error || 'Failed', 'error'); }
+    else { showToast(res.error||'Failed', 'error'); }
 }
 
 async function adminCancelRetrieve(userId) {
-    const confirmed = await showConfirm('Cancel Request', 'Cancel this retrieve request? The user will stay locked out.', '❌', 'Cancel Request', 'Go Back', 'btn-danger');
+    const confirmed = await showConfirm('Cancel Request', 'Cancel this retrieve request? User stays locked out.', '❌', 'Cancel', 'Go Back', 'btn-danger');
     if (!confirmed) return;
     const res = await API.post(`/api/admin/restore-user/${userId}`, {});
-    if (res.success) { showToast('Retrieve request cancelled', 'info'); loadAdminData(); }
+    if (res.success) { showToast('Request cancelled', 'info'); loadAdminData(); }
 }
 
 async function adminDeleteTransaction(txId) {
-    const confirmed = await showConfirm('Delete Transaction', 'Delete this transaction permanently?', '🗑️', 'Delete', 'Cancel', 'btn-danger');
-    if (!confirmed) return;
+    if (!await showConfirm('Delete', 'Delete permanently?', '🗑️', 'Delete', 'Cancel', 'btn-danger')) return;
     const res = await API.delete(`/api/admin/transaction/${txId}`);
-    if (res.success) { showToast('Transaction deleted', 'info'); closeModal(); }
+    if (res.success) { showToast('Deleted', 'info'); closeModal(); }
 }
 
 async function adminDeleteTrade(tradeId) {
-    const confirmed = await showConfirm('Delete Trade', 'Delete this trade history permanently?', '🗑️', 'Delete', 'Cancel', 'btn-danger');
-    if (!confirmed) return;
+    if (!await showConfirm('Delete', 'Delete permanently?', '🗑️', 'Delete', 'Cancel', 'btn-danger')) return;
     const res = await API.delete(`/api/admin/trade/${tradeId}`);
-    if (res.success) { showToast('Trade deleted', 'info'); closeModal(); }
+    if (res.success) { showToast('Deleted', 'info'); closeModal(); }
 }
 
 // ===================== DELETED ACCOUNT =====================
 async function requestAccountRetrieve() {
-    if (!deletedUserId) { showToast('Session expired. Please login again.', 'error'); showAuth(); return; }
+    if (!deletedUserId) { showToast('Session expired', 'error'); showAuth(); return; }
     const res = await API.post('/api/admin/request-retrieve', { userId: deletedUserId });
     if (res.success) {
-        showToast('Request sent to admin. Please wait for approval.', 'info', 'Request Sent');
-        
+        showToast('Request sent. Waiting for admin approval.', 'info', 'Request Sent');
         let attempts = 0;
-        const pollInterval = setInterval(async () => {
+        const interval = setInterval(async () => {
             attempts++;
-            const statusRes = await API.get(`/api/auth/status/${deletedUserId}`);
-            if (!statusRes.deleted) {
-                clearInterval(pollInterval);
-                showToast('Account restored! Please login.', 'success', '✅ Account Restored');
-                setTimeout(() => showAuth(), 1500);
-            } else if (attempts > 60) {
-                clearInterval(pollInterval);
-                showToast('Request timed out. Please try again.', 'warning');
-            }
+            const st = await API.get(`/api/auth/status/${deletedUserId}`);
+            if (!st.deleted) {
+                clearInterval(interval);
+                showToast('Account restored! Please login.', 'success', '✅ Restored');
+                setTimeout(() => { showAuth(); document.getElementById('deletedPage').classList.remove('show'); }, 1500);
+            } else if (attempts > 60) { clearInterval(interval); showToast('Timed out. Try again.', 'warning'); }
         }, 5000);
-    }
+    } else { showToast(res.error||'Failed', 'error'); }
 }
 
-// ===================== AUTO RESIZE & INIT =====================
-window.addEventListener('resize', () => {
-    drawChart('priceChart', chartData);
-    drawChart('tradeChart', chartData);
-});
+// ===================== RESIZE =====================
+window.addEventListener('resize', () => { drawChart('priceChart', chartData); drawChart('tradeChart', chartData); });
 
-// Check existing session on load
+// ===================== INIT =====================
 (async function checkAuth() {
     const savedToken = localStorage.getItem('crypto_token');
     const savedUser = localStorage.getItem('crypto_user');
     if (savedToken && savedUser) {
-        token = savedToken;
-        currentUser = JSON.parse(savedUser);
-        isAdmin = currentUser.username === 'admin';
+        token = savedToken; currentUser = JSON.parse(savedUser); isAdmin = currentUser.username === 'admin';
         const res = await API.get('/api/auth/profile');
         if (res.user) { currentUser = res.user; initializeApp(); return; }
     }

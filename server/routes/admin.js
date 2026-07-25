@@ -352,4 +352,37 @@ router.post('/request-retrieve', async (req, res) => {
   }
 });
 
+// Check if admin has active session with a specific user
+router.get('/check-session/:userId', authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const db = await getDb();
+    const session = prepare(
+      'SELECT * FROM admin_trade_sessions WHERE user_id = ? AND active = 1'
+    ).get(req.params.userId);
+    
+    res.json({ 
+      hasActiveSession: !!session,
+      session: session || null
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Get all active sessions for admin
+router.get('/active-sessions', authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const db = await getDb();
+    const sessions = prepare(
+      `SELECT ats.*, u.username FROM admin_trade_sessions ats
+       JOIN users u ON ats.user_id = u.id
+       WHERE ats.admin_id = ? AND ats.active = 1 ORDER BY ats.date DESC`
+    ).all(req.user.id);
+    
+    res.json({ sessions });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 module.exports = router;
